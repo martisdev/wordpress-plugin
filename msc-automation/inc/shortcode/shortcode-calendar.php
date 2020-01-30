@@ -163,7 +163,7 @@
     
     add_shortcode('calendar_day', 'get_calendar_day');
 
-    function get_now_onair($attributes,$MyRadio= NULL){
+    function get_now_onair(){
         global $MyRadio;                
         if(!isset($MyRadio)){ 
              $MyRadio = new my_radio(get_option('msc_client_key'),get_locale(),get_option('msc_debug'));

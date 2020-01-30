@@ -1,7 +1,7 @@
 <?php
 
 function get_Home($attributes) {
-    global $MyRadio;
+    /*global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
     }
@@ -11,12 +11,8 @@ function get_Home($attributes) {
             show_msc_message($msg, message_type::DANGER);
             return;
         }
-    }
-    get_now_onair($attributes, $MyRadio);
-    //$attributes['image'] = TRUE;
-    //get_now_playing($attributes,$MyRadio);
-    //$attributes['skin'] = 'simple';
-    //get_player_streaming($attributes,$MyRadio);
+    }*/
+    get_now_onair();    
 }
 
 add_shortcode('home', 'get_Home');
