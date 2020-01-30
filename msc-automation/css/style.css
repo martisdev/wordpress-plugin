@@ -1,0 +1,415 @@
+ /* The alert message box */
+.succes {
+    padding: 20px;
+    background-color: #00d200; /* verd */
+    color: white;
+    margin-bottom: 15px;
+}
+.info {
+    padding: 20px;
+    background-color: #0093ff; /* blue */
+    color: white;
+    margin-bottom: 15px;
+}
+.warnimg {
+    padding: 20px;
+    background-color: #ffff00; /* yelow */
+    color: white;
+    margin-bottom: 15px;
+}
+.danger {
+    padding: 20px;
+    background-color: #f44336; /* green */
+    color: white;
+    margin-bottom: 15px;
+}
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+} 
+/*END message*/
+
+/*Ajaxify*/
+#no_ajax_ids {
+	width: 550px;
+}
+/*END Ajaxify*/
+
+.msc-now-after {
+    margin: auto;        
+    width: 40%;   
+    min-width: 200px;
+    display:inline-block;
+    float: left;
+    margin: 0 1% 1% 0;    
+}
+
+#cal-top{
+    position: relative;
+    top: -20px;
+}
+
+#cal-bottom{
+    position: relative;
+    top: 20px;
+}
+/*Player*/
+.dvPlayerTop{
+    z-index: 1;
+    position: fixed;  
+    right: 0;
+    left: 0;
+    top: 0;  
+    height: 110px;    
+    opacity: 1;  
+    min-width: 250px;
+    border: 1px solid #009BE3;
+    font-family: "Myriad Pro Regular","Trebuchet MS"; 
+    font-size:medium;
+} 
+.dvPlayerBottom{
+    z-index: 1;
+    position: fixed;  
+    right: 0;
+    left: 0;  
+    bottom: 0;
+    height: 110px;  
+    opacity: 1;  
+    min-width: 250px;    
+    border: 1px solid #009BE3;    
+    font-family: "Myriad Pro Regular","Trebuchet MS"; 
+    font-size:medium;    
+} 
+
+#msc-box-l{    
+    float:  left;    
+    width: 150px;      
+}
+#msc-box-r{
+    float: left;    
+    width: 70%;           
+}
+
+#msc-left, #msc-middle {
+    display: inline-block; 
+    *display: inline; 
+    zoom: 1; 
+    vertical-align: top;     
+    height: 110px;
+}
+#msc-left {
+    width: 20%;          
+    float:  left;     
+}
+#msc-middle {
+    width: 80%;  
+    float:  left;        
+}            
+#msc-middle a, #msc-middle a:link, #msc-middle a:visited, #msc-middle a:hover, #msc-middle a:focus, #msc-middle a:active {
+        /*color: #009BE3;*/
+}
+
+#msc-middle ul {
+        list-style-type:none;
+        padding:0;
+        margin:1em 0;
+        width:100%;
+        overflow:hidden;
+}
+#msc-middle ul span {
+        color: #A0A600;
+}
+#msc-middle li {
+        float:left;
+        margin-right:1em;
+}
+#msc-middle p span.track-name {
+    color: #CC0090;
+}
+
+.jp-audio {
+    /*width: 420px;
+    height: 80px;*/
+}
+.jp-audio button::-moz-focus-inner {
+    /* Disable the browser CSS3 focus highlighting. */
+    border: 0; }
+.jp-audio, .jp-audio:focus {
+        outline: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        outline-style:none;
+        /*IE*/
+    }
+.jp-audio .jp-controls {
+    /*width: 380px;
+    padding: 2px 1px 0 1px; */}
+   
+.jp-time-mute{        
+    /*position: absolute;*/
+    
+    float: left;
+    left: 100px;
+    right: 20%;
+    top: 1px;                
+}    
+.jp-audio {                
+    position:static ;
+    left: 1px;
+    top: 2px;
+     }
+#jp-image{
+    float: left;                    
+    width: 120px;
+    height: 120px;
+    margin: 2px 2px 2px 2px;   
+    border-radius: 8px;
+    padding: 1px 5px 5px 5px;
+    margin: 0px 2px 0 2px;                
+}
+#jp-image img {
+    width: 100%;
+    border-radius: 8px;
+    padding: 5px 5px 5px 5px;
+}
+#jp-image img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}     
+.jp-progress{ 
+    position: relative;    
+    width: 40%;                
+    height: 5px;
+    border-radius: 10px;                                    
+    left: 130px;
+    margin: 5px 20px 0 10px;           
+}           
+.jp-seek-bar {
+    background: url("../images/seek1.gif");
+    width: 0px;
+    height: 100%;
+    cursor: pointer; }
+.jp-play-bar {
+    background: url("../images/seek2.gif");
+    width: 0px;
+    height: 100%; }
+/* The seeking class is added/removed inside jPlayer */
+.jp-seeking-bg {
+    background:  url("../images/seeking.gif");         
+}    
+.jp-ball {
+    position: absolute;
+    z-index: 999;
+    border-radius: 30px;
+    top: 1px;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    margin: -0.2em 0px 0px -0.5em;
+    width: 14px;
+    height: 14px;
+
+    width: 0.9333em;
+    height: 0.9333em;
+    margin: -0.175em 0px 0px -0.466em;
+    background-color: #fff;
+    padding: 0px;
+    /* z-index: 1; */
+    -webkit-transition: -webkit-transform 0.15s ease-in-out;
+    transition: transform 0.15s ease-in-out;
+    }
+.jp-seek-bar{
+    background-color: #ff3333;
+    width: 0px;
+    height: 100%;
+    cursor: pointer; 
+}
+.jp-mute,.jp-unmute{ 
+    cursor: pointer;
+}  
+
+.jp-play, .jp-pause{
+    position: relative;
+    float: right;    
+    padding: 5px 5px 5px 5px;    
+    cursor: pointer;
+}  
+.jp-stream{
+    position: relative;
+    padding: 50px 50px 5px 5px;    
+    cursor: pointer;
+}
+#jp-info {
+   /*margin: auto;    
+    width: 24%;   */ 
+    position: relative;
+    top:10px;    
+    /*display:inline-block;*/
+    float: left;
+    margin: 0 1% 1% 0;      
+    
+}
+#jp-info span {    
+    text-align: center;
+}
+#jp_subtitle-name{
+    padding-left: 20px;    
+    }
+#jp_title{
+    max-width: 10px;
+    font-size:11px;
+    font-weight:lighter;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    /*opacity:.6;*/      
+}
+#jp-socialbuttons {    
+    margin: 0 1% 1% 0;    
+}
+/*END Player*/
+
+
+#refresh{
+    float: left;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+
+.fa-download{
+    padding: 5px;
+}
+.fa-share-alt{
+    padding: 5px;
+}
+
+.fa-heart{
+    padding: 5px;
+}
+.fa-clock{
+    padding: 5px;
+}
+
+.fa-sync-alt{
+    padding: 5px;
+}
+.fa-calendar-alt{
+    padding: 5px;
+}
+/* Modal Share Box */
+/* The Modal (background) */
+.modalShare {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content_share {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 200px;
+}
+
+/* The Close Button */
+.closeShare {
+  color: #aaaaaa;
+  float: right;  
+}
+
+.closeShare:hover,
+.closeShare:focus {
+  color: #000;  
+  cursor: pointer;
+}
+/* END Modal share Box */
+
+#link_home{       
+    position:  fixed;        
+    top:111px;  
+    margin: 0 1% 1% 1%;
+}
+
+.jp-duration{
+      display:inline;
+  }  
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  #msc-left {
+    width: 10%; 
+  }
+ #msc-middle {
+    width: 90%;  
+ }
+  #jp-image{   
+    width: 100px;
+    height: 100px;
+  }
+  .jp-duration{
+      display:none;
+  }
+  .jp-time-mute{
+      font-size:small;
+  }
+  #msc-box-l{    
+     width: 100px;    
+  } 
+  #msc-box-r{    
+    width: 70%;    
+  }
+  #jp_title{    
+    font-size:10px;
+  }
+}
+@media only screen and (max-width:600px) {
+  /* For mobile phones: */
+  #msc-left {
+    width: 1%; 
+  }
+  #msc-middle {
+    width: 99%;  
+ }
+  #jp-image{   
+    width: 90px;
+    height: 90px;
+  }
+  .jp-duration{
+      display:none;
+  }
+  .jp-time-mute{
+      font-size:small;
+  }
+  #msc-box-l{    
+     width: 80px;        
+  } 
+  #msc-box-r{    
+    width: 77%;       
+  }
+  #jp_title{    
+    font-size:8px;    
+  }
+}

@@ -1,0 +1,734 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2019-08-30 11:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: msc-automation.php:26
+msgctxt "MSC Radio Automation"
+msgid "MSC Radio Automation"
+msgstr ""
+
+#: msc-automation.php:27
+msgctxt "Settings"
+msgid "Settings"
+msgstr ""
+
+#: msc-automation.php:28
+msgctxt "Initialize"
+msgid "Initialize"
+msgstr ""
+
+#: msc-automation.php:29
+msgctxt "Help"
+msgid "Help"
+msgstr ""
+
+#: msc-automation.php:95
+msgctxt "Now Playing"
+msgid "Now Playing"
+msgstr ""
+
+#: msc-automation.php:98
+msgctxt "Show the actual song info"
+msgid "Show the actual song info"
+msgstr ""
+
+#: msc-automation.php:122
+msgctxt "Now playing..."
+msgid "Now playing..."
+msgstr ""
+
+#: msc-automation.php:127
+msgctxt "Title:"
+msgid "Title:"
+msgstr ""
+
+#: msc-functions.php:25
+msgctxt "Hook relation"
+msgid "Hook relation"
+msgstr ""
+
+#: msc-functions.php:46
+msgctxt "Value"
+msgid "Value"
+msgstr ""
+
+#: admin/msc-help.php:2
+msgctxt "Practical guide to wordpress plugin"
+msgid "Practical guide to wordpress plugin"
+msgstr ""
+
+#: admin/msc-help.php:3
+msgctxt "General description"
+msgid "General description"
+msgstr ""
+
+#: admin/msc-help.php:4
+msgctxt ""
+"To give functionality to your website you just have to enter shortcodes in "
+"the pages. You can go to the section 'initialize' and generate all the basic "
+"pages automatically and then modify the ones you want to customize"
+msgid ""
+"To give functionality to your website you just have to enter shortcodes in "
+"the pages. You can go to the section 'initialize' and generate all the basic "
+"pages automatically and then modify the ones you want to customize"
+msgstr ""
+
+#: admin/msc-help.php:5
+msgctxt ""
+"You also have a shortcode widget now_playing available. You'll find it in "
+"the widgets section"
+msgid ""
+"You also have a shortcode widget now_playing available. You'll find it in "
+"the widgets section"
+msgstr ""
+
+#: admin/msc-help.php:6
+msgctxt ""
+"Please, if you like this extension and the system <b>MSC Automation</b> "
+"collaborates with us to promote it. Set the menu 'MSC Footer' somewhere in "
+"your web."
+msgid ""
+"Please, if you like this extension and the system <b>MSC Automation</b> "
+"collaborates with us to promote it. Set the menu 'MSC Footer' somewhere in "
+"your web."
+msgstr ""
+
+#: admin/msc-help.php:7
+msgctxt "Avariable shortcodes"
+msgid "Avariable shortcodes"
+msgstr ""
+
+#: admin/msc-help.php:10
+msgctxt "Calendar"
+msgid "Calendar"
+msgstr ""
+
+#: admin/msc-help.php:12
+msgctxt "Show a table with the programming of a specific day"
+msgid "Show a table with the programming of a specific day"
+msgstr ""
+
+#: admin/msc-help.php:13 admin/msc-help.php:17 admin/msc-help.php:21 
+#: admin/msc-help.php:40 admin/msc-help.php:53 admin/msc-help.php:57 
+#: admin/msc-help.php:61 admin/msc-help.php:73 admin/msc-help.php:89 
+#: admin/msc-help.php:104 admin/msc-help.php:112
+msgctxt "Example"
+msgid "Example"
+msgstr ""
+
+#: admin/msc-help.php:16
+msgctxt "Show information on the current and next program"
+msgid "Show information on the current and next program"
+msgstr ""
+
+#: admin/msc-help.php:20
+msgctxt "Show the shortcodes now_onair and player_streaming at the same time"
+msgid "Show the shortcodes now_onair and player_streaming at the same time"
+msgstr ""
+
+#: admin/msc-help.php:27
+msgctxt "Music"
+msgid "Music"
+msgstr ""
+
+#: admin/msc-help.php:29
+msgctxt "Show a table with the latest songs broadcast"
+msgid "Show a table with the latest songs broadcast"
+msgstr ""
+
+#: admin/msc-help.php:31 admin/msc-help.php:45 admin/msc-help.php:66 
+#: admin/msc-help.php:82 admin/msc-help.php:96
+msgctxt "Params"
+msgid "Params"
+msgstr ""
+
+#: admin/msc-help.php:34 admin/msc-help.php:35 admin/msc-help.php:36 
+#: admin/msc-help.php:48 admin/msc-help.php:49 admin/msc-help.php:69 
+#: admin/msc-help.php:85 admin/msc-help.php:100
+msgctxt "optional"
+msgid "optional"
+msgstr ""
+
+#: admin/msc-help.php:34
+msgctxt "Number of records to show. By default 10"
+msgid "Number of records to show. By default 10"
+msgstr ""
+
+#: admin/msc-help.php:35
+msgctxt "Auto refresh the table, by default false"
+msgid "Auto refresh the table, by default false"
+msgstr ""
+
+#: admin/msc-help.php:36 admin/msc-help.php:48
+msgctxt "Show image if exist"
+msgid "Show image if exist"
+msgstr ""
+
+#: admin/msc-help.php:43
+msgctxt "On radio formula shows information about the current song"
+msgid "On radio formula shows information about the current song"
+msgstr ""
+
+#: admin/msc-help.php:49
+msgctxt "Width of the image in pixels. By default 200"
+msgid "Width of the image in pixels. By default 200"
+msgstr ""
+
+#: admin/msc-help.php:56
+msgctxt ""
+"Form in which the public can choose the following song given several options"
+msgid ""
+"Form in which the public can choose the following song given several options"
+msgstr ""
+
+#: admin/msc-help.php:60
+msgctxt "Form to do song searches and schedule them"
+msgid "Form to do song searches and schedule them"
+msgstr ""
+
+#: admin/msc-help.php:64
+msgctxt "Show the latest record albums"
+msgid "Show the latest record albums"
+msgstr ""
+
+#: admin/msc-help.php:69
+msgctxt "Number of records to show. By default 5"
+msgid "Number of records to show. By default 5"
+msgstr ""
+
+#: admin/msc-help.php:78
+msgctxt "Players"
+msgid "Players"
+msgstr ""
+
+#: admin/msc-help.php:80
+msgctxt "It incorporates a player of the broadcast streaming"
+msgid "It incorporates a player of the broadcast streaming"
+msgstr ""
+
+#: admin/msc-help.php:85
+msgctxt "Player style(simple,). by default simple"
+msgid "Player style(simple,). by default simple"
+msgstr ""
+
+#: admin/msc-help.php:92 admin/msc-ini.php:239 admin/msc-ini.php:254 
+#: admin/msc-ini.php:456
+msgctxt "Programs"
+msgid "Programs"
+msgstr ""
+
+#: admin/msc-help.php:94
+msgctxt "Show program information, facebook, twitter and podcasting files"
+msgid "Show program information, facebook, twitter and podcasting files"
+msgstr ""
+
+#: admin/msc-help.php:99
+msgctxt "Program identifier"
+msgid "Program identifier"
+msgstr ""
+
+#: admin/msc-help.php:100
+msgctxt "Downloadable programs. by default false"
+msgid "Downloadable programs. by default false"
+msgstr ""
+
+#: admin/msc-help.php:109
+msgctxt "Podcast"
+msgid "Podcast"
+msgstr ""
+
+#: admin/msc-help.php:111
+msgctxt "Listed with the latest published podcasting files"
+msgid "Listed with the latest published podcasting files"
+msgstr ""
+
+#: admin/msc-index.php:2
+msgid "<b>MSC Automation</b> Radio Automation Software | The radio on cloud"
+msgstr ""
+
+#: admin/msc-index.php:3
+msgctxt "Thank you"
+msgid "Thank you"
+msgstr ""
+
+#: admin/msc-index.php:4
+msgctxt ""
+"Thank you for choosing MSC-soft and ours services, we hope that this "
+"software meets all your espectactives and contribute to a better quality of "
+"work and Emission of your radio."
+msgid ""
+"Thank you for choosing MSC-soft and ours services, we hope that this "
+"software meets all your espectactives and contribute to a better quality of "
+"work and Emission of your radio."
+msgstr ""
+
+#: admin/msc-index.php:5
+msgctxt "The MSC-Soft.com team"
+msgid "The MSC-Soft.com team"
+msgstr ""
+
+#: admin/msc-index.php:7
+msgctxt "Contact information"
+msgid "Contact information"
+msgstr ""
+
+#: admin/msc-index.php:8
+msgctxt "For more information, please contact us."
+msgid "For more information, please contact us."
+msgstr ""
+
+#: admin/msc-index.php:10
+msgctxt "Phone and WhatsApp"
+msgid "Phone and WhatsApp"
+msgstr ""
+
+#: admin/msc-index.php:14
+msgctxt "Postal address"
+msgid "Postal address"
+msgstr ""
+
+#: admin/msc-index.php:18
+msgctxt "E-mail"
+msgid "E-mail"
+msgstr ""
+
+#: admin/msc-index.php:20
+msgctxt "General information"
+msgid "General information"
+msgstr ""
+
+#: admin/msc-index.php:21
+msgctxt "Client support"
+msgid "Client support"
+msgstr ""
+
+#: admin/msc-index.php:25
+msgctxt "General"
+msgid "General"
+msgstr ""
+
+#: admin/msc-index.php:26
+msgctxt "Community"
+msgid "Community"
+msgstr ""
+
+#: admin/msc-index.php:35
+msgctxt "Plugin version"
+msgid "Plugin version"
+msgstr ""
+
+#: admin/msc-ini.php:3
+msgctxt "Edit basic pages for your radio automation system"
+msgid "Edit basic pages for your radio automation system"
+msgstr ""
+
+#: admin/msc-ini.php:17
+msgctxt "Home page"
+msgid "Home page"
+msgstr ""
+
+#: admin/msc-ini.php:21
+msgctxt "Create the static page whith actual info of your radio"
+msgid "Create the static page whith actual info of your radio"
+msgstr ""
+
+#: admin/msc-ini.php:26
+msgctxt "News page"
+msgid "News page"
+msgstr ""
+
+#: admin/msc-ini.php:30
+msgctxt "Create the static page for news (wordpress posts)"
+msgid "Create the static page for news (wordpress posts)"
+msgstr ""
+
+#: admin/msc-ini.php:35
+msgctxt "Calendar page"
+msgid "Calendar page"
+msgstr ""
+
+#: admin/msc-ini.php:39
+msgctxt "Create the calendar of radiation "
+msgid "Create the calendar of radiation "
+msgstr ""
+
+#: admin/msc-ini.php:44
+msgctxt "Podcast page"
+msgid "Podcast page"
+msgstr ""
+
+#: admin/msc-ini.php:48
+msgctxt "Create the poscast page "
+msgid "Create the poscast page "
+msgstr ""
+
+#: admin/msc-ini.php:53
+msgctxt "Stream page"
+msgid "Stream page"
+msgstr ""
+
+#: admin/msc-ini.php:57
+msgctxt "Create the stream page "
+msgid "Create the stream page "
+msgstr ""
+
+#: admin/msc-ini.php:63 admin/msc-ini.php:287 admin/msc-ini.php:465
+msgctxt "Search music"
+msgid "Search music"
+msgstr ""
+
+#: admin/msc-ini.php:67
+msgctxt "Create the Search music page "
+msgid "Create the Search music page "
+msgstr ""
+
+#: admin/msc-ini.php:72 admin/msc-ini.php:314 admin/msc-ini.php:468
+msgctxt "Albums release"
+msgid "Albums release"
+msgstr ""
+
+#: admin/msc-ini.php:76
+msgctxt "Create the Albums release page "
+msgid "Create the Albums release page "
+msgstr ""
+
+#: admin/msc-ini.php:81 admin/msc-ini.php:338 admin/msc-ini.php:471
+msgctxt "History played"
+msgid "History played"
+msgstr ""
+
+#: admin/msc-ini.php:85
+msgctxt "Create the History played page "
+msgid "Create the History played page "
+msgstr ""
+
+#: admin/msc-ini.php:90 admin/msc-ini.php:362 admin/msc-ini.php:474
+msgctxt "Vote music to play"
+msgid "Vote music to play"
+msgstr ""
+
+#: admin/msc-ini.php:94
+msgctxt "Create the Vote music to player page "
+msgid "Create the Vote music to player page "
+msgstr ""
+
+#: admin/msc-ini.php:104
+msgctxt "Inicialize all system"
+msgid "Inicialize all system"
+msgstr ""
+
+#: admin/msc-ini.php:115
+msgctxt "Reset all system"
+msgid "Reset all system"
+msgstr ""
+
+#: admin/msc-ini.php:173
+msgctxt ""
+"Successfully created the selected options. Once the initialization is done, "
+"go to the menus section and check the box \"Main menu\" to view it."
+msgid ""
+"Successfully created the selected options. Once the initialization is done, "
+"go to the menus section and check the box \"Main menu\" to view it."
+msgstr ""
+
+#: admin/msc-ini.php:184 admin/msc-ini.php:450
+msgctxt "MSC Main"
+msgid "MSC Main"
+msgstr ""
+
+#: admin/msc-ini.php:189
+msgctxt "Home"
+msgid "Home"
+msgstr ""
+
+#: admin/msc-ini.php:194
+msgctxt "Now on air ..."
+msgid "Now on air ..."
+msgstr ""
+
+#: admin/msc-ini.php:215 admin/msc-ini.php:453
+msgctxt "Schedule"
+msgid "Schedule"
+msgstr ""
+
+#: admin/msc-ini.php:263 admin/msc-ini.php:459
+msgctxt "Radio on demand"
+msgid "Radio on demand"
+msgstr ""
+
+#: admin/msc-ini.php:388 admin/msc-ini.php:462
+msgctxt "Listen"
+msgid "Listen"
+msgstr ""
+
+#: admin/msc-ini.php:413
+msgctxt "News"
+msgid "News"
+msgstr ""
+
+#: admin/msc-ini.php:436 admin/msc-ini.php:451
+msgctxt "MSC Footer"
+msgid "MSC Footer"
+msgstr ""
+
+#: admin/msc-ini.php:438
+msgctxt "Powered by: MSC Automation"
+msgid "Powered by: MSC Automation"
+msgstr ""
+
+#: admin/msc-ini.php:439 admin/msc-ini.php:440
+msgctxt "Radio Automation Software | The radio on cloud"
+msgid "Radio Automation Software | The radio on cloud"
+msgstr ""
+
+#: admin/msc-ini.php:499
+msgctxt "Removed menus and pages created"
+msgid "Removed menus and pages created"
+msgstr ""
+
+#: admin/msc-setting.php:2
+msgctxt "Params Settings"
+msgid "Params Settings"
+msgstr ""
+
+#: admin/msc-setting.php:11
+msgctxt "Client Key"
+msgid "Client Key"
+msgstr ""
+
+#: admin/msc-setting.php:15
+msgctxt "Provided by the service provider"
+msgid "Provided by the service provider"
+msgstr ""
+
+#: admin/msc-setting.php:20
+msgctxt "Debug"
+msgid "Debug"
+msgstr ""
+
+#: admin/msc-setting.php:25
+msgctxt "For Testing this plugin (on error show missages alert)"
+msgid "For Testing this plugin (on error show missages alert)"
+msgstr ""
+
+#: admin/msc-setting.php:36
+msgctxt "Your language interface is"
+msgid "Your language interface is"
+msgstr ""
+
+#: admin/msc-setting.php:36
+msgctxt "Languages avariables"
+msgid "Languages avariables"
+msgstr ""
+
+#: inc/download.php:54
+msgctxt "The file <b> $file_url </b> doesn't exist; check the URL"
+msgid "The file <b> $file_url </b> doesn't exist; check the URL"
+msgstr ""
+
+#: inc/download.php:120
+msgctxt "Cannot be used for $file_extension files!"
+msgid "Cannot be used for $file_extension files!"
+msgstr ""
+
+#: inc/instagram.php:29 inc/instagram.php:122
+msgctxt "Simple Instagram Embed Settings"
+msgid "Simple Instagram Embed Settings"
+msgstr ""
+
+#: inc/instagram.php:30
+msgctxt "Simple Instagram Embed"
+msgid "Simple Instagram Embed"
+msgstr ""
+
+#: inc/instagram.php:51
+msgctxt "Embed max width"
+msgid "Embed max width"
+msgstr ""
+
+#: inc/instagram.php:60
+msgctxt "Hide image caption"
+msgid "Hide image caption"
+msgstr ""
+
+#: inc/instagram.php:95
+msgctxt ""
+"There is no height setting because the height will adjust automatically "
+"based on the width. <br/> Instagram only allow a minimum width of 320 pixels."
+" Using a lower value will break the embed."
+msgid ""
+"There is no height setting because the height will adjust automatically "
+"based on the width. <br/> Instagram only allow a minimum width of 320 pixels."
+" Using a lower value will break the embed."
+msgstr ""
+
+#: inc/instagram.php:116
+msgctxt "You do not have sufficient permissions to access this page."
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: inc/func/func-calendar.php:72
+msgctxt "re-emission"
+msgid "re-emission"
+msgstr ""
+
+#: inc/func/func-calendar.php:79
+msgctxt "The rest of the hours"
+msgid "The rest of the hours"
+msgstr ""
+
+#: inc/func/func-calendar.php:82 inc/func/func-calendar.php:96
+msgctxt "Radio musical formula"
+msgid "Radio musical formula"
+msgstr ""
+
+#: inc/func/func-calendar.php:85 inc/func/func-calendar.php:99
+msgctxt "Central connection"
+msgid "Central connection"
+msgstr ""
+
+#: inc/func/func-calendar.php:88 inc/func/func-calendar.php:102
+msgctxt "On live"
+msgid "On live"
+msgstr ""
+
+#: inc/func/func-calendar.php:92
+msgctxt "default programming"
+msgid "default programming"
+msgstr ""
+
+#: inc/func/func-calendar.php:174
+msgctxt "Your are listening ..."
+msgid "Your are listening ..."
+msgstr ""
+
+#: inc/func/func-calendar.php:179 inc/func/func-calendar.php:187
+msgctxt "re_emission"
+msgid "re_emission"
+msgstr ""
+
+#: inc/func/func-calendar.php:182
+msgctxt "And after ..."
+msgid "And after ..."
+msgstr ""
+
+#: inc/func/func-music.php:21 inc/func/func-music.php:169
+msgctxt "Title"
+msgid "Title"
+msgstr ""
+
+#: inc/func/func-music.php:22 inc/func/func-music.php:170
+msgctxt "Artist"
+msgid "Artist"
+msgstr ""
+
+#: inc/func/func-music.php:23
+msgctxt "Style"
+msgid "Style"
+msgstr ""
+
+#: inc/func/func-music.php:24
+msgctxt "Hour"
+msgid "Hour"
+msgstr ""
+
+#: inc/func/func-music.php:58
+msgctxt "What song did it played at ..."
+msgid "What song did it played at ..."
+msgstr ""
+
+#: inc/func/func-music.php:60
+msgctxt "Search ..."
+msgid "Search ..."
+msgstr ""
+
+#: inc/func/func-music.php:168
+msgctxt "Votes"
+msgid "Votes"
+msgstr ""
+
+#: inc/func/func-music.php:171
+msgctxt "Select"
+msgid "Select"
+msgstr ""
+
+#: inc/func/func-music.php:196
+msgctxt "Wait a moment and try again later"
+msgid "Wait a moment and try again later"
+msgstr ""
+
+#: inc/func/func-music.php:215
+msgctxt "Thanks for participating"
+msgid "Thanks for participating"
+msgstr ""
+
+#: inc/func/func-music.php:220
+msgctxt "From album"
+msgid "From album"
+msgstr ""
+
+#: inc/func/func-music.php:236
+msgctxt "Scheduled song, thanks for participating"
+msgid "Scheduled song, thanks for participating"
+msgstr ""
+
+#: inc/func/func-music.php:261
+msgctxt "Select one hour"
+msgid "Select one hour"
+msgstr ""
+
+#: inc/func/func-music.php:269
+msgctxt "Program"
+msgid "Program"
+msgstr ""
+
+#: inc/func/func-programs-podcast.php:30
+msgctxt "Thematic"
+msgid "Thematic"
+msgstr ""
+
+#: inc/func/func-programs-podcast.php:31
+msgctxt "Duration"
+msgid "Duration"
+msgstr ""
+
+#: inc/func/func-programs-podcast.php:38
+msgctxt "Program tags"
+msgid "Program tags"
+msgstr ""
+
+#: inc/func/func-programs-podcast.php:46 inc/func/func-programs-podcast.php:56
+msgctxt "on"
+msgid "on"
+msgstr ""
+
+#: wp-snippets/form_search_song.php:2
+msgctxt "Enter the title, artist or album"
+msgid "Enter the title, artist or album"
+msgstr ""
+
+#: wp-snippets/form_search_song.php:5
+msgctxt "Text"
+msgid "Text"
+msgstr ""
+
+#: wp-snippets/form_search_song.php:8
+msgctxt "Search"
+msgid "Search"
+msgstr ""
