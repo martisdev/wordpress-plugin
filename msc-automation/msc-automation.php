@@ -65,12 +65,12 @@ if (is_admin()) {
     if(!isset($_COOKIE['msc_usr'])) {            
         setcookie("msc_usr", hash('md5',time().get_bloginfo('name'),FALSE), time()+60*60*24*360 , COOKIEPATH, COOKIE_DOMAIN);  //360 days                
     }  
-    if (get_option('msc_client_key', '') <> '') {
+    /*if (get_option('msc_client_key', '') <> '') {
         global $MyRadio;
         if (!isset($MyRadio)) {
             $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
         }
-    }
+    }*/
     $show_player = get_option('msc_player', 'nothing');
     if ($show_player !== 'nothing') {
 

@@ -1,24 +1,5 @@
 <?php
 //Used in functions: get_player, get_iframe_player     
-    global $MyRadio;                
-    if(!isset($MyRadio)){  
-        include_once '../inc/defines.php';        
-        include_once '../inc/my_radio.php';
-        include_once '../inc/utils.php';
-        $my_key = $_GET['key'];
-        
-        $MyRadio = new my_radio($my_key,LANG_DEF);            
-        
-        
-        if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
-            if ($MyRadio->IS_DEGUG == true){               
-                $title = 'Error API MSC';
-                $subtitle = $MyRadio->RESPOSTA_MESSAGE;
-            }           
-        }
-    }
-    
-    $list = $MyRadio->QueryGetTable(seccions::CALENDAR,sub_seccions::NOWPLAYING,'',TRUE);        
     
     $img_width = '100';
     $dir_images = $_GET['img_dir'].'/';
@@ -28,12 +9,27 @@
     $url_base_jamendo = $_GET['url_jamendo'];
     $url_podcast = $_GET['url_podcast'];
     $def_image = $_GET['di'];
-        
+    
+    global $MyRadio;                
+    if(!isset($MyRadio)){  
+        include_once '../inc/defines.php';        
+        include_once '../inc/my_radio.php';
+        include_once '../inc/utils.php';
+        $my_key = $_GET['key'];        
+        $MyRadio = new my_radio($my_key,LANG_DEF);                            
+        if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
+            if ($MyRadio->IS_DEGUG == true){               
+                $title = 'Error API MSC';
+                $subtitle = $MyRadio->RESPOSTA_MESSAGE;
+            }           
+        }
+    }
+    
+    $list = $MyRadio->QueryGetTable(seccions::CALENDAR,sub_seccions::NOWPLAYING,'',TRUE);                
     if ($MyRadio->RESPOSTA_ROWS>0){                 
         $counter = 0;
         
-        $id = $list['item']['ID'];        
-        
+        $id = $list['item']['ID'];                
         $type = $list['item']['TYPE'];
         $URL_Share = $url_base_share.$id.'&type='.$type;
         switch ($type){
