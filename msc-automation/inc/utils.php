@@ -54,6 +54,9 @@
     }
     
     function tag_cloud($listTags,$urlDesti,$div_size = 400) {
+        
+        
+        
         $ret = '<div style=\"width:'.$div_size.'px\">';;
         /* Initialize some variables */
         $fmax = 25; /* Maximum font size */

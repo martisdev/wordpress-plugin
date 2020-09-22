@@ -3,7 +3,7 @@
   Plugin Name:    MSC Radio Automation
   Plugin URI:     https://msc-soft.com/plugin-wordpress/
   Description:    Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.
-  Version:        2.0.0
+  Version:        2.0
   Author:         MSC-Soft team <info@msc-soft.com>
   Author URI:     https://msc-soft.com/
   License:        GPL2
@@ -19,13 +19,13 @@ if (!defined('WPINC')) {
 
 include_once plugin_dir_path(__FILE__) . 'wp-defines.php';
 
-function myplugin_load_textdomain() {
+function msc_load_textdomain() {
     $path_lang = basename(dirname(__FILE__)) . '/languages';
     //get_locale()
     load_plugin_textdomain('msc-automation', false, $path_lang);
 }
 
-add_action('plugins_loaded', 'myplugin_load_textdomain');
+add_action('plugins_loaded', 'msc_load_textdomain');
 
 if (is_admin()) {
 
@@ -53,7 +53,7 @@ if (is_admin()) {
         register_setting('msc_settings', 'msc_no-ajax-ids', '');
         register_setting('msc_settings', 'msc_container-id', 'main');
         register_setting('msc_settings', 'msc_mcdc', 'menu');
-        register_setting('msc_settings', 'msc_search_form', 'searchform');
+        register_setting('msc_settings', 'msc_search-form', 'search-form');
         register_setting('msc_settings', 'msc_transition', 0);
         register_setting('msc_settings', 'msc_scrollTop', 0);
         register_setting('msc_settings', 'msc_loader', '');
@@ -64,23 +64,16 @@ if (is_admin()) {
 } else {
     if(!isset($_COOKIE['msc_usr'])) {            
         setcookie("msc_usr", hash('md5',time().get_bloginfo('name'),FALSE), time()+60*60*24*360 , COOKIEPATH, COOKIE_DOMAIN);  //360 days                
-    }  
-    /*if (get_option('msc_client_key', '') <> '') {
-        global $MyRadio;
-        if (!isset($MyRadio)) {
-            $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        }
-    }*/
+    }      
     $show_player = get_option('msc_player', 'nothing');
     if ($show_player !== 'nothing') {
-
         function show_player() {
             get_player();
         }
         add_action('wp_footer', 'show_player');
     }
 }
-
+//register CSS
 function msc_register_init() {
     wp_enqueue_style('msc-automat', plugins_url('/css/style.css', __FILE__));
     wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/833b9cc7e9.js');
@@ -88,28 +81,34 @@ function msc_register_init() {
 
 add_action('init', 'msc_register_init');
 
+//Register javascript
 function msc_scrip_refresh() {
     if (is_single() || is_page()) {
-        wp_register_script('msc-jquery', 'http://code.jquery.com/jquery-latest.min.js');
-        wp_enqueue_script('msc-jquery');
-        wp_enqueue_script('script_treeview', MSC_JQUERY_URL . 'msc_js.js');
+        //if ( ! wp_script_is( 'jquery', 'enqueued' )) {
+        if (!jQuery) {  
+            wp_register_script('msc-jquery', 'http://code.jquery.com/jquery-latest.min.js');
+            wp_enqueue_script('msc-jquery');
+            //Enqueue
+            //wp_enqueue_script( 'jquery' );                
+        }        
+        wp_enqueue_script('script_treeview', MSC_JQUERY_URL . 'msc_js.js');        
     }
 }
 
 add_action('wp_enqueue_scripts', 'msc_scrip_refresh');
 
 //Control de sessió
-add_action('init', 'myStartSession', 1);
-add_action('wp_logout', 'myEndSession');
-add_action('wp_login', 'myEndSession');
+add_action('init', 'msc_start_session', 1);
+add_action('wp_logout', 'msc_end_session');
+add_action('wp_login', 'msc_end_session');
 
-function myStartSession() {
+function msc_start_session() {
     if (!session_id()) {
         session_start();        
     }
 }
      
-function myEndSession() {
+function msc_end_session() {
     session_destroy();
 }
 
@@ -242,8 +241,8 @@ function aws_load_scripts() {
         //Check whether the core jqury library enqued or not. If not enqued the enque this
         if (!wp_script_is('jquery')) {
             wp_enqueue_script('jquery');
-        }
-        wp_enqueue_script('history-js', MSC_PLUGIN_URL . 'jquery/ajaxify/history.js', array('jquery'));
+        }        
+        wp_enqueue_script('history-js', MSC_PLUGIN_URL . 'jquery/ajaxify/history.js', array('jquery'));        
         wp_enqueue_script('ajaxify-js', MSC_PLUGIN_URL . 'jquery/ajaxify/ajaxify.js', array('jquery'));
 
         $ids_arr = explode(',', get_option('msc_no-ajax-ids'));

@@ -4,14 +4,29 @@
  */
 $file_name = urldecode($_GET["filename"]); 
 $file_url = $_GET["fileurl"];
-
+$id = $_GET["id"];
 $web_root = $_SERVER["DOCUMENT_ROOT"];
 $web_address = $_SERVER['HTTP_HOST'];
 
+global $MyRadio;                
+if(!isset($MyRadio)){  
+    include_once '../inc/defines.php';        
+    include_once '../inc/my_radio.php';
+    include_once '../inc/utils.php';
+    $my_key = $_GET['key'];    
+    $MyRadio = new my_radio($my_key,LANG_DEF);            
+    if ($MyRadio->RESPOSTA_MESSAGE !== 'OK' ){
+        if ($MyRadio->IS_DEGUG == true){               
+            $title = 'Error API MSC';
+            $subtitle = $MyRadio->RESPOSTA_MESSAGE;
+        }                           
+    }
+}
+$Vars[0]= 'id='.$id;
+$MyRadio->QueryGetTable(seccions::PODCAST, sub_seccions::DOWNLOAD, $Vars);
+
 $pos = strrpos($file_url, $web_address);
-
 if($pos){
-
     if (isset($_SERVER['HTTPS']) &&
         ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
         isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
@@ -21,13 +36,10 @@ if($pos){
     else {
         $protocol = 'http://';
     }
-
     $file_url = str_replace ($protocol. $web_address .'/', '', $file_url);
     $file_url = $web_root ."/". $file_url;
     $file_url = str_replace('//', '/', $file_url);
-
     //die($protocol . " --- " .$web_root . " --- " .$web_address . " --- " . $file_url );
-
 }
 
 $filename = basename ($file_url) ;
@@ -123,7 +135,6 @@ switch ($file_extension)
         $content_type = 'application/force-download' ;
 }
 
-//phpinfo();
 //die("<br> - file_extension::  ". $file_extension ."<br> - content_type::  ". $content_type ."<br> - file_name::  ". $file_name ."<br> - file_url::  ". $file_url ."<br> - file size::  ". $filesize . "<br> - curl exist::  ". function_exists('curl_version') ."<br> - allow_url_fopen::  ". ($fp=@fopen($file_url,'rb')) );
 
 header ('Pragma: public') ;

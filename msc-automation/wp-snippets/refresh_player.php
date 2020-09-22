@@ -8,7 +8,7 @@
     $url_base_download = $_GET['url_download'].'/';        
     $url_base_jamendo = $_GET['url_jamendo'];
     $url_podcast = $_GET['url_podcast'];
-    $def_image = $_GET['di'];
+    $def_image = $_GET['di'];    
     
     global $MyRadio;                
     if(!isset($MyRadio)){  
@@ -23,14 +23,13 @@
                 $subtitle = $MyRadio->RESPOSTA_MESSAGE;
             }           
         }
-    }
-    
+    }        
     $list = $MyRadio->QueryGetTable(seccions::CALENDAR,sub_seccions::NOWPLAYING,'',TRUE);                
     if ($MyRadio->RESPOSTA_ROWS>0){                 
         $counter = 0;
         
         $id = $list['item']['ID'];                
-        $type = $list['item']['TYPE'];
+        $type = $list['item']['TYPE'];        
         $URL_Share = $url_base_share.$id.'&type='.$type;
         switch ($type){
             case TIP_AUTOMATIC_LLISTA:
@@ -55,7 +54,7 @@
                 $img_mame = 'prg_img-'.$id.'.jpg';
                 $URL_Download = '';
                 break;
-            case TIP_CONEX_CENTRAL:
+            case TIP_CONEX_CENTRAL_:
                 $img_mame = 'radio_img.jpg';
                 $URL_Download = '';
                 break;
@@ -69,11 +68,10 @@
             }            
         }
         
-        $title          = $list['item']['NAME'];                
-        $subtitle       = $list['item']['DESCRIP'];        
-        $time_end       = $list['item']['TIME_END'];
-        $link   = $list['item']['LINK'];
-        $time_remain    = 15000;        
+        $title      = $list['item']['NAME'];                
+        $subtitle   = $list['item']['DESCRIP'];                
+        $link       = $list['item']['LINK'];
+        $time_remain = $list['item']['TIME_END'];        
     }        
     
     $doc= new DOMDocument( "1.0", "ISO-8859-15" );
@@ -88,8 +86,7 @@
                 $cd=$doc->createElement("subtitle");
                 $cd->appendChild($doc->createTextNode($subtitle));
                 $node->appendChild($cd);
-                                
-                
+                                                
                 $rows=$doc->createElement("image");
                 $rows->appendChild($doc->createTextNode($PathToShowImg));
                 $node->appendChild($rows);
@@ -107,8 +104,7 @@
                 $node->appendChild($rows);
                 
         $root->appendChild($node);
-        
-        
+               
     $doc->appendChild($root);
     
     header( "content-type: application/xml; charset=ISO-8859-15" );

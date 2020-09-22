@@ -124,7 +124,7 @@
                     <label for="msc_search-form"><?php _e('Search form TAG ID/CLASS','msc-automation')?>:(*)</label>
                 </th>								
                 <td>
-                    <input type="text" name="msc_search-form" value="<?php echo get_option('msc_search-form','searchform'); ?>" />
+                    <input type="text" name="msc_search-form" value="<?php echo get_option('msc_search-form','search-form'); ?>" />
                     <p class="description"><?php _e('To make your search ajaxify provide the search form ID/CLASS.<br><strong>Example:</strong> if form tag class is search-form then provide <strong><i>.#search-form</i></strong> if ID is search-form the provide <strong><i>#search-form</i></strong>','msc-automation')?></p>
                 </td>
             </tr>			

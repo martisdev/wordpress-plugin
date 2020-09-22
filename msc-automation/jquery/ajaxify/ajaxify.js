@@ -205,27 +205,23 @@
  
 })(window); // end closure
 
-jQuery(document).ready(function(){
-	
-	//Adding no-ajaxy class to a tags present under ids provided
+jQuery(document).ready(function(){		
+        //Adding no-ajaxy class to a tags present under ids provided
 	jQuery(aws_data['ids']).each(function(){
 		jQuery(this).addClass('no-ajaxy');
-	});
-	
-	//append anchor tag to DOM to make the search in site ajaxify.
+	});	
+	//append anchor tag to DOM to make the search in site ajaxify.        
 	var searchButtonHtml = '<span id="ajax-search" style="display:none;"><a href=""></a></span>'
-	jQuery("body").prepend(searchButtonHtml);
-	
-	//Make the link ajaxify.
-	jQuery("#ajax-search").ajaxify();
-	
-	//After submitting the search form search the post without refreshing the browser.
-	jQuery(aws_data['searchID']).on('submit',
+	jQuery("body").prepend(searchButtonHtml);	
+        //Make the link ajaxify.	        
+        jQuery("#ajax-search").ajaxify();	
+        //After submitting the search form search the post without refreshing the browser.                
+        jQuery(aws_data['searchID']).on('submit',
 		function(d){
 			d.preventDefault();
 			var host = aws_data['rootUrl'] + "?s=";
 			jQuery("#ajax-search a").attr("href", host + jQuery(this).find('input[type="search"]').val());
 			jQuery("#ajax-search a").trigger("click");
 		}
-	);
+	);            
 });

@@ -149,7 +149,7 @@ function create_basic_mnu($post_author) {
         'post_type' => 'page',
         'post_title' => $prg_page_title,
         'post_status' => 'publish',
-        'post_content' => '[cloud_tags_programs]',
+        'post_content' => '[list_programs]',
         'post_author' => $post_author
             //'post_slug' => 'site-map'
     );

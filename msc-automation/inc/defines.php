@@ -1,7 +1,4 @@
-<?php
-    Const MY_SECRET_KEY_TO_ENCRYPT  = "lkirwf897+22#bbtrm8814z5qq=498j5";
-    //define('MY_SECRET_KEY_TO_ENCRYPT', 'lkirwf897+22#bbtrm8814z5qq=498j5' );
-    
+<?php        
     interface seccions{
         const MUSIC = 'MUSIC';
         const CALENDAR = 'CALENDAR';
@@ -12,6 +9,9 @@
     }
 
     interface sub_seccions {
+        //common
+        const LIKE = 'LIKE';
+        const UNLIKE = 'UNLIKE';
         //music
         const LISTRADIA = 'LISTRADIA';
         const LISTRADIADATE = 'LISTRADIADATE';
@@ -29,17 +29,23 @@
         const NOWONAIR = 'NOWONAIR';
         const NOWPLAYING = 'NOWPLAYING';
         //admin
-        const PARAMS = 'PARAMS';
-        const INISYSTEMSUITE = 'INISYSTEMSUITE';
+        //const PARAMS = 'PARAMS';
+        const INISTANDALONEWEB = 'INISTANDALONEWEB';
+        const INIWORDPRESS = 'INIWORDPRESS';        
+        const INISYSTEMSUITE = 'INISYSTEMSUITE';        
         const STREAM = 'STREAM';
+        const INISTREAMSERVER = "INISTREAMSERVER";
+        Const INIFTP  = "INIFTP";
         //programs
         const SHOWINFO_PRG = 'SHOWINFO_PRG';
         const LIST_PRGS = 'LIST_PRGS';        
         const LISTPODCAST_PRG = 'LISTPODCAST_PRG';        
         //podcast                       
         const SHOWINFO_PCAST = 'SHOWINFO_PCAST';
+        const LISTEN = 'LISTEN';
+        const DOWNLOAD = 'DOWNLOAD';  
         //ADVERTISING
-        const LOGIN = 'LOGIN';
+        const LOGIN = 'LOGIN';                  
     }
     
     interface params{   
@@ -94,8 +100,8 @@
     //const   paramVolFader = 47;
     //const   paramMilFader = 48;
     //const   paramMilSegSH = 49;
-    const   paramNomAudio1 = 50;
-    const   paramNomAudio2 = 51;
+    //const   paramNomAudio1 = 50;
+    //const   paramNomAudio2 = 51;
     //const   paramDeviceRec = 52;
     //const   paramDevicePlay = 53;
     //const   paramAccesWeb = 54;
@@ -120,7 +126,9 @@
     //TODO: Pendents de crear a la dbs
     const paramDIR_PODCAST      = '';
 }   
-    //Status de la API
+    const MSC_PLUGIN_VERSION = '2.0';
+
+//Status de la API
     const SUCCES = 'succes'; 
     const ERROR = 'error';    
     //Respostes API de la connexió XML al servidor de control (1 nivell servidor api)
@@ -151,7 +159,7 @@
     const TIP_AUTOMATIC_RADIOFORMULA    = 1;
     const TIP_AUTOMATIC_PROGRAMA        = 2;
     const TIP_DIRECTE_                  = 3;
-    const TIP_CONEX_CENTRAL             = 4; 
+    const TIP_CONEX_CENTRAL_             = 4; 
     
     
     const TMP_IMG_DIR = 'msc-tmp-img';

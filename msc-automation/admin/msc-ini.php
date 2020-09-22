@@ -47,7 +47,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_calendar" id="create_calendar" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the calendar of radiation ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the calendar of radiation','msc-automation')?></p>
                     </td>
                 </tr>
                 <tr valign="top">
@@ -56,7 +56,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_podcast" id="create_podcast" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the On Demand page ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the On Demand page','msc-automation')?></p>
                     </td>
                 </tr>                
                 <!-- -->
@@ -66,7 +66,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_search" id="create_search" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the Search music page ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the Search music page','msc-automation')?></p>
                     </td>
                 </tr>
                 <tr valign="top">
@@ -75,7 +75,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_new_album" id="create_new_album" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the Albums release page ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the Albums release page','msc-automation')?></p>
                     </td>
                 </tr>
                 <tr valign="top">
@@ -84,7 +84,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_history_play" id="create_history_play" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the History played page ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the History played page','msc-automation')?></p>
                     </td>
                 </tr>
                 <tr valign="top">

@@ -25,7 +25,7 @@
     $url_podcast = $_GET['url_podcast'];
     
     $Vars[0] = 'id='.$_GET['id'];
-    $list = $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::SHOWINFO_PCAST,$Vars,TRUE);                
+    $list = $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::LISTEN,$Vars,TRUE);                
         
     if ($MyRadio->RESPOSTA_ROWS>0){                 
         $counter = 0;        
@@ -61,7 +61,7 @@
                 $img_mame = 'prg_img-'.$id.'.jpg';
                 $URL_Download = '';
                 break;
-            case TIP_CONEX_CENTRAL:
+            case TIP_CONEX_CENTRAL_:
                 $img_mame = 'radio_img.jpg';
                 $URL_Download = '';
                 break;

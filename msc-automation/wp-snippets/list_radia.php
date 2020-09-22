@@ -68,6 +68,6 @@
             $counter = $counter + 1;
             $strReturn .= $StrEcho ;
         endwhile;        
-        $strReturn .= '</TABLE>';
+        $strReturn .= '</TABLE><br>';
         echo $strReturn;
     }

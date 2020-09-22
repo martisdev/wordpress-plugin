@@ -1,4 +1,4 @@
- /* The alert message box */
+/* The alert message box */
 .succes {
     padding: 20px;
     background-color: #00d200; /* verd */
@@ -42,7 +42,7 @@
 
 /*Ajaxify*/
 #no_ajax_ids {
-	width: 550px;
+    width: 550px;
 }
 /*END Ajaxify*/
 
@@ -117,22 +117,22 @@
     float:  left;        
 }            
 #msc-middle a, #msc-middle a:link, #msc-middle a:visited, #msc-middle a:hover, #msc-middle a:focus, #msc-middle a:active {
-        /*color: #009BE3;*/
+    /*color: #009BE3;*/
 }
 
 #msc-middle ul {
-        list-style-type:none;
-        padding:0;
-        margin:1em 0;
-        width:100%;
-        overflow:hidden;
+    list-style-type:none;
+    padding:0;
+    margin:1em 0;
+    width:100%;
+    overflow:hidden;
 }
 #msc-middle ul span {
-        color: #A0A600;
+    color: #A0A600;
 }
 #msc-middle li {
-        float:left;
-        margin-right:1em;
+    float:left;
+    margin-right:1em;
 }
 #msc-middle p span.track-name {
     color: #CC0090;
@@ -146,23 +146,23 @@
     /* Disable the browser CSS3 focus highlighting. */
     border: 0; }
 .jp-audio, .jp-audio:focus {
-        outline: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        outline-style:none;
-        /*IE*/
-    }
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline-style:none;
+    /*IE*/
+}
 .jp-audio .jp-controls {
     /*width: 380px;
     padding: 2px 1px 0 1px; */}
-   
+
 .jp-time-mute{        
     /*position: absolute;*/
-    
+
     float: left;
     left: 100px;
     right: 20%;
@@ -172,7 +172,7 @@
     position:static ;
     left: 1px;
     top: 2px;
-     }
+}
 #jp-image{
     float: left;                    
     width: 120px;
@@ -231,7 +231,7 @@
     /* z-index: 1; */
     -webkit-transition: -webkit-transform 0.15s ease-in-out;
     transition: transform 0.15s ease-in-out;
-    }
+}
 .jp-seek-bar{
     background-color: #ff3333;
     width: 0px;
@@ -254,31 +254,35 @@
     cursor: pointer;
 }
 #jp-info {
-   /*margin: auto;    
-    width: 24%;   */ 
+    /*margin: auto;    
+     width: 24%;   */ 
     position: relative;
-    top:10px;    
+    top:8px;    
     /*display:inline-block;*/
-    float: left;
-    margin: 0 1% 1% 0;      
-    
+    /*float: left;*/
+    margin: 0 1% 1% 0;        
+
 }
 #jp-info span {    
     text-align: center;
 }
 #jp_subtitle-name{
-    padding-left: 20px;    
-    }
+    padding-left: 20px; 
+    height: 50px;    
+}
 #jp_title{
-    max-width: 10px;
+    /*max-width: 10px;*/
     font-size:11px;
     font-weight:lighter;
     text-transform:uppercase;
     letter-spacing:.15em;
     /*opacity:.6;*/      
+
 }
 #jp-socialbuttons {    
+    /*padding-top: 20px;*/        
     margin: 0 1% 1% 0;    
+
 }
 /*END Player*/
 
@@ -313,38 +317,38 @@
 /* Modal Share Box */
 /* The Modal (background) */
 .modalShare {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content_share {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 200px;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
 }
 
 /* The Close Button */
 .closeShare {
-  color: #aaaaaa;
-  float: right;  
+    color: #aaaaaa;
+    float: right;  
 }
 
 .closeShare:hover,
 .closeShare:focus {
-  color: #000;  
-  cursor: pointer;
+    color: #000;  
+    cursor: pointer;
 }
 /* END Modal share Box */
 
@@ -355,61 +359,85 @@
 }
 
 .jp-duration{
-      display:inline;
-  }  
+    display:inline;
+}  
+
+.prg-list {
+    float: left;
+    padding: 10px;
+    height: 175px;
+    width: 250px;
+    background-repeat: no-repeat; 
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.prg-list h3{    
+    background-color:  #aaaaaa;
+    opacity:0.70;
+    text-align: center;  
+    position: relative;      
+    top: 100px;
+    
+}
+
+#msc-hide{
+    display: none;
+}
 @media only screen and (max-width:800px) {
-  /* For tablets: */
-  #msc-left {
-    width: 10%; 
-  }
- #msc-middle {
-    width: 90%;  
- }
-  #jp-image{   
-    width: 100px;
-    height: 100px;
-  }
-  .jp-duration{
-      display:none;
-  }
-  .jp-time-mute{
-      font-size:small;
-  }
-  #msc-box-l{    
-     width: 100px;    
-  } 
-  #msc-box-r{    
-    width: 70%;    
-  }
-  #jp_title{    
-    font-size:10px;
-  }
+    /* For tablets: */
+    #msc-left {
+        width: 10%; 
+    }
+    #msc-middle {
+        width: 90%;  
+    }
+    #jp-image{   
+        width: 100px;
+        height: 100px;
+    }
+    .jp-duration{
+        display:none;
+    }
+    .jp-time-mute{
+        font-size:small;
+    }
+    #msc-box-l{    
+        width: 100px;    
+    } 
+    #msc-box-r{    
+        width: 70%;    
+    }
+    #jp_title{    
+        font-size:10px;
+    }
 }
 @media only screen and (max-width:600px) {
-  /* For mobile phones: */
-  #msc-left {
-    width: 1%; 
-  }
-  #msc-middle {
-    width: 99%;  
- }
-  #jp-image{   
-    width: 90px;
-    height: 90px;
-  }
-  .jp-duration{
-      display:none;
-  }
-  .jp-time-mute{
-      font-size:small;
-  }
-  #msc-box-l{    
-     width: 80px;        
-  } 
-  #msc-box-r{    
-    width: 77%;       
-  }
-  #jp_title{    
-    font-size:8px;    
-  }
+    /* For mobile phones: */
+    #msc-left {
+        width: 1%; 
+    }
+    #msc-middle {
+        width: 99%;  
+    }
+    #jp-image{   
+        width: 90px;
+        height: 90px;
+    }
+    .jp-duration{
+        display:none;
+    }
+    .jp-time-mute{
+        font-size:small;
+    }
+    #msc-box-l{    
+        width: 80px;        
+    } 
+    #msc-box-r{    
+        width: 77%;       
+    }
+    #jp_title{    
+        font-size:8px;        
+    }  
 }

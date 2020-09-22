@@ -1,6 +1,4 @@
 <?php
-
-    define('MSC_PLUGIN_VERSION', '2.0.0' );
     define('MSC_DIR', 'msc-automation');
     define('MSC_PLUGIN_URL', plugins_url().'/'.MSC_DIR.'/' );
     define('MSC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

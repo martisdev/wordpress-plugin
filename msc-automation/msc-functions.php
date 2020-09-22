@@ -1,13 +1,14 @@
 <?php
     
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-player.php';               
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-programs.php';
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-podcast.php';
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-music.php';
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-calendar.php';
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-general.php';   
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-advertising.php';   
-include_once MSC_PLUGIN_DIR.'/inc/shortcode/shortcode-socialmedia.php';   
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-player.php';               
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-programs.php';
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-podcast.php';
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-music.php';
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-calendar.php';
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-general.php';   
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-advertising.php';   
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-socialmedia.php';   
+include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-utils.php';   
 
         
 function my_add_custom_fields($post_id){
@@ -147,3 +148,80 @@ function fc_opengraph() {
           echo '<meta name="twitter:creator" content="@francecarlucci" />'; */
     }
 }
+
+// Send the file to download
+function send_download_file(){
+	//get filedata
+  $attID = $_GET['attachment_id'];
+  $theFile = wp_get_attachment_url( $attID );
+  
+  if( ! $theFile ) {
+    return;
+  }
+  //clean the fileurl
+  $file_url  = stripslashes( trim( $theFile ) );
+  //get filename
+  $file_name = basename( $theFile );
+  //get fileextension
+ 
+  $file_extension = pathinfo($file_name);
+  //security check
+  $fileName = strtolower($file_url);
+  
+  $whitelist =  array('mp3','png', 'gif', 'tiff', 'jpeg', 'jpg','bmp','svg') ;
+  
+  if(!in_array(end(explode('.', $fileName)), $whitelist))
+  {
+	  exit('Invalid file!');
+  }
+  if(strpos( $file_url , '.php' ) == true)
+  {
+	  die("Invalid file!");
+  }
+ 
+	$file_new_name = $file_name;
+  $content_type = "";
+  //check filetype
+  switch( $file_extension['extension'] ) {
+		case "png": 
+                    $content_type="image/png"; 
+                    break;
+		case "gif": 
+                    $content_type="image/gif"; 
+                    break;
+		case "tiff": 
+                    $content_type="image/tiff"; 
+                    break;
+		case 'mp3':
+                    $content_type = 'audio/mpeg' ;
+                    break;
+                case "jpeg":
+		case "jpg": 
+                    $content_type="image/jpg"; 
+                    break;
+		default: 
+                    $content_type="application/force-download";
+  }
+  
+  $content_type = apply_filters( "ibenic_content_type", $content_type, $file_extension['extension'] );
+  
+  header("Expires: 0");
+  header("Cache-Control: no-cache, no-store, must-revalidate"); 
+  header('Cache-Control: pre-check=0, post-check=0, max-age=0', false); 
+  header("Pragma: no-cache");	
+  header("Content-type: {$content_type}");
+  header("Content-Disposition:attachment; filename={$file_new_name}");
+  header("Content-Type: application/force-download");
+   
+  readfile("{$file_url}");
+  exit();
+}
+
+// Start the download if there is a request for that
+function download_file(){
+   
+  if( isset( $_GET["attachment_id"] ) && isset( $_GET['download_file'] ) ) {
+		send_download_file();
+	}
+}
+//add_action('init','download_file');

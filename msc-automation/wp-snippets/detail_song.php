@@ -11,9 +11,14 @@
         }
     }
             
-    $Vars[0] = 'id='.$temid ;
-    $Vars[1] = 'date='.$HoraPrg ;
-    $list = $MyRadio->QueryGetTable(seccions::MUSIC,sub_seccions::PROGRAMSONG,$Vars); 
+    if (isset($HoraPrg)){
+        $Vars[0] = 'id='.$temid ;
+        $Vars[1] = 'date='.$HoraPrg ;    
+        $list = $MyRadio->QueryGetTable(seccions::MUSIC,sub_seccions::PROGRAMSONG,$Vars); 
+    }else{
+        $Vars[0] = 'id='.$temid ;
+        $list = $MyRadio->QueryGetTable(seccions::MUSIC,sub_seccions::SHOWINFO ,$Vars); 
+    }    
 
     $img_width = 200;    
 
