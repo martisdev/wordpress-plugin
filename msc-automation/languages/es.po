@@ -1,0 +1,889 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MSC Radio Automation\n"
+"POT-Creation-Date: 2020-09-30 13:46+0200\n"
+"PO-Revision-Date: 2020-09-30 13:46+0200\n"
+"Last-Translator: MSC team <info@msc-soft.com>\n"
+"Language-Team: MSC team <info@msc-soft.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: msc-automation.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: admin/msc-help.php:2
+msgid "Practical guide to wordpress plugin"
+msgstr "Guía práctica de la extensión wordpress"
+
+#: admin/msc-help.php:3
+msgid "General description"
+msgstr "Descripción general"
+
+#: admin/msc-help.php:4
+msgid ""
+"To give functionality to your website you just have to enter shortcodes in "
+"the pages. You can go to the section 'initialize' and generate all the basic "
+"pages automatically and then modify the ones you want to customize"
+msgstr ""
+"Para dar funcionalidad a su sitio web sólo tiene que introducir shortcodes "
+"en las páginas. Puede ir a la sección 'inicializar' y generar "
+"automáticamente todas las páginas básicas y luego modificar las que desea "
+"personalizar"
+
+#: admin/msc-help.php:5
+msgid ""
+"You also have a shortcode widget now_playing available. You'll find it in "
+"the widgets section"
+msgstr ""
+"También tienes un widget del shortcode 'now_playing' disponible. Lo "
+"encontrarás en la sección de widgets"
+
+#: admin/msc-help.php:6
+msgid ""
+"Please, if you like this extension and the system <b>MSC Automation</b> "
+"collaborates with us to promote it. Set the menu 'MSC Footer' somewhere in "
+"your web."
+msgstr ""
+"Por favor, si te gusta esta extensión y el sistema <b> MSC Automation </ b> "
+"colabora con nosotros para promocionarlo. Establecer el menú 'MSC pie de "
+"página' en algún lugar de su web."
+
+#: admin/msc-help.php:7
+msgid "Avariable shortcodes"
+msgstr "Shortcodes disponibles"
+
+#: admin/msc-help.php:10
+msgid "Calendar"
+msgstr "Calendario"
+
+#: admin/msc-help.php:12
+msgid "Show a table with the programming of a specific day"
+msgstr "Muestra una tabla con la programación de un día específico"
+
+#: admin/msc-help.php:13 admin/msc-help.php:17 admin/msc-help.php:21
+#: admin/msc-help.php:40 admin/msc-help.php:53 admin/msc-help.php:57
+#: admin/msc-help.php:61 admin/msc-help.php:73 admin/msc-help.php:88
+#: admin/msc-help.php:96 admin/msc-setting.php:70
+msgid "Example"
+msgstr "Ejemplo"
+
+#: admin/msc-help.php:16
+msgid "Show information on the current and next program"
+msgstr "Muestra información sobre el programa actual y el siguiente"
+
+#: admin/msc-help.php:20
+msgid "Show the shortcodes now_onair and player_streaming at the same time"
+msgstr ""
+"Muestra los shortcodes 'now_onair' y 'player_streaming' al mismo tiempo"
+
+#: admin/msc-help.php:27
+msgid "Music"
+msgstr "Música"
+
+#: admin/msc-help.php:29
+msgid "Show a table with the latest songs broadcast"
+msgstr "Muestra una tabla con las últimas canciones radiadas"
+
+#: admin/msc-help.php:31 admin/msc-help.php:45 admin/msc-help.php:66
+#: admin/msc-help.php:80
+msgid "Params"
+msgstr "Parámetros"
+
+#: admin/msc-help.php:34 admin/msc-help.php:35 admin/msc-help.php:36
+#: admin/msc-help.php:48 admin/msc-help.php:49 admin/msc-help.php:69
+#: admin/msc-help.php:84
+msgid "optional"
+msgstr "opcional"
+
+#: admin/msc-help.php:34
+msgid "Number of records to show. By default 10"
+msgstr "Número de registros a mostrar. Por defecto 10"
+
+#: admin/msc-help.php:35
+msgid "Auto refresh the table, by default false"
+msgstr "Actualizar automáticamente la tabla, por defecto false"
+
+#: admin/msc-help.php:36 admin/msc-help.php:48
+msgid "Show image if exist"
+msgstr "Muestra imagen si existe"
+
+#: admin/msc-help.php:43
+msgid "On radio formula shows information about the current song"
+msgstr "En la radio fórmula se muestra información sobre la canción actual"
+
+#: admin/msc-help.php:49
+msgid "Width of the image in pixels. By default 200"
+msgstr "Ancho de la imagen en píxeles. Por defecto 200"
+
+#: admin/msc-help.php:56
+msgid ""
+"Form in which the public can choose the following song given several options"
+msgstr ""
+"Formulario en el que el público puede elegir la siguiente canción dada "
+"varias opciones"
+
+#: admin/msc-help.php:60
+msgid "Form to do song searches and schedule them"
+msgstr "Formulario para hacer búsquedas de canciones y programarlas"
+
+#: admin/msc-help.php:64
+msgid "Show the latest record albums"
+msgstr "Muestra la novedades discográficas"
+
+#: admin/msc-help.php:69
+msgid "Number of records to show. By default 5"
+msgstr "Número de registros a mostrar. Por defecto 5"
+
+#: admin/msc-help.php:76 msc-install.php:146 msc-install.php:161
+#: msc-install.php:416
+msgid "Programs"
+msgstr "programas"
+
+#: admin/msc-help.php:78
+msgid "Show program information, facebook, twitter and podcasting files"
+msgstr ""
+"Muestra información del programa, facebook, twitter y archivos de podcasting"
+
+#: admin/msc-help.php:83
+msgid "Program identifier"
+msgstr "Identificador del programa"
+
+#: admin/msc-help.php:84
+msgid "Downloadable programs. by default false"
+msgstr "Programes descargables. Por defecto false"
+
+#: admin/msc-help.php:93
+msgid "Podcast"
+msgstr "Podcast"
+
+#: admin/msc-help.php:95
+msgid "Listed with the latest published podcasting files"
+msgstr "Listado con los últimos archivos de podcasting publicados"
+
+#. Plugin Name of the plugin/theme
+#: admin/msc-index.php:2 msc-automation.php:35 msc-automation.php:203
+msgid "MSC Radio Automation"
+msgstr "MSC Radio Automatización"
+
+#: admin/msc-index.php:3 msc-install.php:398 msc-install.php:399
+msgid "Radio Automation Software | The radio on cloud"
+msgstr "Software de automatización de radio | La radio en la nube"
+
+#: admin/msc-index.php:4
+msgid "Thank you"
+msgstr "Gracias"
+
+#: admin/msc-index.php:5
+msgid ""
+"Thank you for choosing MSC-soft and ours services, we hope that this "
+"software meets all your espectactives and contribute to a better quality of "
+"work and Emission of your radio."
+msgstr ""
+"Gracias por elegir MSC-soft y nuestros servicios, esperamos que este "
+"software cumpla todas sus espectactivas y contribuya a una mejor calidad de "
+"trabajo y emisión de su radio."
+
+#: admin/msc-index.php:6
+msgid "The MSC-Soft.com team"
+msgstr "El equipo MSC_Soft.com"
+
+#: admin/msc-index.php:8
+msgid "Contact information"
+msgstr "Información de contacto"
+
+#: admin/msc-index.php:9
+msgid "For more information, please contact us."
+msgstr "Para más información, póngase en contacto con nosotros."
+
+#: admin/msc-index.php:11
+msgid "Phone and WhatsApp"
+msgstr "Teléfono y WhatsApp"
+
+#: admin/msc-index.php:15
+msgid "Postal address"
+msgstr "Direccion postal"
+
+#: admin/msc-index.php:19
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: admin/msc-index.php:21
+msgid "General information"
+msgstr "Información general"
+
+#: admin/msc-index.php:22
+msgid "Client support"
+msgstr "Soporte al cliente"
+
+#: admin/msc-index.php:26
+msgid "General"
+msgstr "General"
+
+#: admin/msc-index.php:27
+msgid "Comunity"
+msgstr "Comunidad"
+
+#: admin/msc-index.php:37
+msgid "Plugin version"
+msgstr "Version de la extensión"
+
+#: admin/msc-ini.php:3
+msgid "Edit basic pages for your Radio Automation System"
+msgstr ""
+"Edita las páginas básicas para su sistema de automatización radiofonica"
+
+#: admin/msc-ini.php:28
+msgid "Home page"
+msgstr "Página principal"
+
+#: admin/msc-ini.php:32
+msgid "Create the static page whith actual info of your radio"
+msgstr "Crear la página estática con información actual de su radio"
+
+#: admin/msc-ini.php:37
+msgid "News page"
+msgstr "Página de notícias"
+
+#: admin/msc-ini.php:41
+msgid "Create the static page for news (wordpress posts)"
+msgstr "Crear la página estática para noticias (publicaciones de wordpress)"
+
+#: admin/msc-ini.php:46
+msgid "Calendar page"
+msgstr "Página del calendario"
+
+#: admin/msc-ini.php:50
+msgid "Create the calendar of radiation"
+msgstr "Crear el calendario de radiación "
+
+#: admin/msc-ini.php:55
+msgid "On Demand page"
+msgstr "Página A la carta"
+
+#: admin/msc-ini.php:59
+msgid "Create the On Demand page"
+msgstr "Crear la página Bajo demanda"
+
+#: admin/msc-ini.php:65 msc-install.php:268 msc-install.php:431
+msgid "Search music"
+msgstr "Buscar música"
+
+#: admin/msc-ini.php:69
+msgid "Create the Search music page"
+msgstr "Crear la página Buscar música"
+
+#: admin/msc-ini.php:74 msc-install.php:294 msc-install.php:436
+msgid "Albums release"
+msgstr "Novedades discográficas"
+
+#: admin/msc-ini.php:78
+msgid "Create the Albums release page"
+msgstr "Crear la página de novedades discográficas"
+
+#: admin/msc-ini.php:83 msc-install.php:318 msc-install.php:441
+msgid "History played"
+msgstr "Historal de radiación"
+
+#: admin/msc-ini.php:87
+msgid "Create the History played page"
+msgstr "Crear la página del historal de radiación"
+
+#: admin/msc-ini.php:92 msc-install.php:342 msc-install.php:446
+#: shortcode/shortcode-music.php:212
+msgid "Vote music to play"
+msgstr "Vota la canción a sonar"
+
+#: admin/msc-ini.php:96
+msgid "Create the Vote music to play page"
+msgstr "Crear la página Votar música para reproducir"
+
+#: admin/msc-ini.php:103
+msgid "Inicialize all system"
+msgstr "Inicializar todo el sistema"
+
+#: admin/msc-ini.php:111
+msgid "Removed menus and pages created"
+msgstr "Eliminar menús y páginas creadas"
+
+#: admin/msc-ini.php:116
+msgid "Reset all system"
+msgstr "Restablecer todo el sistema"
+
+#: admin/msc-setting.php:2
+msgid "Params Settings"
+msgstr "Parámetros de configuración"
+
+#: admin/msc-setting.php:11
+msgid "Client Key"
+msgstr "Clave del cliente"
+
+#: admin/msc-setting.php:15
+msgid "Provided by the service provider"
+msgstr "Proporcionado por el proveedor de servicios"
+
+#: admin/msc-setting.php:20
+msgid "Debug"
+msgstr "Depuración"
+
+#: admin/msc-setting.php:25
+msgid "For Testing this plugin (console.log())"
+msgstr "Para probar este plugin (console.log())"
+
+#: admin/msc-setting.php:35
+msgid "Player"
+msgstr "Jugador"
+
+#: admin/msc-setting.php:39
+msgid "On Bottom"
+msgstr "En la parte inferior"
+
+#: admin/msc-setting.php:40
+msgid "On Top"
+msgstr "En la parte superior"
+
+#: admin/msc-setting.php:41
+msgid "Nothing"
+msgstr "Nada"
+
+#: admin/msc-setting.php:43
+msgid "Showing a streaming player"
+msgstr "Mostrar un reproductor de streaming"
+
+#: admin/msc-setting.php:49
+msgid "Player color"
+msgstr "Color del reproductor"
+
+#: admin/msc-setting.php:53
+msgid "Change the background color player"
+msgstr "Cambiar el color de fondo del reproductor"
+
+#: admin/msc-setting.php:57 msc-install.php:72 msc-install.php:80
+msgid "Player Stream"
+msgstr "Reproductor streaming"
+
+#: admin/msc-setting.php:60
+msgid "Share your streaming"
+msgstr "Comparte tu streaming"
+
+#: admin/msc-setting.php:64
+msgid "Copy and paste on everywhere"
+msgstr "Copiar y pegar en todas partes"
+
+#: admin/msc-setting.php:81
+msgid "reload only the main container"
+msgstr "recargar sólo el contenedor principal"
+
+#: admin/msc-setting.php:87
+msgid "Enable Ajaxify Effect"
+msgstr "Activar el efecto Ajaxify"
+
+#: admin/msc-setting.php:94
+msgid "No ajax container IDs"
+msgstr "ID del contenedor sin ajax"
+
+#: admin/msc-setting.php:98
+msgid ""
+"Provide the ids of the parent tag whose child anchor(a) tags you dont want "
+"to handled by this plugin.<br/><b>NOTE:</b> ids should be separated by "
+"comma(,) without any spaces. eg: id1,id2,id3"
+msgstr ""
+"Proporcione los identificadores de la etiqueta padre cuyas no desea manejar "
+"con este complemento.<br/><b>NOTA:</b> los identificadores deben estar "
+"separados por comas(,) sin espacios. por ejemplo: id1,id2,id3"
+
+#: admin/msc-setting.php:104
+msgid "Ajax container ID"
+msgstr "ID de contenedor De Ajax"
+
+#: admin/msc-setting.php:108
+msgid ""
+"ID of the container div whose data needs to be ajaxify. eg: main/page any "
+"one."
+msgstr ""
+"ID del contenedor div cuyos datos deben ser ajaxify. por ejemplo: main."
+
+#: admin/msc-setting.php:113
+msgid "Menu container class"
+msgstr "Clase del contenedor de menú"
+
+#: admin/msc-setting.php:117
+msgid "Class of the div in which menu's ul, li present. eg: menu"
+msgstr ""
+"Clase del div en el que están presentes ul, li del menú. por ejemplo: menú"
+
+#: admin/msc-setting.php:122
+msgid "Search form TAG ID/CLASS"
+msgstr "Formulario de búsqueda TAG ID/CLASS"
+
+#: admin/msc-setting.php:126
+msgid ""
+"To make your search ajaxify provide the search form ID/CLASS."
+"<br><strong>Example:</strong> if form tag class is search-form then provide "
+"<strong><i>.#search-form</i></strong> if ID is search-form the provide "
+"<strong><i>#search-form</i></strong>"
+msgstr ""
+"Para que su búsqueda sea ajaxify, proporcione el formulario de búsqueda ID/"
+"CLASS.<br><strong>Ejemplo:</strong> si la clase de etiqueta de formulario es "
+"search-form, proporcione <strong><i>.#search-form</i></strong> si el ID del "
+"formulario es search-form proporcione <strong><i>de #search</i></strong>"
+
+#: admin/msc-setting.php:131
+msgid "Enable Transition Effect"
+msgstr "Habilitar el efecto de transición"
+
+#: admin/msc-setting.php:140
+msgid "Enable scroll to top Effect"
+msgstr "Habilitar efecto de desplazamiento hacia arriba"
+
+#: admin/msc-setting.php:149
+msgid "Loader Image"
+msgstr "Cargando imagen"
+
+#: admin/msc-setting.php:182
+msgid "Your language interface is"
+msgstr "Su interfaz de idioma es"
+
+#: admin/msc-setting.php:184
+msgid "Languages avariables"
+msgstr "Idiomas disponibles"
+
+#: inc/download.php:66
+msgid "The file <b> $file_url </b> doesn't exist; check the URL"
+msgstr "El archivo <b> $ file_url </ b> no existe; revisa la URL"
+
+#: inc/download.php:132
+msgid "Cannot be used for $file_extension files!"
+msgstr "¡No se puede usar para archivos $ file_extension !"
+
+#: msc-automation.php:36
+msgid "Settings"
+msgstr "Configuración"
+
+#: msc-automation.php:39
+msgid "Initialize"
+msgstr "Inicializar"
+
+#: msc-automation.php:41
+msgid "Help"
+msgstr "Ayuda"
+
+#: msc-automation.php:128
+msgid "Now Playing"
+msgstr "Ahora suena"
+
+#: msc-automation.php:130
+msgid "Shows information about the current song"
+msgstr "En la radio fórmula se muestra información sobre la canción actual"
+
+#: msc-automation.php:154
+msgid "Now playing..."
+msgstr "Ahora suena ..."
+
+#: msc-automation.php:159
+msgid "Title:"
+msgstr "Titulo:"
+
+#: msc-automation.php:183 msc-install.php:397
+msgid "Powered by MSC Radio Automation"
+msgstr "Desarrollado por MSC Radio Automatización"
+
+#: msc-automation.php:185
+msgid "Show a link to developer web (thanks for put in your footer zone)"
+msgstr ""
+"Mostrar un enlace a la web del desarrollador (gracias por poner lo  en su "
+"pie de página)"
+
+#. Author URI of the plugin/theme
+#: msc-automation.php:200 msc-automation.php:201
+msgid "https://msc-soft.com/"
+msgstr "https://msc-soft.com/es/"
+
+#: msc-automation.php:215
+msgid "Powered by"
+msgstr "Desarrollado por"
+
+#: msc-automation.php:220 shortcode/shortcode-music.php:26
+#: shortcode/shortcode-music.php:189 shortcode/shortcode-music.php:367
+msgid "Title"
+msgstr "Título"
+
+#: msc-functions.php:29
+msgid "Hook relation"
+msgstr "relación gancho"
+
+#: msc-functions.php:50
+msgid "Value"
+msgstr "Valor"
+
+#: msc-install.php:24 msc-install.php:32
+msgid "Song"
+msgstr "Canción"
+
+#: msc-install.php:40 msc-install.php:48
+msgid "album"
+msgstr "Álbum"
+
+#: msc-install.php:56 msc-install.php:64
+msgid "track"
+msgstr "track"
+
+#: msc-install.php:88
+msgid ""
+"<b>Successfully created the selected options</b><br> Once the initialization "
+"is done, go to the menus section. Select the menu \"MSC Main\" and check the "
+"box \"Primary Menu\" to view it."
+msgstr ""
+"<b>Se han creado correctamente las opciones seleccionadas</b><br> Una vez "
+"realizada la inicialización, vaya a la sección de menús. Seleccione el menú "
+"\"MSC Main\" y marque la casilla \"Menú principal\" para verlo."
+
+#: msc-install.php:92 msc-install.php:390 msc-install.php:408
+msgid "MSC Main"
+msgstr "MSC Principal"
+
+#: msc-install.php:96
+msgid "Home"
+msgstr "Inicio"
+
+#: msc-install.php:101
+msgid "Now on air ..."
+msgstr "Ahora en antena ..."
+
+#: msc-install.php:122 msc-install.php:411
+msgid "Schedule"
+msgstr "Calendario"
+
+#: msc-install.php:222 msc-install.php:421
+msgid "Radio on demand"
+msgstr "Radio a la carta"
+
+#: msc-install.php:246
+msgid "Radio Activity"
+msgstr "Actividad radiofónica"
+
+#: msc-install.php:367
+msgid "News"
+msgstr "Noticias"
+
+#: msc-install.php:395 msc-install.php:409
+msgid "MSC Footer"
+msgstr "MSC Pie"
+
+#: msc-install.php:426
+msgid "Listen"
+msgstr "Escuchanos"
+
+#: shortcode/shortcode-advertising.php:44
+msgid "Wrong username or password"
+msgstr "Usuario o contraseña incorrectos"
+
+#: shortcode/shortcode-advertising.php:46
+msgid "Area reserved for customers"
+msgstr "Zona reservada para clientes"
+
+#: shortcode/shortcode-advertising.php:48
+msgid "Customer"
+msgstr "Cliente"
+
+#: shortcode/shortcode-advertising.php:49
+msgid "Password"
+msgstr "Contraseña"
+
+#: shortcode/shortcode-advertising.php:50
+#: shortcode/shortcode-advertising.php:101
+#: shortcode/shortcode-advertising.php:122
+#: shortcode/shortcode-advertising.php:174
+#: shortcode/shortcode-advertising.php:288 shortcode/shortcode-music.php:277
+#: shortcode/shortcode-music.php:393
+msgid "Send"
+msgstr "Enviar"
+
+#: shortcode/shortcode-advertising.php:83
+#, php-format
+msgid "Welcome Mr/Ms %s from %s"
+msgstr "Bienvenido Sr/Sra %s de %s"
+
+#: shortcode/shortcode-advertising.php:89
+#: shortcode/shortcode-advertising.php:106
+#: shortcode/shortcode-advertising.php:163
+#: shortcode/shortcode-advertising.php:178
+msgid "Choose the ad you want to list"
+msgstr "Elige el anuncio que quieres listar"
+
+#: shortcode/shortcode-advertising.php:93
+#: shortcode/shortcode-advertising.php:110
+#: shortcode/shortcode-advertising.php:166
+#: shortcode/shortcode-advertising.php:182
+msgid "Ads"
+msgstr "Anuncios"
+
+#: shortcode/shortcode-advertising.php:96
+#: shortcode/shortcode-advertising.php:113
+#: shortcode/shortcode-advertising.php:169
+#: shortcode/shortcode-advertising.php:185
+msgid "All"
+msgstr "Todo"
+
+#: shortcode/shortcode-advertising.php:125
+msgid "There are no ad for this client.."
+msgstr "No hay ningún anuncio para este cliente.."
+
+#: shortcode/shortcode-advertising.php:138
+msgid "Client session expired."
+msgstr "La sesión del cliente expiró."
+
+#: shortcode/shortcode-advertising.php:194
+msgid "List"
+msgstr "Lista"
+
+#: shortcode/shortcode-advertising.php:200
+msgid "Name"
+msgstr "Nombre"
+
+#: shortcode/shortcode-advertising.php:201
+msgid "Client"
+msgstr "Cliente"
+
+#: shortcode/shortcode-advertising.php:202
+msgid "Radiation Date"
+msgstr "Fecha de radiación"
+
+#: shortcode/shortcode-advertising.php:233
+msgid "Number of times they have been radiated"
+msgstr "Número de veces que se han radiado"
+
+#: shortcode/shortcode-advertising.php:235
+msgid "Number of times it has been radiated"
+msgstr "Número de veces que se ha radiado"
+
+#: shortcode/shortcode-advertising.php:239
+msgid "There are no ads"
+msgstr "No hay anuncios"
+
+#: shortcode/shortcode-advertising.php:251
+msgid "You have been logged out"
+msgstr "Has sido desconectado"
+
+#: shortcode/shortcode-advertising.php:274
+msgid "The changes have been successful"
+msgstr "Los cambios han tenido éxito"
+
+#: shortcode/shortcode-advertising.php:278
+msgid "Error setting changes"
+msgstr "Error en los cambios de configuración"
+
+#: shortcode/shortcode-advertising.php:282
+msgid "Change your password"
+msgstr "Cambia tu contraseña"
+
+#: shortcode/shortcode-advertising.php:285
+msgid "Current password"
+msgstr "Contraseña actual"
+
+#: shortcode/shortcode-advertising.php:286
+msgid "New Password"
+msgstr "Nueva contraseña"
+
+#: shortcode/shortcode-advertising.php:298
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: shortcode/shortcode-advertising.php:299
+msgid "Change Password"
+msgstr "Cambiar Contraseña"
+
+#: shortcode/shortcode-calendar.php:80 shortcode/shortcode-calendar.php:137
+msgid "Desconnection"
+msgstr "Desconexión"
+
+#: shortcode/shortcode-calendar.php:95 shortcode/shortcode-calendar.php:152
+#: shortcode/shortcode-calendar.php:282 shortcode/shortcode-calendar.php:294
+msgid "Rebroadcast"
+msgstr "redifusión"
+
+#: shortcode/shortcode-calendar.php:101 shortcode/shortcode-calendar.php:158
+msgid "The rest of the hours"
+msgstr "El resto de horas"
+
+#: shortcode/shortcode-calendar.php:104 shortcode/shortcode-calendar.php:161
+#: shortcode/shortcode-calendar.php:175
+msgid "Radio music scheduling"
+msgstr "Radio formula musical"
+
+#: shortcode/shortcode-calendar.php:107 shortcode/shortcode-calendar.php:164
+#: shortcode/shortcode-calendar.php:178
+msgid "Central connection"
+msgstr "Conexión con central"
+
+#: shortcode/shortcode-calendar.php:110 shortcode/shortcode-calendar.php:167
+#: shortcode/shortcode-calendar.php:181
+msgid "On live"
+msgstr "En directo"
+
+#: shortcode/shortcode-calendar.php:183
+msgid "default programming"
+msgstr "programación por defecto"
+
+#: shortcode/shortcode-calendar.php:276
+msgid "Your are listening ..."
+msgstr "estás escuchando ..."
+
+#: shortcode/shortcode-calendar.php:288
+msgid "And after..."
+msgstr "Y el depues..."
+
+#: shortcode/shortcode-general.php:145 shortcode/shortcode-music.php:570
+#: shortcode/shortcode-player.php:420 shortcode/shortcode-programs.php:49
+#: shortcode/shortcode-programs.php:59
+msgid "On"
+msgstr "En"
+
+#: shortcode/shortcode-music.php:27 shortcode/shortcode-music.php:190
+#: shortcode/shortcode-music.php:368
+msgid "Artist"
+msgstr "Artista"
+
+#: shortcode/shortcode-music.php:28
+msgid "Style"
+msgstr "Estilo"
+
+#: shortcode/shortcode-music.php:29
+msgid "Hour"
+msgstr "Hora"
+
+#: shortcode/shortcode-music.php:63
+msgid "What a song played at..."
+msgstr "Qué canción sonó en..."
+
+#: shortcode/shortcode-music.php:65
+msgid "Search..."
+msgstr "Buscar..."
+
+#: shortcode/shortcode-music.php:188
+msgid "Votes"
+msgstr "Votos"
+
+#: shortcode/shortcode-music.php:191
+msgid "Select"
+msgstr "Selecciona"
+
+#: shortcode/shortcode-music.php:216
+msgid "Wait a moment and try again later."
+msgstr "Espere un momento e inténtelo de nuevo más tarde."
+
+#: shortcode/shortcode-music.php:224
+msgid "Thanks for participating"
+msgstr "Gracias por participar"
+
+#: shortcode/shortcode-music.php:243
+msgid "Scheduled song, thanks for participating"
+msgstr "Canción programada, gracias por participar"
+
+#: shortcode/shortcode-music.php:270
+msgid "Select one hour"
+msgstr "Escoje una hora"
+
+#: shortcode/shortcode-music.php:569
+msgid "From album"
+msgstr "Del álbum"
+
+#: shortcode/shortcode-player.php:188 shortcode/shortcode-player.php:383
+#: shortcode/shortcode-podcast.php:95
+msgid "Share on Facebook"
+msgstr "Compartir en Facebook"
+
+#: shortcode/shortcode-player.php:193 shortcode/shortcode-podcast.php:111
+msgid "Share on WhatsApp"
+msgstr "Compartir en WhatsApp"
+
+#: shortcode/shortcode-player.php:197 shortcode/shortcode-podcast.php:103
+msgid "Share on Pinterest"
+msgstr "Compartir en Pinterest"
+
+#: shortcode/shortcode-player.php:202 shortcode/shortcode-player.php:207
+#: shortcode/shortcode-podcast.php:107
+msgid "Share on LinkedIn"
+msgstr "Compartir en LinkedIn"
+
+#: shortcode/shortcode-player.php:209 shortcode/shortcode-player.php:390
+msgid "Share on your web"
+msgstr "Compartir en tu web"
+
+#: shortcode/shortcode-player.php:212 shortcode/shortcode-player.php:393
+msgid "Copy this code for add in your web"
+msgstr "Copie este código para agregarlo en su web"
+
+#: shortcode/shortcode-player.php:388 shortcode/shortcode-podcast.php:99
+msgid "Share on Twitter"
+msgstr "Compartir en Twitter"
+
+#: shortcode/shortcode-programs.php:34
+msgid "Thematic"
+msgstr "Temática"
+
+#: shortcode/shortcode-programs.php:35
+msgid "Duration"
+msgstr "Duración"
+
+#: shortcode/shortcode-programs.php:41
+msgid "Program tags"
+msgstr "Etiquetas del programa"
+
+#: shortcode/shortcode-utils.php:152
+msgid "read more"
+msgstr "leer más"
+
+#: wp-snippets/form_search_song.php:2
+msgid "Enter the title, artist or album"
+msgstr "Introduzca el título, el artista o el álbum"
+
+#: wp-snippets/form_search_song.php:5
+msgid "Text"
+msgstr "Texto"
+
+#: wp-snippets/form_search_song.php:8
+msgid "Search"
+msgstr "Buscar"
+
+#. Plugin URI of the plugin/theme
+msgid "https://msc-soft.com/plugin-wordpress/"
+msgstr "https://msc-soft.com/es/plugin-wordpress/"
+
+#. Description of the plugin/theme
+msgid ""
+"Radio Automation Software | The radio on cloud. This plugin syncronize your "
+"radio station with your web page."
+msgstr ""
+"Software de Automatización radiofònica | La radio en la nube. Este plugin "
+"sincroniza su estación de radio con su página web."
+
+#. Author of the plugin/theme
+msgid "MSC-Soft team <info@msc-soft.com>"
+msgstr "Equipo MSC-Soft <info@msc-soft.com>"
+
+#. Template Name of the plugin/theme
+msgid "Iframe_Page"
+msgstr "Iframe_Page"
+
+#~ msgid "Create the Vote music to player page"
+#~ msgstr "Crear la página  Votar la canción a sonar"
+
+#, php-format
+#~ msgid "Welcome Mr/Ms %s de %s"
+#~ msgstr "Bienvenido Sr./Ms %s de %s"
+
+#~ msgid "Vote for the music to play"
+#~ msgstr "Vota la música para sonar"
+
+#~ msgid "Wait a moment and try again later"
+#~ msgstr "Espere un momento e inténtalo más tarde de nuevo"

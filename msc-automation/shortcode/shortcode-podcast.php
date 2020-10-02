@@ -25,7 +25,7 @@ function get_last_podcast(){
         $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';
         
 //$StrReturn .='<div id="jp_container"><div>';
-        $StrReturn .= '<div id="jp_container">';
+        $StrReturn .= '<div>';
         while($counter < $MyRadio->RESPOSTA_ROWS):
             $id = $list_podcast['item'][$counter]["ID"];
             $nom_programa = ($list_podcast['item'][$counter]['NAME']);
@@ -33,8 +33,8 @@ function get_last_podcast(){
             $duration = $list_podcast['item'][$counter]['DURATION'];
             $data_crea = $list_podcast['item'][$counter]['DATE_PUBLICATION'];
             $titol = $nom_programa.' '.date('d-m-Y', strtotime($data_crea));
-            $urlmp3 = $url_podcast.'/'.$list_podcast['item'][$counter]['FILE'];
-            $urldownload = MSC_PLUGIN_URL.'inc/download.php?fileurl='.$urlmp3.'&filename='.urlencode($nom_programa).'&id='.$id.'&key='.$my_key;
+            $urlmp3 = strtolower($url_podcast.'/'.$list_podcast['item'][$counter]['FILE']);
+            $urldownload = strtolower(MSC_PLUGIN_URL.'inc/download.php?fileurl='.$urlmp3.'&filename='.urlencode($nom_programa).'&id='.$id.'&key='.$my_key);
 
             $URL_Share = $base_URL_Share.$id.'&type='.TIP_AUTOMATIC_PROGRAMA;
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t='.urlencode($nom_programa).'&u='.$URL_Share;
@@ -64,7 +64,7 @@ function get_last_podcast(){
                 while($counter_mark < $count_marks):  
                     $seg = $marks[$counter_mark]['SECOND'];
                     $comment = $marks[$counter_mark]['COMMENT'];
-                    $StrReturn .= '<li style = "margin-left:50px"><a class = "track no-ajaxy" data-pos = "'.$seg.'" data-pod = "'.$id.'" href = "'.$urlmp3.'">'.$comment.'</a></li>';                        
+                    $StrReturn .= '<li style = "margin-left:50px"><a data-pos = "'.$seg.'" data-pod = "'.$id.'" data-href="'.$urlmp3.'" href="javascript:void" onclick="playThisFile(this)">'.$comment.'</a></li>';                        
                     $counter_mark++;
                 endwhile;
                 $StrReturn .= '</ul>';                        
@@ -74,9 +74,9 @@ function get_last_podcast(){
                             . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
                        $StrReturn  .= social_share($id,$URL_Facebook,$URL_Twitter,$URL_Pinterest,$URL_Linked_in,$URL_WhatsApp,$URL_Iframe);            
                        $StrReturn  .= '</figure>';
-                    }else{
+                    }else{                        
                         $StrReturn .= '<ul><li>'
-                                    . '<a class="track no-ajaxy" data-pos="0" data-pod="' . $id . '" href="' . $urlmp3 . '">' . $titol . '</a>'
+                                    . '<a data-pos="0" data-pod="' . $id . '" data-href="'.$urlmp3.'" href="javascript:void" onclick="playThisFile(this)" >'.$titol.'</a>'
                                     . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>'                                
                                     . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
                         $StrReturn  .= social_share($id,$URL_Facebook,$URL_Twitter,$URL_Pinterest,$URL_Linked_in,$URL_WhatsApp,$URL_Iframe);            

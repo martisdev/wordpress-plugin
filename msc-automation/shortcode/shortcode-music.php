@@ -60,9 +60,9 @@ function get_last_played($attributes) {
     </div>
 
         <form action="<?php echo get_permalink() ?>" method=post>            
-        <p><label for="dradi"><h4><?php _e('What song did it played at ...', 'msc-automation') ?></h4></label><br>                
+        <p><label for="dradi"><h4><?php _e('What a song played at...', 'msc-automation') ?></h4></label><br>                
             <input type="date" name="dradi" max="<?php echo date("Y-m-d"); ?>" value="<?php echo ($dradi == NULL) ? current_time('mysql', true) : $dradi; /* current_time( 'mysql', true ); */ ?>"></p>            
-        <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Search ...', 'msc-automation') ?>"></p><br>
+        <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Search...', 'msc-automation') ?>"></p><br>
     </form>
     <?php
 }
@@ -144,11 +144,12 @@ function get_now_playing_widget($attributes) {
     <div id="dom-source" style="display: none;"><?php echo WP_SNIPPETS_URL . $doc_refresh; ?></div>
     <div id="dom-div" style="display: none;"><?php echo '#refresh-widget'; ?></div>
     <?php
-    wp_enqueue_script('handle-now_playing_widget', plugins_url('/refresh_now_playing_widget.js', __FILE__, '', TRUE), array('jquery'), '1.0.0', true);
+    $file_js = MSC_JQUERY_URL . 'refresh_now_playing_widget.js';
+    wp_enqueue_script('handle-now_playing_widget', $file_js, array('jquery'), '1.0.0', true);
     $params = array(
         'nom_div' => '#refresh-widget',
         'time' => 15000,
-        'source' => plugins_url('/jquery/refresh_now_playing_widget.js', __FILE__, '', TRUE)
+        'source' => $file_js
     );
     wp_localize_script('handle-list_radia', 'Params_refresh', $params);
     ?>        
@@ -212,7 +213,7 @@ function get_public_vote_player($attributes) {
             </form>
             <?php
         } else {
-            _e('Wait a moment and try again later', 'msc-automation');
+            _e('Wait a moment and try again later.', 'msc-automation');
         }
     } else {
         //Ja s'ha votat, registrar el vot
@@ -273,7 +274,7 @@ function get_search_music($attributes) {
                 $strReturn .= "<tr><TD><input type=radio name=hp value=$mydate_2>" . strftime("%H:%M", $mydate_2) . "</TD></tr>\n";
                 $strReturn .= "<tr><TD><input type=radio name=hp value=$mydate_3>" . strftime("%H:%M", $mydate_3) . "</TD></tr>\n";
                 $strReturn .= "<input type=hidden  name=sid value=" . $temid . "></table>";
-                $strReturn .= "<p align=center><input type=submit value=" . __('Program', 'msc-automation') . "></p>";
+                $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'msc-automation') . "></p>";
                 $strReturn .= "</form>";
                 echo $strReturn;
             } else {
@@ -389,7 +390,7 @@ function get_search_music($attributes) {
                             $counter++;
                         endwhile;
                         $strReturn .= "</TABLE>\n";
-                        $strReturn .= "<p align=center><input type=submit value=" . __('Program', 'msc-automation') . "></p>";
+                        $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'msc-automation') . "></p>";
                         $strReturn .= "</form>";
                         echo $strReturn;
                     }
@@ -541,14 +542,16 @@ function get_detail_song($attributes) {
         $interp = $list['track']['INTERP'];
         $title = $list['track']['TITLE'];
         $album = $list['track']['ALBUM'];
-        global $post;
+        /*global $post;
         $my_post = array(
             'ID' => $post->ID,
             'post_title' => $title . ' | ' . $album
         );
 
         // Update the post into the database
-        wp_update_post($my_post);
+        wp_update_post($my_post);*/
+            $post_title = $title . ' | ' . $album;
+        echo "<script> document.title =".$post_title." ; </script>"; 
 
         // hook to add Open Graph Namespace
         //add_filter( 'language_attributes', 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"' );            
@@ -557,7 +560,7 @@ function get_detail_song($attributes) {
         wp_localize_script('script_opengraph', 'object_params', $params_og);
         wp_enqueue_script('script_opengraph');
         ?>                                            
-        <div  style="padding:20px 20px 20px 20px">                    
+        <div class="detail_track_top"> 
         <?php
         if ($img_exist == TRUE) {
             echo '<img class="jp-image" src=' . $PathToShowImg . '>';

@@ -74,8 +74,7 @@ jQuery(document).ready(function(){
         }
     });
     //update Progress Bar control
-    var updatebar = function (x) {
-
+    var updatebar = function (x) {        
         var progress = jQuery('.jp-progress');
         var maxduration = jQuery("#jquery_jplayer").jPlayer.duration; //audio duration        
         var position = x - progress.offset().left; //Click pos
@@ -99,17 +98,18 @@ jQuery(document).ready(function(){
     };
 
     // Create click handlers for the different tracks
-	jQuery("#jp_container .track").click(function(e) {		                
+	jQuery("#jp_container .track").click(function(e) {                  
                 my_trackName.text(jQuery(this).text());
 		my_jPlayer.jPlayer("setMedia", {
-			mp3: jQuery(this).attr("href")
+			mp3: jQuery(this).attr("data-href")
 		});
                 
                 play_position = jQuery(this).attr("data-pos");                                                
                 if((opt_play_first && first_track) || (opt_auto_play && !first_track)) {                                        
                     my_jPlayer.jPlayer("play",Number(play_position));    
 		}                               
-                my_url = jQuery(this).attr("href");                
+                my_url = jQuery(this).attr("data-href");                       
+                
                 if(!my_url.includes('/stream')){                    
                     //S'ha de capturar el id i buscar resultats via XML                    
                     var id = jQuery(this).attr("data-pod");                                                                                                        
@@ -179,7 +179,7 @@ jQuery(document).ready(function(){
                     jQuery('.jp-stream').css('display', 'none');                                        
                     document.getElementById('refresh').innerHTML = 1;
                     //clearInterval(myrefresh);                    
-                }                
+                }
 		first_track = false;
 		jQuery(this).blur();                
 		return false;           

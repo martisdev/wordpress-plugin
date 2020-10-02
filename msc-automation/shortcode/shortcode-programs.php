@@ -46,7 +46,7 @@ function get_show_program($attributes) {
         $url_facebook = $list['item']['FACEBOOK'];
         if (strlen($url_facebook) > 3) {
             $StrReturn .= '<div id="content"> ';
-            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('on', 'msc-automation') . ' Facebook</h3>';
+            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'msc-automation') . ' Facebook</h3>';
             $fb_prg = new Facebook($url_facebook);
             //$fb_prg->show_Co mments(20, 450, ColorScheme::COLOR_SCHEME_LIGHT);
             $StrReturn .= $fb_prg->show_LikeBox(ColorScheme::COLOR_SCHEME_LIGHT, 550, 200, true);
@@ -56,7 +56,7 @@ function get_show_program($attributes) {
         $LinkTwitter = $list['item']['TWITTER'];
         if (strlen($LinkTwitter) > 3) {
             $StrReturn .= '<div id="content"> ';
-            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('on', 'msc-automation') . ' Twitter</h3>';
+            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'msc-automation') . ' Twitter</h3>';
             $twitter_prg = new twitter($LinkTwitter, 'ca');
             $StrReturn .= $twitter_prg->show_FollowButton();
             $StrReturn .= '</div>';

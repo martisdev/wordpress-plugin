@@ -92,7 +92,7 @@ function get_calendar_day() {
         $Strloop .= '<p>' . $txtDescrip . '<p></td>';
         $Strloop .= '<td>';
         if ($is_reemissio == 1) {
-            $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('re-emission', 'msc-automation') . '"></i></div>';
+            $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'msc-automation') . '"></i></div>';
         }
         $Strloop .= '<div id="cal-bottom"><i class="fas fa-clock">' . $txtDurada . '</i></div></td></TR>';
 
@@ -101,7 +101,7 @@ function get_calendar_day() {
         $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'msc-automation') . ' ...</BR>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= __('Radio musical formula', 'msc-automation');
+                $StrReturn .= __('Radio music scheduling', 'msc-automation');
                 break;
             case TIP_CONEX_CENTRAL:
                 $StrReturn .= __('Central connection', 'msc-automation');
@@ -149,7 +149,7 @@ function get_calendar_day() {
             $Strloop .= '<p>' . $txtDescrip . '<p></td>';
             $Strloop .= '<td>';
             if ($is_reemissio == 1) {
-                $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('re-emission', 'msc-automation') . '"></i></div>';
+                $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'msc-automation') . '"></i></div>';
             }
             $Strloop .= '<div id="cal-bottom"><i class="fas fa-clock">' . $txtDurada . '</i></div></td></TR>';
             $counter += 1;
@@ -158,7 +158,7 @@ function get_calendar_day() {
         $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'msc-automation') . ' ...</BR>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= __('Radio musical formula', 'msc-automation');
+                $StrReturn .= __('Radio music scheduling', 'msc-automation');
                 break;
             case TIP_CONEX_CENTRAL:
                 $StrReturn .= __('Central connection', 'msc-automation');
@@ -172,7 +172,7 @@ function get_calendar_day() {
         $StrReturn .= '<p>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= '<h2>' . __('Radio musical formula', 'msc-automation') . '</h2>';
+                $StrReturn .= '<h2>' . __('Radio music scheduling', 'msc-automation') . '</h2>';
                 break;
             case TIP_CONEX_CENTRAL:
                 $StrReturn .= '<h2>' . __('Central connection', 'msc-automation') . '</h2>';
@@ -279,19 +279,19 @@ function get_now_onair() {
                 <p><?php echo $ara_descrip; ?></p>
                 <?php
                 if ($ara_remission == 1) {
-                    ?><i class="fas fa-sync-alt" title="<?php _e('re_emission', 'msc-automation'); ?>"></i>
+                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i>
             <?php
         }
         ?>
                 <i class="far fa-calendar-alt"> <?php echo htmlentities($ara_date_in . ' - ' . $ara_date_out); ?></i></div></div>                                
         <div class="msc-now-after" >
-            <i><?php _e('And after ...', 'msc-automation'); ?></i>
+            <i><?php _e('And after...', 'msc-automation'); ?></i>
 
             <div style="padding:20px;"><h2><?php echo $despres_nom; ?></h2>
                 <p><?php echo $despres_descrip; ?></p>
                 <?php
                 if ($despres_remission == 1) {
-                    ?><i class="fas fa-sync-alt" title="<?php _e('re_emission', 'msc-automation'); ?>"></i><?php
+                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i><?php
         }
         ?><i class="far fa-calendar-alt" > <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i></div></div>
 

@@ -93,7 +93,7 @@ echo '<div class="wrap">';
                     </th>
                     <td>
                         <input type="checkbox" name="create_vote_payer" id="create_vote_payer" value="true" checked="checked"/>
-                        <p class="description"><?php _e('Create the Vote music to player page ','msc-automation')?></p>
+                        <p class="description"><?php _e('Create the Vote music to play page','msc-automation')?></p>
                     </td>
                 </tr>
                 

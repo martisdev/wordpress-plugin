@@ -23,9 +23,10 @@
     $url_base_share = $_GET['share_url'];        
     $url_base_download = $_GET['url_download'].'/';            
     $url_podcast = $_GET['url_podcast'];
+    $def_img = $_GET['di'];
     
     $Vars[0] = 'id='.$_GET['id'];
-    $list = $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::LISTEN,$Vars,TRUE);                
+    $list = $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::LISTEN,$Vars,false);                
         
     if ($MyRadio->RESPOSTA_ROWS>0){                 
         $counter = 0;        
@@ -70,11 +71,10 @@
         $PathToShowImg = $url_images.$img_mame;         
         if (!file_exists($PathToSaveImg)){
             if (getImage(base64_decode($list['item']['IMAGE']),$PathToSaveImg,$img_width)==TRUE){                 
-            //canvia a imatge per defecte            
+            //canvia a imatge per defecte     
+                $PathToShowImg = $def_img;
             }            
-        }
-        
-              
+        }                      
     }        
     
     $doc= new DOMDocument( "1.0", "ISO-8859-15" );

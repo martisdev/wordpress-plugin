@@ -21,7 +21,7 @@ function ini_all_action() {
     // create page song for iframe               
     $song_page = array(
         'post_type' => 'page',
-        'post_title' => __('song', 'msc-automation'),
+        'post_title' => __('Song', 'msc-automation'),
         'post_status' => 'publish',
         'post_content' => '[detail_song]',
         'post_author' => $post_author,
@@ -29,7 +29,7 @@ function ini_all_action() {
         // Assign page template
         'page_template' => NAME_TEMPLATE_IFRAME
     );
-    $song_page_check = get_page_by_title(__('song', 'msc-automation'));
+    $song_page_check = get_page_by_title(__('Song', 'msc-automation'));
     if (!isset($song_page_check->ID)) {
         $song_page_id = wp_insert_post($song_page);
     }
@@ -67,8 +67,9 @@ function ini_all_action() {
     }
     
     // create page player streaming for iframe             
+    
     $player_page = array(
-        'post_type' => 'page',
+        'post_type' => 'page',        
         'post_title' => __('Player Stream', 'msc-automation'),
         'post_status' => 'publish',
         'post_content' => '[iframe_player_streaming]',
@@ -394,7 +395,7 @@ function create_footer_mnu() {
     // mnu footer
     $foot_item = wp_create_nav_menu(__('MSC Footer', 'msc-automation'));
     wp_update_nav_menu_item($foot_item, 0, array(
-        'menu-item-title' => __('Powered by: MSC radio Automation'),
+        'menu-item-title' => __('Powered by MSC Radio Automation'),
         'menu-item-description' => __('Radio Automation Software | The radio on cloud', 'msc-automation'),
         'menu-item-attr-title' => __('Radio Automation Software | The radio on cloud', 'msc-automation'),
         'menu-item-target' => '_blank',

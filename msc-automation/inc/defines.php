@@ -45,7 +45,9 @@
         const LISTEN = 'LISTEN';
         const DOWNLOAD = 'DOWNLOAD';  
         //ADVERTISING
-        const LOGIN = 'LOGIN';                  
+        const LOGIN = 'LOGIN';  
+        const RADIATION = 'RADIATION';  
+        const CREDENTIALS = 'CREDENTIALS';
     }
     
     interface params{   
@@ -147,7 +149,9 @@
     const DBS_ERROR_CONNECT = 101; 
     const DBS_NO_RESULT = 102; 
     const DBS_ERROR_SQL = 103; 
-
+    //respostes clients publicitat
+    const ADV_LOGIN_OK = 500; 
+    const ADV_LOGIN_KO = 501; 
     
     //Tipus d'emissi�
     const TIP_AUTOMATIC     = 0;

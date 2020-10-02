@@ -54,10 +54,10 @@
                 </td>                    
             </tr>
             <!-- Player iframe-->
-            <?php $url_player_stream =  get_permalink( get_page_by_title( __('Player Stream', 'msc-automation') ) ) ;?>
+            <?php $url_player_stream =  get_permalink( get_page_by_title( __('Player Stream', 'msc-automation')));?>
             <tr valign="top">
                 <th scope="row">                                   
-                    <label for="msc_iframe_player"><?php _e('Share your streaming','msc-automation')?></label>
+                    <label for="msc_iframe_player"><?php _e('Share your streaming','msc-automation')?></label>                    
                 </th>                
                 <td>
                     <textarea id="msc_iframe_player" name="msc_iframe_player" style="width:400px" ><iframe src="<?php echo $url_player_stream ; ?>" allowfullscreen scrolling="no" frameborder="0" width="400px" height="135px"></iframe></textarea>
@@ -95,9 +95,7 @@
                 </th>				
                 <td>
                     <textarea id="msc_no-ajax-ids" name="msc_no-ajax-ids"><?php echo get_option('msc_no-ajax-ids'); ?></textarea>
-                    <p class="description"><?php _e('Provide the ids of the parent tag whose child anchor(a) 
-                        tags you dont want to handled by this plugin.<br/>
-                        <b>NOTE:</b> ids should be separated by comma(,) without any spaces. eg: id1,id2,id3','msc-automation')?>
+                    <p class="description"><?php _e('Provide the ids of the parent tag whose child anchor(a) tags you dont want to handled by this plugin.<br/><b>NOTE:</b> ids should be separated by comma(,) without any spaces. eg: id1,id2,id3','msc-automation')?>
                     </p>
                 </td>
             </tr>			
@@ -121,11 +119,11 @@
             </tr>			
             <tr valign="top">
                 <th scope="row">                                   
-                    <label for="msc_search-form"><?php _e('Search form TAG ID/CLASS','msc-automation')?>:(*)</label>
+                    <label for="msc_search-form"><?php _e('Search form ID/CLASS','msc-automation')?>:(*)</label>
                 </th>								
                 <td>
                     <input type="text" name="msc_search-form" value="<?php echo get_option('msc_search-form','search-form'); ?>" />
-                    <p class="description"><?php _e('To make your search ajaxify provide the search form ID/CLASS.<br><strong>Example:</strong> if form tag class is search-form then provide <strong><i>.#search-form</i></strong> if ID is search-form the provide <strong><i>#search-form</i></strong>','msc-automation')?></p>
+                    <p class="description"><?php _e('To make your search ajaxify provide the search form ID/CLASS.<br><strong>Example:</strong> if form tag class is search-form then provide <strong><i>.search-form</i></strong> if ID is search-form the provide <strong><i>#search-form</i></strong>','msc-automation')?></p>
                 </td>
             </tr>			
             <tr valign="top">

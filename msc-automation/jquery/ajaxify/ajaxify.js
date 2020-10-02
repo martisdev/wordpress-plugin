@@ -39,9 +39,11 @@
 			// Check link
 			isInternalLink = url.substring(0,rootUrl.length) === rootUrl || url.indexOf(':') === -1;                        
                         //check mp3 internal
-                        //isInternalLink = url.substring(rootUrl.length-4,rootUrl.length) === 'mp3';                   
-                        // Ignore or Keep
-			return isInternalLink;
+                        
+                        //isInternalLink = url.substring(url.length-3,url.length == 'mp3';     
+                        
+			// Ignore or Keep
+                        return isInternalLink;
 		};
 
 		// HTML Helper
@@ -159,9 +161,7 @@
 					// Update the title
 					document.title = $data.find('#document-title:first').text();
 					try {
-						document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;')
-																							.replace('>','&gt;')
-																							.replace(' & ',' &amp; ');
+						document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;')																							.replace('>','&gt;')																							.replace(' & ',' &amp; ');
 					}
 					catch ( Exception ) { }
 

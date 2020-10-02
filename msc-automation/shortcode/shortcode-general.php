@@ -66,14 +66,7 @@ function get_detail_track($attribtes) {
                 }
                 $url_player = $upload_dir['baseurl'].'/'.PODCAST_DIR.'/'.$list['item']['LINK'];
                 $title = htmlentities($list['item']['NAME']);
-                $subtitle = htmlentities($list['item']['DESCRIP']);
-                global $post;
-                $my_post = array(
-                    'ID' => $post->ID,
-                    'post_title' => $title . ' | ' . $subtitle
-                );
-                // Update the post into the database
-                wp_update_post($my_post);
+                $subtitle = htmlentities($list['item']['DESCRIP']);                
             }                        
             break;
         case TIP_DIRECTE_:
@@ -101,13 +94,6 @@ function get_detail_track($attribtes) {
                 }
                 $title = htmlentities($list['item']['NAME']);
                 $subtitle = htmlentities($list['item']['DESCRIP']);
-                global $post;
-                $my_post = array(
-                    'ID' => $post->ID,
-                    'post_title' => $title . ' | ' . $subtitle
-                );
-                // Update the post into the database
-                wp_update_post($my_post);
             }
             break;
         case TIP_AUTOMATIC_RADIOFORMULA:
@@ -118,22 +104,16 @@ function get_detail_track($attribtes) {
             return;
     }
 
-    global $post;
-    $my_post = array(
-        'ID' => $post->ID,
-        'post_title' => $title . ' | ' . $subtitle
-    );
-
-    // Update the post into the database
-    wp_update_post($my_post);
-
+    $post_title = $title . ' | ' . $subtitle;
+    echo "<script> document.title =".$post_title." ; </script>"; 
+    
 
     wp_register_script('script_opengraph', MSC_JQUERY_URL . 'refresh_og.js', '1.0.0');
     $params_og = array('i' => $PathToShowImg, 't' => $title . ' | ' . $subtitle);
     wp_localize_script('script_opengraph', 'object_params', $params_og);
     wp_enqueue_script('script_opengraph');
     ?>
-    <div  style="padding:20px 20px 20px 20px">            
+    <div class="detail_track_top">        
         <img id="jp-image" src="<?php echo $PathToShowImg; ?>">
         <div id="jp_title"><span><?php echo $title; ?></span></div>
         <div id="jp_subtitle-name"><?php echo $subtitle; ?></div>
@@ -142,7 +122,7 @@ function get_detail_track($attribtes) {
             ?>
             <figure class="wp-block-audio"><?php echo $title; ?><br><audio controls="" src="<?php echo $url_player; ?>"></audio>
         <?php } ?>
-        <div><?php _e('On', 'msc-automation'); ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b></div>
+        <div><?php _e('On', 'msc-automation'); ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b></div>        
     </div>
     <?php
 }

@@ -32,10 +32,7 @@
                 if (getImage(base64_decode($list['track']['IMAGE']),$PathToSaveImg,$img_width)==TRUE){
                     $StrEcho .= '<img src='.$PathToShowImg.'>';                    
                 }
-            }                                                  
-            //$StrEcho .= '<span ><h3><b>'.$list['track']['VALUE'].'</b></h3>';            
-            //$StrEcho .= '<h4>'.$list['track']['INTERP'].'</h4>';
-            //$StrEcho .= '<h5>('.$list['track']['STYLE'].')</h5></span>';  
+            }                                                              
             $StrEcho .= '<div class="artist">'.$list['track']['INTERP'].'</div>';
             $StrEcho .= '<div class="song">'.$list['track']['TITLE'].'</div>';  
 

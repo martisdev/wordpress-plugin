@@ -1,8 +1,9 @@
 <?php
 
 function msc_load_scripts() {
-    //$def_image = get_site_icon_url('120');
-    //$base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';    
+    
+    $def_image = get_site_icon_url('120');
+    $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';    
     
     $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
     $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;    
@@ -15,8 +16,8 @@ function msc_load_scripts() {
     //$base_url_jamendo = URL_JAMENDO_TRACK;   
 
     $msc_data = array(
-        /*'share_url' => $URL_Share,
-        'def_image' => $def_image,*/
+        'share_url' => $base_URL_Share,
+        'def_image' => $def_image,
         'path' => MSC_PLUGIN_URL,
         'key' => get_option('msc_client_key'),
         'img_dir' => DIR_TEMP_IMAGE,
@@ -32,7 +33,9 @@ function msc_load_scripts() {
 add_action('wp_enqueue_scripts', 'msc_load_scripts');
 
 function get_player() {
-
+    if (is_admin()) {
+        return;
+    }
     $name_template = get_page_template_slug($post->ID);
     if ($name_template == NAME_TEMPLATE_IFRAME) {
         return;
@@ -154,7 +157,7 @@ function get_player() {
                             <i class="jp-mute fas fa-volume-mute"></i>
                             <i class="jp-unmute fas fa-volume-up"></i>                            
                         </div>                                                    
-                        <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower" href="<?php echo $MyRadio->URLStreaming; ?>" style="display:none;"></a>
+                        <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#" style="display:none;"></a>
                         <i class="jp-play fa fa-play-circle fa-4x" style="display:none;"></i>                                          
                         <i class="jp-pause fa fa-pause-circle fa-4x"></i>                               
                     </div>
@@ -237,8 +240,10 @@ function get_player() {
     add_shortcode('player_streaming', 'get_player');
 
     function get_iframe_player() {
-
-        wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
+    if (is_admin()) {
+        return;
+    }
+    wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
         wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
         wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
 
@@ -348,7 +353,7 @@ function get_player() {
                             <i class="jp-mute fas fa-volume-mute"></i>
                             <i class="jp-unmute fas fa-volume-up"></i>                            
                         </div>                                                    
-                        <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower" href="<?php echo $MyRadio->URLStreaming; ?>" style="display:none;"></a>
+                        <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#"  style="display:none;"></a>
                         <i class="jp-play fa fa-play-circle fa-4x" style="display:none;"></i>                                          
                         <i class="jp-pause fa fa-pause-circle fa-4x"></i>   
                     </div>

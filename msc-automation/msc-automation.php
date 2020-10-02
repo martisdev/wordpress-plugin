@@ -3,7 +3,7 @@
   Plugin Name:    MSC Radio Automation
   Plugin URI:     https://msc-soft.com/plugin-wordpress/
   Description:    Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.
-  Version:        2.0
+  Version:        2.1
   Author:         MSC-Soft team <info@msc-soft.com>
   Author URI:     https://msc-soft.com/
   License:        GPL2
@@ -60,19 +60,21 @@ if (is_admin()) {
     }
 
     add_action('admin_init', 'msc_register_settings');
-    
-} else {
-    if(!isset($_COOKIE['msc_usr'])) {            
-        setcookie("msc_usr", hash('md5',time().get_bloginfo('name'),FALSE), time()+60*60*24*360 , COOKIEPATH, COOKIE_DOMAIN);  //360 days                
-    }      
+} else {    
+    if (!isset($_COOKIE['msc_usr'])) {
+        setcookie("msc_usr", hash('md5', time() . get_bloginfo('name'), FALSE), time() + 60 * 60 * 24 * 360, COOKIEPATH, COOKIE_DOMAIN);  //360 days                
+    }    
     $show_player = get_option('msc_player', 'nothing');
     if ($show_player !== 'nothing') {
+
         function show_player() {
             get_player();
         }
+
         add_action('wp_footer', 'show_player');
     }
 }
+
 //register CSS
 function msc_register_init() {
     wp_enqueue_style('msc-automat', plugins_url('/css/style.css', __FILE__));
@@ -85,13 +87,13 @@ add_action('init', 'msc_register_init');
 function msc_scrip_refresh() {
     if (is_single() || is_page()) {
         //if ( ! wp_script_is( 'jquery', 'enqueued' )) {
-        if (!jQuery) {  
+        if (!jQuery) {
             wp_register_script('msc-jquery', 'http://code.jquery.com/jquery-latest.min.js');
             wp_enqueue_script('msc-jquery');
             //Enqueue
             //wp_enqueue_script( 'jquery' );                
-        }        
-        wp_enqueue_script('script_treeview', MSC_JQUERY_URL . 'msc_js.js');        
+        }
+        wp_enqueue_script('script_treeview', MSC_JQUERY_URL . 'msc_js.js');
     }
 }
 
@@ -104,13 +106,16 @@ add_action('wp_login', 'msc_end_session');
 
 function msc_start_session() {
     if (!session_id()) {
-        session_start();        
+        session_start();
     }
 }
-     
+
 function msc_end_session() {
     session_destroy();
 }
+
+
+
 
 // Creating the widget on air
 class widget_onair extends WP_Widget {
@@ -122,7 +127,7 @@ class widget_onair extends WP_Widget {
                 // Widget name will appear in UI
                 __('Now Playing', 'msc-automation'),
                 // Widget description
-                array('description' => __('Show the actual song info', 'msc-automation'),)
+                array('description' => __('Shows information about the current song', 'msc-automation'),)
         );
     }
 
@@ -175,7 +180,7 @@ class widget_powerby extends WP_Widget {
                 // Base ID of your widget
                 'widget_powerby',
                 // Widget name will appear in UI
-                __('Power by MSC Radio Automation', 'msc-automation'),
+                __('Powered by MSC Radio Automation', 'msc-automation'),
                 // Widget description
                 array('description' => __('Show a link to developer web (thanks for put in your footer zone)', 'msc-automation'),)
         );
@@ -212,7 +217,7 @@ class widget_powerby extends WP_Widget {
         // Widget admin form
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', 'msc-automation').':'; ?></label> 
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title', 'msc-automation') . ':'; ?></label> 
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
         </p>
         <?php
@@ -241,8 +246,8 @@ function aws_load_scripts() {
         //Check whether the core jqury library enqued or not. If not enqued the enque this
         if (!wp_script_is('jquery')) {
             wp_enqueue_script('jquery');
-        }        
-        wp_enqueue_script('history-js', MSC_PLUGIN_URL . 'jquery/ajaxify/history.js', array('jquery'));        
+        }
+        wp_enqueue_script('history-js', MSC_PLUGIN_URL . 'jquery/ajaxify/history.js', array('jquery'));
         wp_enqueue_script('ajaxify-js', MSC_PLUGIN_URL . 'jquery/ajaxify/ajaxify.js', array('jquery'));
 
         $ids_arr = explode(',', get_option('msc_no-ajax-ids'));
@@ -421,6 +426,3 @@ class PageTemplater {
     }
 
 }
-
-
-
