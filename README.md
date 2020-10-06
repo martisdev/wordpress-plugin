@@ -1,2 +1,2 @@
 # wordpress-plugin
-A plugin for connecting with the services of msc-soft.com
+A plugin for connecting your radio station with the services of msc-soft.com
