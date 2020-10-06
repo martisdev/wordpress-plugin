@@ -7,15 +7,14 @@ function get_calendar_day() {
     global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
-
     //setlocale (LC_TIME, get_locale());
     if (!isset($_GET['goto'])) {
         $dateCal = current_time('Y-m-d');
@@ -85,7 +84,7 @@ function get_calendar_day() {
                     $url_prg = $page->guid;
                     $Strloop .= '<td><h2><a href="' . $url_prg . '">' . $txtLabel . '</a></h2>';
                 } else {
-                    $Strloop .= '<td><h2>'.$txtLabel.'</h2>';
+                    $Strloop .= '<td><h2>' . $txtLabel . '</h2>';
                 }
                 break;
         endswitch;
@@ -280,9 +279,9 @@ function get_now_onair() {
                 <?php
                 if ($ara_remission == 1) {
                     ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i>
-            <?php
-        }
-        ?>
+                    <?php
+                }
+                ?>
                 <i class="far fa-calendar-alt"> <?php echo htmlentities($ara_date_in . ' - ' . $ara_date_out); ?></i></div></div>                                
         <div class="msc-now-after" >
             <i><?php _e('And after...', 'msc-automation'); ?></i>
@@ -292,8 +291,8 @@ function get_now_onair() {
                 <?php
                 if ($despres_remission == 1) {
                     ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i><?php
-        }
-        ?><i class="far fa-calendar-alt" > <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i></div></div>
+                }
+                ?><i class="far fa-calendar-alt" > <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i></div></div>
 
         <?php
     }

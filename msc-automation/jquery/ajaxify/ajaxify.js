@@ -213,15 +213,20 @@ jQuery(document).ready(function(){
 	//append anchor tag to DOM to make the search in site ajaxify.        
 	var searchButtonHtml = '<span id="ajax-search" style="display:none;"><a href=""></a></span>'
 	jQuery("body").prepend(searchButtonHtml);	
-        //Make the link ajaxify.	        
+        //Make the link ajaxify.	                
         jQuery("#ajax-search").ajaxify();	
-        //After submitting the search form search the post without refreshing the browser.                
+        //After submitting the search form search the post without refreshing the browser.                        
+        var host = aws_data['rootUrl'] + "?s=";
+        console.log('AAAA'+host);
         jQuery(aws_data['searchID']).on('submit',
 		function(d){
 			d.preventDefault();
-			var host = aws_data['rootUrl'] + "?s=";
+			//var host = aws_data['rootUrl'] + "?s=";
+                        console.log('BBBB'+host);
 			jQuery("#ajax-search a").attr("href", host + jQuery(this).find('input[type="search"]').val());
 			jQuery("#ajax-search a").trigger("click");
 		}
 	);            
+
+
 });

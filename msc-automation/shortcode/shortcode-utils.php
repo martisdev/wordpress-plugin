@@ -1,14 +1,5 @@
 <?php
 
-/**
- * rss_feed (simple rss 2.0 feed creator php class)
- *
- * @author     Christos Pontikis http://pontikis.net
- * @copyright  Christos Pontikis
- * @license    MIT http://opensource.org/licenses/MIT
- * @version    0.1.0 (28 July 2013)
- *
- */
 class rss_feed {
 
     /**

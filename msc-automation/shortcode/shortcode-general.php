@@ -4,17 +4,6 @@ function get_Home($attributes) {
     if (is_admin()) {
         return;
     }
-    /* global $MyRadio;
-      if (!isset($MyRadio)) {
-      $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-      }
-      if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-      if ($MyRadio->IS_DEGUG == true) {
-      $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-      show_msc_message($msg, message_type::DANGER);
-      return;
-      }
-      } */
     get_now_onair();
 }
 
@@ -24,16 +13,15 @@ function get_detail_track($attribtes) {
     if (is_admin()) {
         return;
     }
-    if (isset($_GET['id'])) {
-        $id_track = $_GET['id'];
-    } else {
+       
+    if (isset($_GET['ref'])) {        
+        $values= explode (',',hex2bin($_GET['ref']));
+        $id_track= $values[0];
+        $type_track =$values[1];
+    }else{
         $id_track = $attributes['id'];
-    }
-    if (isset($_GET['type'])) {
-        $type_track = $_GET['type'];
-    } else {
         $type_track = $attributes['type'];
-    }
+    }            
     if (!isset($attributes['img_width'])) {
         $img_width = 200;
     } else {

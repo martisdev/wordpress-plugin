@@ -14,12 +14,12 @@ function get_last_played($attributes) {
     global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
 
@@ -56,10 +56,10 @@ function get_last_played($attributes) {
     }
     ?>
     <div id="<?php echo $name_div; ?>">
-    <?php include ($doc_refresh); ?>
+        <?php include ($doc_refresh); ?>
     </div>
 
-        <form action="<?php echo get_permalink() ?>" method=post>            
+    <form action="<?php echo get_permalink() ?>" method=post>            
         <p><label for="dradi"><h4><?php _e('What a song played at...', 'msc-automation') ?></h4></label><br>                
             <input type="date" name="dradi" max="<?php echo date("Y-m-d"); ?>" value="<?php echo ($dradi == NULL) ? current_time('mysql', true) : $dradi; /* current_time( 'mysql', true ); */ ?>"></p>            
         <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Search...', 'msc-automation') ?>"></p><br>
@@ -108,7 +108,7 @@ function get_now_playing($attributes) {
     wp_localize_script('handle-list_radia', 'Params_refresh', $params);
     ?>        
     <div id="refresh">
-    <?php include (WP_SNIPPETS_DIR . $doc_refresh); ?>
+        <?php include (WP_SNIPPETS_DIR . $doc_refresh); ?>
     </div>      
 
     <?php
@@ -125,12 +125,12 @@ function get_now_playing_widget($attributes) {
     global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
     $_SESSION['image_w'] = $image;
@@ -154,7 +154,7 @@ function get_now_playing_widget($attributes) {
     wp_localize_script('handle-list_radia', 'Params_refresh', $params);
     ?>        
     <div id="refresh-widget">
-    <?php include ( WP_SNIPPETS_DIR . $doc_refresh); ?>
+        <?php include ( WP_SNIPPETS_DIR . $doc_refresh); ?>
     </div>      
 
     <?php
@@ -168,12 +168,12 @@ function get_public_vote_player($attributes) {
     global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
     if (!isset($_POST['GrupOpc'])) {
@@ -189,25 +189,25 @@ function get_public_vote_player($attributes) {
                         <TH scope="col"><?php _e('Title', 'msc-automation'); ?></TH>
                         <TH scope="col"><?php _e('Artist', 'msc-automation'); ?></TH>
                         <TH scope="col"><?php _e('Select', 'msc-automation'); ?></TH></TR>
-            <?php
-            while ($counter < $MyRadio->RESPOSTA_ROWS):
-                $interp = $list['track'][$counter]['INTERP'];
-                $id = $list['track'][$counter]['ID'];
-                $votes = $list['track'][$counter]['VOTES'];
-                $titol = $list['track'][$counter]['TITLE'];
-                ?>                   
+                    <?php
+                    while ($counter < $MyRadio->RESPOSTA_ROWS):
+                        $interp = $list['track'][$counter]['INTERP'];
+                        $id = $list['track'][$counter]['ID'];
+                        $votes = $list['track'][$counter]['VOTES'];
+                        $titol = $list['track'][$counter]['TITLE'];
+                        ?>                   
                         <TR><TD><?php echo $votes; ?></TD>
                             <TD><?php echo $titol; ?></TD>
                             <TD><?php echo $interp; ?></TD>                            
-                                <?php
-                                if ($counter == 0) {
-                                    ?><TD><input type=radio name='GrupOpc' value=<?php echo $id; ?> checked="checked"></TD></TR><?php
-                                } else {
-                                    ?><TD><input type=radio name='GrupOpc' value=<?php echo $id; ?>></TD></TR><?php
-                }
-                $counter++;
-            endwhile;
-            ?>
+                            <?php
+                            if ($counter == 0) {
+                                ?><TD><input type=radio name='GrupOpc' value=<?php echo $id; ?> checked="checked"></TD></TR><?php
+                            } else {
+                                ?><TD><input type=radio name='GrupOpc' value=<?php echo $id; ?>></TD></TR><?php
+                                }
+                                $counter++;
+                            endwhile;
+                            ?>
                 </TABLE></BR>
                 <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Vote music to play', 'msc-automation'); ?>"></p><br>
             </form>
@@ -288,12 +288,12 @@ function get_search_music($attributes) {
                     global $MyRadio;
                     if (!isset($MyRadio)) {
                         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-                    }
-                    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                        if ($MyRadio->IS_DEGUG == true) {
-                            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                            show_msc_message($msg, message_type::DANGER);
-                            return;
+                        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+                            if ($MyRadio->IS_DEGUG == true) {
+                                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                                show_msc_message($msg, message_type::DANGER);
+                                return;
+                            }
                         }
                     }
                     //consulta a la API i construim formulari llistat.
@@ -415,12 +415,12 @@ function get_last_albums($attributes) {
     global $MyRadio;
     if (!isset($MyRadio)) {
         $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
     $Vars[0] = 'rows=' . $NumRows;
@@ -542,16 +542,16 @@ function get_detail_song($attributes) {
         $interp = $list['track']['INTERP'];
         $title = $list['track']['TITLE'];
         $album = $list['track']['ALBUM'];
-        /*global $post;
-        $my_post = array(
-            'ID' => $post->ID,
-            'post_title' => $title . ' | ' . $album
-        );
+        /* global $post;
+          $my_post = array(
+          'ID' => $post->ID,
+          'post_title' => $title . ' | ' . $album
+          );
 
-        // Update the post into the database
-        wp_update_post($my_post);*/
-            $post_title = $title . ' | ' . $album;
-        echo "<script> document.title =".$post_title." ; </script>"; 
+          // Update the post into the database
+          wp_update_post($my_post); */
+        $post_title = $title . ' | ' . $album;
+        echo "<script> document.title =" . $post_title . " ; </script>";
 
         // hook to add Open Graph Namespace
         //add_filter( 'language_attributes', 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"' );            
@@ -561,11 +561,11 @@ function get_detail_song($attributes) {
         wp_enqueue_script('script_opengraph');
         ?>                                            
         <div class="detail_track_top"> 
-        <?php
-        if ($img_exist == TRUE) {
-            echo '<img class="jp-image" src=' . $PathToShowImg . '>';
-        }
-        ?>
+            <?php
+            if ($img_exist == TRUE) {
+                echo '<img class="jp-image" src=' . $PathToShowImg . '>';
+            }
+            ?>
             <div class="jp_title"><span><?php echo $interp; ?></span></div>
             <div class="jp_subtitle-name"><?php echo $title; ?></div>
             <div><i><?php echo __('From album', 'msc-automation') . ': ' . $album; ?></i></div>                

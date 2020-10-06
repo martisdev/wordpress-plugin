@@ -1,19 +1,14 @@
 <?php
 
 function msc_load_scripts() {
-    
-    $def_image = get_site_icon_url('120');
-    $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';    
-    
-    $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
-    $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;    
-    
-    $base_url_download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=';
 
-    //$url_podcast = wp_get_upload_dir('baseurl').'/'.PODCAST_DIR; 
+    $def_image = get_site_icon_url('120');
+    $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/');
+    $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
+    $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;
+    $base_url_download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=';
     $upload_dir = wp_upload_dir();
     $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
-    //$base_url_jamendo = URL_JAMENDO_TRACK;   
 
     $msc_data = array(
         'share_url' => $base_URL_Share,
@@ -21,10 +16,10 @@ function msc_load_scripts() {
         'path' => MSC_PLUGIN_URL,
         'key' => get_option('msc_client_key'),
         'img_dir' => DIR_TEMP_IMAGE,
-        'img_url' => URL_TEMP_IMAGE,        
+        'img_url' => URL_TEMP_IMAGE,
         'jamendo_url' => URL_JAMENDO_TRACK,
         'download_url' => $base_url_download,
-        'url_podcast' => $url_podcast        
+        'url_podcast' => $url_podcast
     );
     wp_enqueue_script('msc-data-js', MSC_JQUERY_URL . 'refresh_player.js', '', '1.0.0', false);
     wp_localize_script('msc-data-js', 'msc_data', $msc_data);
@@ -39,8 +34,12 @@ function get_player() {
     $name_template = get_page_template_slug($post->ID);
     if ($name_template == NAME_TEMPLATE_IFRAME) {
         return;
-    }    
-    
+    }
+
+    wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
+    wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
+    wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
+
     $name_container_player = '';
     if (get_option('msc_player') == 'head') {
         $name_container_player = 'dvPlayerTop';
@@ -52,20 +51,17 @@ function get_player() {
         $name_container_player = 'dvPlayerBottom';
         wp_enqueue_style('style_msc_player', MSC_CSS_URL . 'footer.css', array(), '1.0.0');
     }
-    wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
-    wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
-    wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
     /* Consulta a la dbs */
-    $key = get_option('msc_client_key');
     global $MyRadio;
     if (!isset($MyRadio)) {
+        $key = get_option('msc_client_key');
         $MyRadio = new my_radio($key, get_locale(), get_option('msc_debug'));
-    }
-    if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-        if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            show_msc_message($msg, message_type::DANGER);
-            return;
+        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+            if ($MyRadio->IS_DEGUG == true) {
+                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                show_msc_message($msg, message_type::DANGER);
+                return;
+            }
         }
     }
 
@@ -153,11 +149,12 @@ function get_player() {
                 <div class="jp-controls"> 
                     <div id="msc-box-l">                                    
                         <div class="jp-time-mute">
-                            <span class="jp-current-time"></span> / <span class="jp-duration"></span>                             
+                            <span class="jp-current-time"></span><span class="slash">/</span><span class="jp-duration"></span>                             
                             <i class="jp-mute fas fa-volume-mute"></i>
-                            <i class="jp-unmute fas fa-volume-up"></i>                            
+                            <i class="jp-unmute fas fa-volume-up"></i>  
+                            <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower fa-sm" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#" style="display:none;" onclick="playThisFile(this)"></a>
                         </div>                                                    
-                        <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#" style="display:none;"></a>
+
                         <i class="jp-play fa fa-play-circle fa-4x" style="display:none;"></i>                                          
                         <i class="jp-pause fa fa-pause-circle fa-4x"></i>                               
                     </div>
@@ -187,12 +184,12 @@ function get_player() {
 
                                         <a id="fb" class="fab fa-facebook-square fa-2x" href="<?php echo $URL_Facebook; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on Facebook', 'msc-automation'); ?>">
                                         </a>                                                
                                         <a id="tw" class="fab fa-twitter-square fa-2x" href="<?php echo $URL_Twitter; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on WhatsApp', 'msc-automation'); ?>">
                                         </a>                                            
                                         <a id="pt" class="fab fa-pinterest-square fa-2x" href="<?php echo $URL_Pinterest; ?>"
@@ -201,12 +198,12 @@ function get_player() {
                                         </a>                                            
                                         <a id="li" class="fab fa-linkedin fa-2x" href="<?php echo $URL_Linked_in; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
                                         </a>                                            
                                         <a id="wa" class="fab fa-whatsapp-square fa-2x" href="<?php echo $URL_WhatsApp; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
                                         </a>
                                         <a class="fas fa-code fa-2x" onclick="ShowIframeCode()" title="<?php _e('Share on your web', 'msc-automation'); ?>" href="javascript:void"></a>
@@ -240,10 +237,10 @@ function get_player() {
     add_shortcode('player_streaming', 'get_player');
 
     function get_iframe_player() {
-    if (is_admin()) {
-        return;
-    }
-    wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
+        if (is_admin()) {
+            return;
+        }
+        wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
         wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
         wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
 
@@ -252,15 +249,14 @@ function get_player() {
         global $MyRadio;
         if (!isset($MyRadio)) {
             $MyRadio = new my_radio($key, get_locale(), get_option('msc_debug'));
-        }
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
+            if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
+                if ($MyRadio->IS_DEGUG == true) {
+                    $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
+                    show_msc_message($msg, message_type::DANGER);
+                    return;
+                }
             }
         }
-
         $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWPLAYING);
 
         $img_width = '100';
@@ -384,12 +380,12 @@ function get_player() {
 
                                         <a id="fb" class="fab fa-facebook-square fa-2x" href="<?php echo $URL_Facebook; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on Facebook', 'msc-automation'); ?>">
                                         </a>                                                
                                         <a id="tw" class="fab fa-twitter-square fa-2x" href="<?php echo $URL_Twitter; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                                                   return false;"
+                                                       return false;"
                                            target="_blank" title="<?php _e('Share on Twitter', 'msc-automation'); ?>">
                                         </a>
                                         <a class="fas fa-code fa-2x" onclick="ShowIframeCode()" title="<?php _e('Share on your web', 'msc-automation'); ?>" href="javascript:void"></a>
@@ -422,7 +418,7 @@ function get_player() {
             </div>
         </div>
         <div id="link_home">
-    <?php _e('On', 'msc-automation') . ' '; ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b>
+            <?php _e('On', 'msc-automation') . ' '; ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b>
         </div> 
     </div> 
     <?php

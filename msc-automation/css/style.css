@@ -103,7 +103,7 @@
 
 #msc-box-l{    
     float:  left;    
-    width: 150px;      
+    width: 160px;      
 }
 #msc-box-r{
     float: left;    
@@ -258,8 +258,7 @@
     cursor: pointer;
 }  
 .jp-stream{
-    position: relative;
-    padding: 50px 50px 5px 5px;    
+    position: relative;    
     cursor: pointer;
 }
 #jp-info {
@@ -277,7 +276,8 @@
 }
 #jp_subtitle-name{
     padding-left: 20px; 
-    height: 50px;    
+    height: 50px;   
+      
 }
 #jp_title{
     /*max-width: 10px;*/
@@ -371,6 +371,10 @@
     display:inline;
 }  
 
+.slash{
+    display:inline;
+}
+
 .prg-list {
     float: left;
     padding: 10px;
@@ -394,6 +398,7 @@
 #msc-hide{
     display: none;
 }
+
 @media only screen and (max-width:800px) {
     /* For tablets: */
     #msc-left {
@@ -409,6 +414,9 @@
     .jp-duration{
         display:none;
     }
+    .slash{
+        display:none;
+    }
     .jp-time-mute{
         font-size:small;
     }
@@ -420,6 +428,9 @@
     }
     #jp_title{    
         font-size:10px;
+    }
+    #jp_subtitle-name{
+        font-size:12px;
     }
 }
 @media only screen and (max-width:600px) {
@@ -437,6 +448,9 @@
     .jp-duration{
         display:none;
     }
+    .slash{
+        display:none;
+    }
     .jp-time-mute{
         font-size:small;
     }
@@ -448,5 +462,8 @@
     }
     #jp_title{    
         font-size:8px;        
-    }  
+    } 
+    #jp_subtitle-name{
+        font-size: 11px;
+    }
 }
