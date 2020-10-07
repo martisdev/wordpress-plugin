@@ -150,6 +150,8 @@ function fc_opengraph() {
 
 add_action('wp_head', 'bps_cookie_script');
 
+
+
 // Cookies alert
 function bps_cookie_script () {
     $str_OK = __('OK', 'msc-automation');
