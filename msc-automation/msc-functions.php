@@ -148,6 +148,25 @@ function fc_opengraph() {
     }
 }
 
+add_action('wp_head', 'bps_cookie_script');
+
+// Cookies alert
+function bps_cookie_script () {
+    $str_OK = __('OK', 'msc-automation');
+    $str_message = __('If you continue browsing it means that you accept cookies', 'msc-automation');
+    $str_moreinfo = __('More info', 'msc-automation');
+    $str_link = get_privacy_policy_url();
+?>
+<script type="text/javascript">
+window.cookieconsent_options = {"message":"<?php echo $str_message ?>","dismiss":"<?php echo $str_OK ?>","learnMore":"<?php echo $str_moreinfo ?>","link":"<?php echo $str_link ?>","theme":"dark-bottom"};
+</script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+
+<?php
+}
+
+
 // Send the file to download
 function send_download_file(){
 	//get filedata

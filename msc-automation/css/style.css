@@ -1,3 +1,16 @@
+/* cookies */
+.cc_container {
+    background-color:rgba(34, 34, 34, 0.82);
+}
+
+.cc_container .cc_btn, .cc_container .cc_btn:visited {
+    background-color:#6cc !Important;
+    color:#fff !important;
+}
+
+.cc_container a, .cc_container a:visited {
+    color:#6cc !important
+}
 /* The alert message box */
 .succes {
     padding: 20px;
@@ -277,7 +290,7 @@
 #jp_subtitle-name{
     padding-left: 20px; 
     height: 50px;   
-      
+
 }
 #jp_title{
     /*max-width: 10px;*/
@@ -392,7 +405,7 @@
     text-align: center;  
     position: relative;      
     top: 100px;
-    
+
 }
 
 #msc-hide{
