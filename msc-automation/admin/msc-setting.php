@@ -69,9 +69,7 @@
                 <th scope="row">                                   
                     <label for="msc_iframe_player_ex"><?php _e('Example','msc-automation');?></label>
                 </th>                
-                <td>
-                    
-                    
+                <td>                    
                     <iframe id="msc_iframe_player_ex" src="<?php echo $url_player_stream ; ?>" allowfullscreen scrolling="no" frameborder="0" width="400px" height="135px"></iframe>
                 </td>                
             </tr>

@@ -264,7 +264,7 @@ function create_basic_mnu($post_author) {
             'menu-item-type' => 'post_type',
             'menu-item-status' => 'publish'));
     }//END mnu Ràdio Activitat        
-    // mnu search music
+    // page search music
     if ($_POST['create_search'] == 'true') {
         $search_page_title = __('Search music', 'msc-automation');
         $search_page_check = get_page_by_title($search_page_title);
@@ -290,7 +290,7 @@ function create_basic_mnu($post_author) {
             'menu-item-parent-id' => $parent_mnu,
             'menu-item-status' => 'publish'));
     }
-    // mnu Albums release
+    // page Albums release
     if ($_POST['create_new_album'] == 'true') {
         $release_page_title = __('Albums release', 'msc-automation');
         $release_page_check = get_page_by_title($release_page_title);
@@ -314,7 +314,7 @@ function create_basic_mnu($post_author) {
             'menu-item-parent-id' => $parent_mnu,
             'menu-item-status' => 'publish'));
     }
-    // mnu History played
+    // page History played
     if ($_POST['create_history_play'] == 'true') {
         $history_page_title = __('History played', 'msc-automation');
         $history_page_check = get_page_by_title($history_page_title);
@@ -338,7 +338,7 @@ function create_basic_mnu($post_author) {
             'menu-item-parent-id' => $parent_mnu,
             'menu-item-status' => 'publish'));
     }
-    // mnu Vote music to player
+    // page Vote music to player
     if ($_POST['create_vote_payer'] == 'true') {
         $vote_page_title = __('Vote music to play', 'msc-automation');
         $vote_page_check = get_page_by_title($vote_page_title);
@@ -363,7 +363,7 @@ function create_basic_mnu($post_author) {
             'menu-item-status' => 'publish'));
     }
 
-    //mnu NEWS
+    //page NEWS
     if ($_POST['create_news'] == 'true') {
         $news_page_title = __('News', 'msc-automation');
         $$news_page_check = get_page_by_title($news_page_title);
@@ -385,6 +385,24 @@ function create_basic_mnu($post_author) {
             'menu-item-type' => 'post_type',
             'menu-item-status' => 'publish'));
         update_option('page_for_posts', $news_page_id);
+    }
+        
+    // page Advertising
+    if ($_POST['create_Advertising'] == 'true') {
+        $adv_page_title = __('Advertising', 'msc-automation');
+        $adv_page_check = get_page_by_title($vote_page_title);
+        $adv_page = array(
+            'post_type' => 'page',
+            'post_title' => $adv_page_title,
+            'post_status' => 'publish',
+            'post_content' => '[manager_adv]',
+            'post_author' => $post_author,
+            'post_parent' => 0
+                //'post_slug' => 'site-map'
+        );
+        if (!isset($adv_page_check->ID)) {
+            $adv_page_id = wp_insert_post($adv_page);
+        }        
     }
 
     //register_nav_menu( 'header-menu', __( 'MSC Main','msc-automation') );
@@ -449,6 +467,10 @@ function reset_system() {
         wp_delete_post($page->ID, true);
     }
 
+    $page = get_page_by_title(__('Advertising', 'msc-automation'));
+    if ($page) {
+        wp_delete_post($page->ID, true);
+    }
 
 //Llistar tots les pàgines de programes i borrar el post i el meta
     $args = array(

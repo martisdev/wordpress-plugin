@@ -11,17 +11,8 @@ function get_last_played($attributes) {
     //$_SESSION['MyUrlRoot'] = get_site_url();        
 
     $dradi = (isset($_POST['dradi'])) ? $_POST['dradi'] : NULL;
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    
+    include MSC_PLUGIN_DIR.'connect_api.php';
 
     $col_name[0] = __('Title', 'msc-automation');
     $col_name[1] = __('Artist', 'msc-automation');
@@ -75,17 +66,7 @@ function get_now_playing($attributes) {
     }
     $image = (isset($attributes['image'])) ? $attributes['image'] : FALSE;
     $img_width = (isset($attributes['img_width'])) ? $attributes['img_width'] : 200;
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
 
     $_SESSION['image'] = $image;
     $upload_dir = wp_upload_dir();
@@ -122,17 +103,9 @@ function get_now_playing_widget($attributes) {
     }
     $image = (isset($attributes['image_w'])) ? $attributes['image_w'] : FALSE;
     $img_width = (isset($attributes['img_width_w'])) ? $attributes['img_width_w'] : 200;
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $_SESSION['image_w'] = $image;
     $upload_dir = wp_upload_dir();
     $_SESSION['upload_dir'] = $upload_dir;
@@ -165,17 +138,9 @@ function get_public_vote_player($attributes) {
         return;
     }
     $cssbutton = (isset($attributes['stylebutton'])) ? $attributes['stylebutton'] : "";
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     if (!isset($_POST['GrupOpc'])) {
         //llista formulari
         $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::LISTOPCIONSWEB);
@@ -285,17 +250,7 @@ function get_search_music($attributes) {
                 $str_disc = (isset($_GET['disc'])) ? $_GET['disc'] : 0;
                 if (strlen($strsql) > 0 or $str_disc > 0) {
                     // how many rows we have in database
-                    global $MyRadio;
-                    if (!isset($MyRadio)) {
-                        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-                        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                            if ($MyRadio->IS_DEGUG == true) {
-                                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                                show_msc_message($msg, message_type::DANGER);
-                                return;
-                            }
-                        }
-                    }
+                    include MSC_PLUGIN_DIR.'connect_api.php';
                     //consulta a la API i construim formulari llistat.
                     $pageNum = get_query_var('page', 0);
                     if ($str_disc > 0) {
@@ -412,17 +367,7 @@ function get_last_albums($attributes) {
         return;
     }
     $NumRows = (isset($attributes['rows'])) ? $attributes['rows'] : 5;
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
     $Vars[0] = 'rows=' . $NumRows;
     $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::LASTALBUMS, $Vars);
     if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -517,17 +462,8 @@ function get_detail_song($attributes) {
         $img_width = $attributes['img_width'];
     }
 
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $Vars[0] = 'id=' . $id_song;
     $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::SHOWINFO, $Vars);
     if ($MyRadio->RESPOSTA_ROWS > 0) {

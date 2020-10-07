@@ -11,7 +11,7 @@
         $MyRadio = new my_radio($my_key,LANG_DEF);                            
         if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
             if ($MyRadio->IS_DEGUG == true){               
-                $title = 'Error API MSC';
+                $title = 'MSC API Error';
                 $subtitle = $MyRadio->RESPOSTA_MESSAGE;
             }           
         }

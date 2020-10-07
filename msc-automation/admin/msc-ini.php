@@ -96,7 +96,15 @@ echo '<div class="wrap">';
                         <p class="description"><?php _e('Create the Vote music to play page','msc-automation')?></p>
                     </td>
                 </tr>
-                
+                <tr valign="top">
+                    <th scope="row">                                                       
+                        <label for="create_Advertising"><?php _e('Advertising','msc-automation')?></label>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="create_Advertising" id="create_vote_payer" value="true" checked="checked"/>
+                        <p class="description"><?php _e('Create the advertising page','msc-automation')?></p>
+                    </td>
+                </tr>
                 </table> 
                 <input type="hidden" value="true" name="ini_progs" />
             <?php

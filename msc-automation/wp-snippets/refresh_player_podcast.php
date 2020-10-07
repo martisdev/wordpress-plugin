@@ -11,7 +11,7 @@
     
         if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
             if ($MyRadio->IS_DEGUG == true){               
-                $title = 'Error API MSC';
+                $title = 'MSC API Error';
                 $subtitle = $MyRadio->RESPOSTA_MESSAGE;
             }           
         }
@@ -80,7 +80,6 @@
     }        
     
     $doc= new DOMDocument( "1.0", "ISO-8859-15" );
-
         $root= $doc->createElement("msc-soft");
             $node=$doc->createElement("header");
 
@@ -109,13 +108,9 @@
                 $rows->appendChild($doc->createTextNode($URL_Download));
                 $node->appendChild($rows);
                 
-        $root->appendChild($node);
-        
-        
+        $root->appendChild($node);      
     $doc->appendChild($root);
     
     header( "content-type: application/xml; charset=ISO-8859-15" );
     $doc->formatOutput=true;
     print $doc->saveXML();
-
-

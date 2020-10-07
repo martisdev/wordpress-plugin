@@ -4,18 +4,8 @@ function get_last_podcast() {
     if (is_admin()) {
         return;
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $my_key = get_option('msc_client_key');
-        $MyRadio = new my_radio($my_key, get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $list_podcast = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::LISTPODCAST_PRG, '');
 
     if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -24,7 +14,6 @@ function get_last_podcast() {
         $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
         $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/');
 
-//$StrReturn .='<div id="jp_container"><div>';
         $StrReturn .= '<div>';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
             $id = $list_podcast['item'][$counter]["ID"];

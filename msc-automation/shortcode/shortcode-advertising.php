@@ -55,19 +55,9 @@ function show_formLogin($errorlog = false) {
 
 //<button type="submit" class="search-submit">" . __('Send', 'msc-automation') . "</button>
 function show_listAdvertising($user, $psw) {
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
-
-
+    
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $Vars[0] = "u=" . $user;
     $Vars[1] = "p=" . $psw;
     $info_client = $MyRadio->QueryGetTable(seccions::ADVERTISING, sub_seccions::LOGIN, $Vars);
@@ -145,17 +135,7 @@ function show_ListRadiation($client, $falca) {
     } else {
         return show_formLogin();
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
 
     $Vars[0] = "f=" . $falca;
     $Vars[1] = "c=" . $client;
@@ -259,17 +239,8 @@ function logOut() {
 
 function changePassword() {
     if (isset($_POST['oldPsw'])) {
-        global $MyRadio;
-        if (!isset($MyRadio)) {
-            $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-            if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                if ($MyRadio->IS_DEGUG == true) {
-                    $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                    show_msc_message($msg, message_type::DANGER);
-                    return;
-                }
-            }
-        }
+        
+        include MSC_PLUGIN_DIR.'connect_api.php';
 
         $Vars[0] = "op=" . bin2hex($_POST['oldPsw']);
         $Vars[1] = "np=" . bin2hex($_POST['newPsw']);

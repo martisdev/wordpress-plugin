@@ -30,17 +30,7 @@ function get_detail_track($attribtes) {
     $url_player = '';
     switch ($type_track) {
         case TIP_AUTOMATIC_PROGRAMA:
-            global $MyRadio;
-            if (!isset($MyRadio)) {
-                $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-                if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                    if ($MyRadio->IS_DEGUG == true) {
-                        $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                        show_msc_message($msg, message_type::DANGER);
-                        return;
-                    }
-                }
-            }
+            include MSC_PLUGIN_DIR.'connect_api.php';
             $Vars[0] = 'id=' . $id_track;
             $list = $MyRadio->QueryGetTable(seccions::PODCAST, sub_seccions::SHOWINFO_PCAST, $Vars);
             if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -58,17 +48,7 @@ function get_detail_track($attribtes) {
             }                        
             break;
         case TIP_DIRECTE_:
-            global $MyRadio;
-            if (!isset($MyRadio)) {
-                $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-                if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                    if ($MyRadio->IS_DEGUG == true) {
-                        $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                        show_msc_message($msg, message_type::DANGER);
-                        return;
-                    }
-                }
-            }
+            include MSC_PLUGIN_DIR.'connect_api.php';
             $Vars[0] = 'id=' . $id_track;
             $list = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::SHOWINFO_PRG, $Vars);
             if ($MyRadio->RESPOSTA_ROWS > 0) {

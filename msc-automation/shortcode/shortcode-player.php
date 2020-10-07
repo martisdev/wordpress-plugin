@@ -52,18 +52,7 @@ function get_player() {
         wp_enqueue_style('style_msc_player', MSC_CSS_URL . 'footer.css', array(), '1.0.0');
     }
     /* Consulta a la dbs */
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $key = get_option('msc_client_key');
-        $MyRadio = new my_radio($key, get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR . 'connect_api.php';
 
     $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWPLAYING);
 
@@ -132,7 +121,9 @@ function get_player() {
             }
         }
         $decrip = $title . ' - ' . $subtitle;
+
         $URL_Share = $base_URL_Share . $list['item']['ID'] . '&type=' . $type;
+
         $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
         $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
         $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . $decrip . '&media=' . $urlmp3;
@@ -215,14 +206,11 @@ function get_player() {
                                 </div><!--END  Modal Share -->
                             </div>
                         </div>
-
                     </div>                                                                                             
                     <div id="msc-hide">                                                
                         <i id="refresh">1</i>
                         <i id="ID"><?php echo $id; ?></i>
-                        <i id="IDTYPE"><?php echo $type; ?></i>
-                        <i id="URL_Share"><?php echo $base_URL_Share; ?></i>
-                        <i id="def_image"><?php echo $def_image; ?></i>
+                        <i id="IDTYPE"><?php echo $type; ?></i>                                                
                     </div>  
                     <div class="jp-no-solution">
                         <span>Update Required</span>
@@ -244,19 +232,8 @@ function get_player() {
         wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
         wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
 
-        /* Consulta a la dbs */
-        $key = get_option('msc_client_key');
-        global $MyRadio;
-        if (!isset($MyRadio)) {
-            $MyRadio = new my_radio($key, get_locale(), get_option('msc_debug'));
-            if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-                if ($MyRadio->IS_DEGUG == true) {
-                    $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                    show_msc_message($msg, message_type::DANGER);
-                    return;
-                }
-            }
-        }
+        
+        include MSC_PLUGIN_DIR . 'connect_api.php';
         $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWPLAYING);
 
         $img_width = '100';
@@ -319,23 +296,12 @@ function get_player() {
                 }
             }
             $URL_Share = $base_URL_Share . $list['item']['ID'] . '&type=' . $type;
-            $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $title;
-            $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $title;
+            $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
+            $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
+            $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . $decrip . '&media=' . $urlmp3;
+            $URL_Linked_in = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $URL_Share . '&title=' . $decrip;
+            $URL_WhatsApp = 'https://wa.me/?text=' . $decrip . '+-+' . $URL_Share;
             $URL_Iframe = '<iframe src="' . $URL_Share . '" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
-
-
-            /* $refresh_data = array(
-              'path' => MSC_PLUGIN_URL ,
-              'key' => $key,
-              'img_dir' => DIR_TEMP_IMAGE,
-              'img_url' => URL_TEMP_IMAGE,
-              'url_share' => $base_URL_Share,
-              'url_download' => $base_url_download,
-              'url_jamendo' => $base_url_jamendo,
-              'url_podcast' => $url_podcast
-              );
-              wp_register_script('msc-refresh', 'jquery/myrefresh.js' );
-              wp_localize_script('msc-refresh', 'refresh_data', $refresh_data); */
         }
         ?>    
         <div class="dvPlayerTop" style="background-color:<?php echo get_option('msc_color'); ?>">
@@ -386,7 +352,22 @@ function get_player() {
                                         <a id="tw" class="fab fa-twitter-square fa-2x" href="<?php echo $URL_Twitter; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on Twitter', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on WhatsApp', 'msc-automation'); ?>">
+                                        </a>                                            
+                                        <a id="pt" class="fab fa-pinterest-square fa-2x" href="<?php echo $URL_Pinterest; ?>"
+                                           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+                                                       return false;"
+                                           target="_blank" title="<?php _e('Share on Pinterest', 'msc-automation'); ?>">
+                                        </a>                                            
+                                        <a id="li" class="fab fa-linkedin fa-2x" href="<?php echo $URL_Linked_in; ?>"
+                                           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+                                                       return false;"
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
+                                        </a>                                            
+                                        <a id="wa" class="fab fa-whatsapp-square fa-2x" href="<?php echo $URL_WhatsApp; ?>"
+                                           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+                                                       return false;"
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
                                         </a>
                                         <a class="fas fa-code fa-2x" onclick="ShowIframeCode()" title="<?php _e('Share on your web', 'msc-automation'); ?>" href="javascript:void"></a>
                                         <div id="iframe" style="display:none">
@@ -399,22 +380,16 @@ function get_player() {
                         </div>
 
                     </div>                                         
-                    <div id="msc-hide">
-                        <i id="path" style="display:none;"><?php echo MSC_PLUGIN_URL; ?></i>
-                        <i id="key"  style="display:none;"><?php echo $key; ?></i>
-                        <i id="img_dir"  style="display:none;"><?php echo DIR_TEMP_IMAGE; ?></i>
-                        <i id="img_url"  style="display:none;"><?php echo URL_TEMP_IMAGE; ?></i>
-                        <i id="url_share"  style="display:none;"><?php echo $base_URL_Share; ?></i>
-                        <i id="url_download"  style="display:none;"><?php echo $base_url_download; ?></i>
-                        <i id="url_jamendo"  style="display:none;"><?php echo $base_url_jamendo; ?></i>
-                        <i id="url_podcast"  style="display:none;"><?php echo $url_podcast; ?></i>
-                    </div>
-
+                    <div id="msc-hide">                                                
+                        <i id="refresh">1</i>
+                        <i id="ID"><?php echo $id; ?></i>
+                        <i id="IDTYPE"><?php echo $type; ?></i>                                                
+                    </div> 
+                    <div class="jp-no-solution">
+                        <span>Update Required</span>
+                        To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+                    </div> 
                 </div>                           
-                <div class="jp-no-solution">
-                    <span>Update Required</span>
-                    To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                </div>                                                
             </div>
         </div>
         <div id="link_home">

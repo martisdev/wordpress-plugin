@@ -4,17 +4,8 @@ function get_calendar_day() {
     if (is_admin()) {
         return;
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     //setlocale (LC_TIME, get_locale());
     if (!isset($_GET['goto'])) {
         $dateCal = current_time('Y-m-d');
@@ -191,17 +182,8 @@ function get_now_onair() {
     if (is_admin()) {
         return;
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $Vars[0] = "date=" . urlencode(current_time('Y-m-d H:i:s'));
     $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWONAIR, $Vars);
     if ($MyRadio->RESPOSTA_ROWS > 0) {

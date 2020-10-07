@@ -4,17 +4,8 @@ function get_timeline_FaceBook() {
     if (is_admin()) {
         return;
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $strReturn = '';
     if (strlen($MyRadio->URL_FaceBook)) {
         $strReturn .= '<div align=center >                    
@@ -34,6 +25,24 @@ function get_timeline_FaceBook() {
 }
 
 add_shortcode('timeline_FaceBook', 'get_timeline_FaceBook');
+
+function get_timeline_twitter() {
+    if (is_admin()) {
+        return;
+    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    $StrReturn = "";
+    if (strlen($MyRadio->USER_Twitter) > 3) {
+        $StrReturn .= '<div id="content"> ';
+        $StrReturn .= '<h3>'.htmlentities(strlen($MyRadio->NomEmissora)).' '.__('On', 'msc-automation').' Twitter</h3>';
+        $twitter_prg = new twitter($MyRadio->USER_Twitter, $MyRadio->LANG);
+        $StrReturn .= $twitter_prg->show_FollowButton();
+        $StrReturn .= '</div>';
+    }
+    return $strReturn;
+}
+
+add_shortcode('timeline_twitter', 'get_timeline_twitter');
 
 function social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe) {
     return '<a id="fb-' . $id . '" class="fab fa-facebook-square fa-2x" href="' . $URL_Facebook . '" onclick="javascript:window.open(this.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");return false;" 

@@ -128,8 +128,6 @@
     //TODO: Pendents de crear a la dbs
     const paramDIR_PODCAST      = '';
 }   
-    const MSC_PLUGIN_VERSION = '2.0';
-
 //Status de la API
     const SUCCES = 'succes'; 
     const ERROR = 'error';    

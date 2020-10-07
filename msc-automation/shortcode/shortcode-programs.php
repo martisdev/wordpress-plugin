@@ -10,17 +10,8 @@ function get_show_program($attributes) {
         return;
     }
 
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
+    
     $Vars[0] = 'id=' . $prg_id;
     $list = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::SHOWINFO_PRG, $Vars);
     if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -59,7 +50,7 @@ function get_show_program($attributes) {
         if (strlen($LinkTwitter) > 3) {
             $StrReturn .= '<div id="content"> ';
             $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'msc-automation') . ' Twitter</h3>';
-            $twitter_prg = new twitter($LinkTwitter, 'ca');
+            $twitter_prg = new twitter($LinkTwitter, $MyRadio->LANG);
             $StrReturn .= $twitter_prg->show_FollowButton();
             $StrReturn .= '</div>';
         }
@@ -156,21 +147,11 @@ function get_cloud_tags_programs() {
 
 add_shortcode('cloud_tags_programs', 'get_cloud_tags_programs');
 
-function get_list_programs($attributes) {
+function get_list_programs() {
     if (is_admin()) {
         return;
     }
-    global $MyRadio;
-    if (!isset($MyRadio)) {
-        $MyRadio = new my_radio(get_option('msc_client_key'), get_locale(), get_option('msc_debug'));
-        if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
-            if ($MyRadio->IS_DEGUG == true) {
-                $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-                show_msc_message($msg, message_type::DANGER);
-                return;
-            }
-        }
-    }
+    include MSC_PLUGIN_DIR.'connect_api.php';
 
     $list = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::LIST_PRGS);
 
@@ -185,11 +166,8 @@ function get_list_programs($attributes) {
 
         $page = get_page_by_title(html_entity_decode($titol));
         if (isset($page->ID)) {
-            $url_prg = $page->guid;
-            //$strReturn .= '<h2><a href="' . $url_prg . '">'.$titol.'</a></h2>';
-        } else {
-            
-        }
+            $url_prg = $page->guid;          
+        } 
 
         $upload_dir = wp_upload_dir();
         $PathToSaveImg = $upload_dir['basedir'] . '/' . TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';

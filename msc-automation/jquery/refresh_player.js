@@ -5,7 +5,7 @@ function playThisFile(elmnt) {
     var data_pos = 0;
     var id_pod = 0;
     var url_play = '';
-    for (var att, i = 0, att = elmnt.attributes, n = att.length; i < n; i++) {
+    for (var att, i = 0, atts = elmnt.attributes, n = atts.length; i < n; i++) {
         att = atts[i];
         nodes.push(att.nodeName);
         values.push(att.nodeValue);
@@ -135,7 +135,7 @@ function playThisFile(elmnt) {
         jQuery('.jp-stream').css('display', 'none');                
         var jamendo_url = msc_data.jamendo_url;
         var urlRequest = path + "wp-snippets/refresh_player_live.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&url_jamendo=" + jamendo_url + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;        
-    }
+    }    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState < 4) {
@@ -185,10 +185,16 @@ function playThisFile(elmnt) {
                 } else {
                     document.getElementById('download').style.display = "none";
                 }
+                 
+                
                 document.getElementById("like").style.color = 'inherit';
                 document.getElementById('fb').href = URL_Facebook;
                 document.getElementById('tw').href = URL_twitter;
-                document.getElementById('ifr').innerHTML = URL_Iframe;                                
+                document.getElementById('pt').href = URL_Pinterest;
+                document.getElementById('li').href = URL_LinkedIn;
+                document.getElementById('wa').href = URL_WhatsApp;
+                document.getElementById('ifr').innerHTML = URL_Iframe;
+                    
                 //ChangeInterval(t_remain);                   
             } else if (xmlhttp.status === 404) {
                 //Page Not Found
@@ -272,6 +278,9 @@ var myrefresh = function () {
                     document.getElementById("like").style.color = 'inherit';
                     document.getElementById('fb').href = URL_Facebook;
                     document.getElementById('tw').href = URL_twitter;
+                    document.getElementById('pt').href = URL_Pinterest;
+                    document.getElementById('li').href = URL_LinkedIn;
+                    document.getElementById('wa').href = URL_WhatsApp;
                     document.getElementById('ifr').innerHTML = URL_Iframe;
                     t_remain = t_remain[0].childNodes[0].nodeValue
                     if (t_remain < 1000) {

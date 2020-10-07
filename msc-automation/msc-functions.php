@@ -10,7 +10,6 @@ include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-advertising.php';
 include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-socialmedia.php';   
 include_once MSC_PLUGIN_DIR.'/shortcode/shortcode-utils.php';   
 
-        
 function my_add_custom_fields($post_id){
     if ( $_POST['post_type'] == 'post' ) {
         $prg_id =  $_POST['_msc_hook_id'];
