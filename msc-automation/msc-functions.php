@@ -151,8 +151,7 @@ function fc_opengraph() {
 add_action('wp_head', 'bps_cookie_script');
 
 
-
-// Cookies alert
+// Cookies alert 
 function bps_cookie_script () {
     $str_OK = __('OK', 'msc-automation');
     $str_message = __('If you continue browsing it means that you accept cookies', 'msc-automation');
@@ -166,9 +165,8 @@ window.cookieconsent_options = {"message":"<?php echo $str_message ?>","dismiss"
 <?php
 }
 
-
 // Send the file to download
-function send_download_file(){
+/*function send_download_file(){
 	//get filedata
   $attID = $_GET['attachment_id'];
   $theFile = wp_get_attachment_url( $attID );
@@ -242,4 +240,4 @@ function download_file(){
 		send_download_file();
 	}
 }
-//add_action('init','download_file');
+//add_action('init','download_file');*/
