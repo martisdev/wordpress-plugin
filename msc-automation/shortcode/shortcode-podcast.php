@@ -1,18 +1,20 @@
 <?php
 
-function get_last_podcast() {
+function mscra_get_last_podcast() {
     if (is_admin()) {
         return;
     }
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     $list_podcast = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::LISTPODCAST_PRG, '');
 
     if ($MyRadio->RESPOSTA_ROWS > 0) {
         $counter = 0;
         $upload_dir = wp_upload_dir();
-        $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
-        $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/');
+        $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
+        
+        $page = get_page_by_title(__('track', 'mscra-automation'));        
+        $base_URL_Share = $page->guid;
 
         $StrReturn .= '<div>';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
@@ -23,7 +25,7 @@ function get_last_podcast() {
             $data_crea = $list_podcast['item'][$counter]['DATE_PUBLICATION'];
             $titol = $nom_programa . ' ' . date('d-m-Y', strtotime($data_crea));
             $urlmp3 = strtolower($url_podcast . '/' . $list_podcast['item'][$counter]['FILE']);
-            $urldownload = strtolower(MSC_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id . '&key=' . $my_key);
+            $urldownload = strtolower(MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id . '&key=' . $my_key);
 
             $ref = "?ref=" . bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA);
             $URL_Share = $base_URL_Share . $ref;
@@ -45,32 +47,29 @@ function get_last_podcast() {
                 $count_marks = 0;
             }
             if ($count_marks > 0) {
-                $StrReturn .= '<li class="fas fa-plus-square" onclick="displayList(this, list_parts_' . $counter . ')" style="padding:5px"></li>'
-                        . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $titol . '</a>'
-                        . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i>'
-                        . '<br><a class="no-ajaxy fas fa-download" href="' . $urldownload . '"></a>';
-                $StrReturn .= social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe);
+                $StrReturn .= '<li class="fas fa-plus-square" onclick="mscra_displayList(this, list_parts_' . $counter . ')" style="padding:5px"></li>'
+                        . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $titol . '</a>'
+                        . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i>';                        
+                $StrReturn .= mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload);
                 $StrReturn .= '<ul style = "display:none" id = "list_parts_' . $counter . '">';
                 $counter_mark = 0;
                 while ($counter_mark < $count_marks):
                     $seg = $marks[$counter_mark]['SECOND'];
                     $comment = $marks[$counter_mark]['COMMENT'];
-                    $StrReturn .= '<li style="margin-left:50px"><a class="fpod" data-pos="' . $seg . '" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $comment . '</a></li>';
+                    $StrReturn .= '<li style="margin-left:50px"><a class="fpod" data-pos="' . $seg . '" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $comment . '</a></li>';
                     $counter_mark++;
                 endwhile;
                 $StrReturn .= '</ul>';
             } else {
-                if (get_option('msc_player') == 'nothing') {
-                    $StrReturn .= '<figure class="wp-block-audio">' . $titol . '<br><audio controls="" src=' . $urlmp3 . ' style="width:90%"></audio><i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>'
-                            . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
-                    $StrReturn .= social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe);
+                if (get_option('mscra_player') == 'nothing') {
+                    $StrReturn .= '<figure class="wp-block-audio">' . $titol . '<br><audio controls="" src=' . $urlmp3 . ' style="width:90%"></audio><i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>';                            
+                    $StrReturn .= mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload);
                     $StrReturn .= '</figure>';
                 } else {
                     $StrReturn .= '<ul><li>'
-                            . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $titol . '</a>'
-                            . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>'
-                            . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
-                    $StrReturn .= social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe);
+                            . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $titol . '</a>'
+                            . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>';                            
+                    $StrReturn .= mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload);
                     $StrReturn .= '</li></ul>';
                 }
             }
@@ -81,4 +80,4 @@ function get_last_podcast() {
     }
 }
 
-add_shortcode('last_podcast', 'get_last_podcast');
+add_shortcode('mscra_last_podcast', 'mscra_get_last_podcast');

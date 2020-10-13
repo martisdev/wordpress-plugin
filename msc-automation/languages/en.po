@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: msc-automation.php\n"
+"X-Poedit-WPHeader: mscra-automation.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
@@ -230,7 +230,7 @@ msgid "Shows the radio station timeline"
 msgstr "Shows the radio station timeline"
 
 #. Plugin Name of the plugin/theme
-#: admin/msc-index.php:2 msc-automation.php:35 widgets.php:86
+#: admin/msc-index.php:2 mscra-automation.php:35 widgets.php:86
 msgid "MSC Radio Automation"
 msgstr "MSC Radio Automation"
 
@@ -288,7 +288,7 @@ msgstr "Client support"
 msgid "General"
 msgstr "General"
 
-#: admin/msc-index.php:28 msc-automation.php:41
+#: admin/msc-index.php:28 mscra-automation.php:41
 msgid "Help"
 msgstr "Help"
 
@@ -539,11 +539,11 @@ msgstr "The file <b> $file_url </b> doesn't exist; check the URL"
 msgid "Cannot be used for $file_extension files!"
 msgstr "Cannot be used for $file_extension files!"
 
-#: msc-automation.php:36
+#: mscra-automation.php:36
 msgid "Settings"
 msgstr "Settings"
 
-#: msc-automation.php:39
+#: mscra-automation.php:39
 msgid "Initialize"
 msgstr "Initialize"
 

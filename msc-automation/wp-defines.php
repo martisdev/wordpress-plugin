@@ -1,29 +1,25 @@
-<?php
-    const MSC_PLUGIN_VERSION = '2.2';
-    define('MSC_DIR', 'msc-automation');
-    define('MSC_PLUGIN_URL', plugins_url().'/'.MSC_DIR.'/' );
-    define('MSC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-    define('WP_SNIPPETS_DIR' , MSC_PLUGIN_DIR.'wp-snippets/');       
-    define('WP_SNIPPETS_URL' , MSC_PLUGIN_URL.'wp-snippets/');   
-    define('MSC_FUNCTIONS_URL',MSC_PLUGIN_URL.'shortcode/' );
-    define('MSC_CSS_URL',MSC_PLUGIN_URL.'css/' );
-    define('MSC_JQUERY_URL',MSC_PLUGIN_URL.'jquery/' );
-    define('NAME_TEMPLATE_IFRAME','template-iframe.php' );
-    define('NAME_PAGE_TRACK','track' );
-    define('NAME_PAGE_SONG','song' );
-    define('NAME_PAGE_ALBUM','album' );
-
+<?php    
+    define('MSCRA_DIR', dirname(plugin_basename( __FILE__ )));    
+    define('MSCRA_PLUGIN_URL', plugin_dir_url(__FILE__) );    
+    define('MSCRA_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
     
-    include_once MSC_PLUGIN_DIR.'/inc/defines.php';
+    define('MSCRA_WP_SNIPPETS_DIR' , MSCRA_PLUGIN_DIR.'wp-snippets/');       
+    define('MSCRA_WP_SNIPPETS_URL' , MSCRA_PLUGIN_URL.'wp-snippets/');       
+    define('MSCRA_CSS_URL',MSCRA_PLUGIN_URL.'css/' );
+    define('MSCRA_JQUERY_URL',MSCRA_PLUGIN_URL.'jquery/' );
+    define('MSCRA_NAME_TEMPLATE_IFRAME','template-iframe.php' );    
+    
+    include_once MSCRA_PLUGIN_DIR.'/inc/defines.php';
     $upload_dir = wp_upload_dir();
-    define('DIR_TEMP_IMAGE', $upload_dir['basedir'].'/'.TMP_IMG_DIR );
-    define('URL_TEMP_IMAGE', $upload_dir['baseurl'].'/'.TMP_IMG_DIR );
+    define('MSCRA_DIR_TEMP_IMAGE', $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR );
+    define('MSC_URL_TEMP_IMAGE', $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR );
     
-    include_once MSC_PLUGIN_DIR.'/inc/my_radio.php';        
-    require_once(MSC_PLUGIN_DIR.'msc-functions.php' ); 
-    require_once(MSC_PLUGIN_DIR.'msc-install.php' ); 
-    
-    include_once MSC_PLUGIN_DIR.'/inc/utils.php'; 
-    include_once MSC_PLUGIN_DIR.'/inc/facebook.php'; 
-    include_once MSC_PLUGIN_DIR.'/inc/twitter.php';     
-    
+    include_once MSCRA_PLUGIN_DIR.'/inc/my_radio.php';        
+    include_once(MSCRA_PLUGIN_DIR.'functions.php' ); 
+    include_once(MSCRA_PLUGIN_DIR.'msc-install.php' );    
+    include_once MSCRA_PLUGIN_DIR.'/inc/utils.php'; 
+    include_once MSCRA_PLUGIN_DIR.'/inc/facebook.php'; 
+    include_once MSCRA_PLUGIN_DIR.'/inc/twitter.php';     
+    //include_once 'widgets.php';    
+    include_once 'templates.php';    
+    include_once 'ajaxify.php';

@@ -1,6 +1,6 @@
 === MSC Radio Automation ===
 Contributors: MSC Team
-Tags: broadcaster, podcasting, podcast, podcaster, broadcasting, stream, media, radio stations
+Tags: broadcaster, podcasting, podcast, podcaster, broadcasting, stream, media, radio stations...............
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 5.5
@@ -8,8 +8,10 @@ Donate link: https://msc-soft.com/donate/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.
+Radio Automation Software | The radio on cloud.
+Syncronize your radio station with your web page and powered it for advanced functionalities.
 This plugin is the tool to offer our advanced services, you need to hire some type of service (https://msc-soft.com/services-and-prices/). 
+the application engine is an API that calls our servers and responds with your account data.
 
 == Description ==
 Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.
@@ -32,6 +34,9 @@ Developed by podcasters for podcasters
 4 WordPress settings
 
 == Changelog ==
+= 2. =
+* Released 10/09/2020
+* 
 
 = 2.2 =
 * Released 10/07/2020

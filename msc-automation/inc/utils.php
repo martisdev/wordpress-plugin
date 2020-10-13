@@ -6,7 +6,7 @@
         const DANGER = 'danger';
     }
     
-    function show_msc_message($message, $type){
+    function mscra_show_message($message, $type){
         ?>
         <script>
             console.log("<?php echo $type.': '.$message ?>");
@@ -14,7 +14,7 @@
         <?php
     }
 
-    function test_date($date){        
+    function mscra_test_date($date){        
         if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
             return true;
         } else {            
@@ -23,7 +23,7 @@
         }
     }
     
-    function getImage($img_data,$NameToSave,$widthMax) {        
+    function mscra_getImage($img_data,$NameToSave,$widthMax) {        
         if (empty($img_data)) {
             return false;            
         }
@@ -53,7 +53,7 @@
         }
     }
     
-    function tag_cloud($listTags,$urlDesti,$div_size = 400) {
+    function mscra_tag_cloud($listTags,$urlDesti,$div_size = 400) {
         
         $ret = '<div style=\"width:'.$div_size.'px\">';;
         /* Initialize some variables */

@@ -1,6 +1,6 @@
 <?php
 
-function get_last_played($attributes) {
+function mscra_get_last_played($attributes) {
     if (is_admin()) {
         return;
     }
@@ -12,12 +12,12 @@ function get_last_played($attributes) {
 
     $dradi = (isset($_POST['dradi'])) ? $_POST['dradi'] : NULL;
     
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
 
-    $col_name[0] = __('Title', 'msc-automation');
-    $col_name[1] = __('Artist', 'msc-automation');
-    $col_name[2] = __('Style', 'msc-automation');
-    $col_name[3] = __('Hour', 'msc-automation');
+    $col_name[0] = __('Title', 'mscra-automation');
+    $col_name[1] = __('Artist', 'mscra-automation');
+    $col_name[2] = __('Style', 'mscra-automation');
+    $col_name[3] = __('Hour', 'mscra-automation');
 
     $_SESSION['col_name'] = $col_name;
     $_SESSION['NumRows'] = $NumRows;
@@ -26,12 +26,12 @@ function get_last_played($attributes) {
     $upload_dir = wp_upload_dir();
     $_SESSION['upload_dir'] = $upload_dir;
 
-    $doc_refresh = WP_SNIPPETS_DIR . 'list_radia.php';
+    $doc_refresh = MSCRA_WP_SNIPPETS_DIR . 'list_radia.php';
     $name_div = 'list-radia';
     //if($refresh==false || $dradi<> null){$name_div = 'list-radia';}else{$name_div = 'refresh';}            
     if ($refresh == TRUE) {
         $name_div = 'refresh-radia';
-        $doc_refresh_js = WP_SNIPPETS_URL . 'list_radia.php';
+        $doc_refresh_js = MSCRA_WP_SNIPPETS_URL . 'list_radia.php';
         ?>
         <div id="dom-source" style="display: none;"><?php echo $doc_refresh_js; ?></div>
         <div id="dom-div" style="display: none;"><?php echo '#' . $name_div; ?></div>
@@ -51,22 +51,22 @@ function get_last_played($attributes) {
     </div>
 
     <form action="<?php echo get_permalink() ?>" method=post>            
-        <p><label for="dradi"><h4><?php _e('What a song played at...', 'msc-automation') ?></h4></label><br>                
+        <p><label for="dradi"><h4><?php _e('What a song played at...', 'mscra-automation') ?></h4></label><br>                
             <input type="date" name="dradi" max="<?php echo date("Y-m-d"); ?>" value="<?php echo ($dradi == NULL) ? current_time('mysql', true) : $dradi; /* current_time( 'mysql', true ); */ ?>"></p>            
-        <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Search...', 'msc-automation') ?>"></p><br>
+        <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Search...', 'mscra-automation') ?>"></p><br>
     </form>
     <?php
 }
 
-add_shortcode('last_played', 'get_last_played');
+add_shortcode('mscra_last_played', 'mscra_get_last_played');
 
-function get_now_playing($attributes) {
+function mscra_get_now_playing($attributes) {
     if (is_admin()) {
         return;
     }
     $image = (isset($attributes['image'])) ? $attributes['image'] : FALSE;
     $img_width = (isset($attributes['img_width'])) ? $attributes['img_width'] : 200;
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
 
     $_SESSION['image'] = $image;
     $upload_dir = wp_upload_dir();
@@ -76,10 +76,10 @@ function get_now_playing($attributes) {
     $name_div = 'refresh-radia';
     $doc_refresh = 'info_song.php';
     ?>
-    <div id="dom-source" style="display: none;"><?php echo WP_SNIPPETS_URL . $doc_refresh; ?></div>
+    <div id="dom-source" style="display: none;"><?php echo MSCRA_WP_SNIPPETS_URL . $doc_refresh; ?></div>
     <div id="dom-div" style="display: none;"><?php echo '#refresh'; ?></div>
     <?php
-    $file_js = MSC_JQUERY_URL . 'refresh_now_playing.js';
+    $file_js = MSCRA_JQUERY_URL . 'refresh_now_playing.js';
     wp_enqueue_script('handle-now_playing', $file_js, array('jquery'), '1.0.0', true);
     $params = array(
         'nom_div' => '#refresh',
@@ -89,57 +89,21 @@ function get_now_playing($attributes) {
     wp_localize_script('handle-list_radia', 'Params_refresh', $params);
     ?>        
     <div id="refresh">
-        <?php include (WP_SNIPPETS_DIR . $doc_refresh); ?>
+        <?php include (MSCRA_WP_SNIPPETS_DIR . $doc_refresh); ?>
     </div>      
 
     <?php
 }
 
-add_shortcode('now_playing', 'get_now_playing');
+add_shortcode('mscra_now_playing', 'mscra_get_now_playing');
 
-function get_now_playing_widget($attributes) {
-    if (is_admin()) {
-        return;
-    }
-    $image = (isset($attributes['image_w'])) ? $attributes['image_w'] : FALSE;
-    $img_width = (isset($attributes['img_width_w'])) ? $attributes['img_width_w'] : 200;
-    
-    include MSC_PLUGIN_DIR.'connect_api.php';
-    
-    $_SESSION['image_w'] = $image;
-    $upload_dir = wp_upload_dir();
-    $_SESSION['upload_dir'] = $upload_dir;
-    $_SESSION['img_width_w'] = $img_width;
-
-
-    $doc_refresh = 'info_song_widget.php';
-    ?>
-    <div id="dom-source" style="display: none;"><?php echo WP_SNIPPETS_URL . $doc_refresh; ?></div>
-    <div id="dom-div" style="display: none;"><?php echo '#refresh-widget'; ?></div>
-    <?php
-    $file_js = MSC_JQUERY_URL . 'refresh_now_playing_widget.js';
-    wp_enqueue_script('handle-now_playing_widget', $file_js, array('jquery'), '1.0.0', true);
-    $params = array(
-        'nom_div' => '#refresh-widget',
-        'time' => 15000,
-        'source' => $file_js
-    );
-    wp_localize_script('handle-list_radia', 'Params_refresh', $params);
-    ?>        
-    <div id="refresh-widget">
-        <?php include ( WP_SNIPPETS_DIR . $doc_refresh); ?>
-    </div>      
-
-    <?php
-}
-
-function get_public_vote_player($attributes) {
+function mscra_get_public_vote_player($attributes) {
     if (is_admin()) {
         return;
     }
     $cssbutton = (isset($attributes['stylebutton'])) ? $attributes['stylebutton'] : "";
     
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     if (!isset($_POST['GrupOpc'])) {
         //llista formulari
@@ -150,10 +114,10 @@ function get_public_vote_player($attributes) {
             ?>
             <form action="<?php echo $url_form; ?>" method=POST>
                 <TABLE>
-                    <TR><TH scope="col"><?php _e('Votes', 'msc-automation'); ?></TH>
-                        <TH scope="col"><?php _e('Title', 'msc-automation'); ?></TH>
-                        <TH scope="col"><?php _e('Artist', 'msc-automation'); ?></TH>
-                        <TH scope="col"><?php _e('Select', 'msc-automation'); ?></TH></TR>
+                    <TR><TH scope="col"><?php _e('Votes', 'mscra-automation'); ?></TH>
+                        <TH scope="col"><?php _e('Title', 'mscra-automation'); ?></TH>
+                        <TH scope="col"><?php _e('Artist', 'mscra-automation'); ?></TH>
+                        <TH scope="col"><?php _e('Select', 'mscra-automation'); ?></TH></TR>
                     <?php
                     while ($counter < $MyRadio->RESPOSTA_ROWS):
                         $interp = $list['track'][$counter]['INTERP'];
@@ -174,11 +138,11 @@ function get_public_vote_player($attributes) {
                             endwhile;
                             ?>
                 </TABLE></BR>
-                <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Vote music to play', 'msc-automation'); ?>"></p><br>
+                <p align=center><input class="<?php echo $cssbutton; ?>" type=submit name=vot value="<?php _e('Vote music to play', 'mscra-automation'); ?>"></p><br>
             </form>
             <?php
         } else {
-            _e('Wait a moment and try again later.', 'msc-automation');
+            _e('Wait a moment and try again later.', 'mscra-automation');
         }
     } else {
         //Ja s'ha votat, registrar el vot
@@ -186,17 +150,17 @@ function get_public_vote_player($attributes) {
         $Vars[0] = 'id=' . $temid;
         $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::VOTEOPCIONWEB, $Vars);
         ?>                        
-        <h2><?php _e('Thanks for participating', 'msc-automation'); ?></h2>
+        <h2><?php _e('Thanks for participating', 'mscra-automation'); ?></h2>
         <?php
         //informació del tema votat.             
-        include WP_SNIPPETS_DIR . 'detail_song.php';
+        include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
         echo $strReturn;
     }
 }
 
-add_shortcode('public_vote_player', 'get_public_vote_player');
+add_shortcode('mscra_public_vote_player', 'mscra_get_public_vote_player');
 
-function get_search_music($attributes) {
+function mscra_get_search_music($attributes) {
     if (is_admin()) {
         return;
     }
@@ -205,15 +169,15 @@ function get_search_music($attributes) {
 
         $HoraPrg = strftime("%Y-%m-%d %H:%M:%S", $_REQUEST['hp']);
         $temid = $_REQUEST['sid'];
-        $strReturn = '<h2>' . _e('Scheduled song, thanks for participating', 'msc-automation') . '</h2>';
-        include WP_SNIPPETS_DIR . 'detail_song.php';
+        $strReturn = '<h2>' . _e('Scheduled song, thanks for participating', 'mscra-automation') . '</h2>';
+        include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
         echo $strReturn;
-        setcookie("bot", time(), time() + 3600, COOKIEPATH, COOKIE_DOMAIN); //espera una hora
+        setcookie("mscra_date_vote", time(), time() + 3600, COOKIEPATH, COOKIE_DOMAIN); //espera una hora
     } else {
         $espera = 0;
-        if (isset($_COOKIE["bot"])) {
+        if (isset($_COOKIE["mscra_date_vote"])) {
             $hora = time(); //mktime(date("H"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
-            $expiration_date = strtotime($_COOKIE["bot"]);
+            $expiration_date = strtotime($_COOKIE["mscra_date_vote"]);
             $Resta = $expiration_date - $hora;
             if ($Resta < 0) {
                 // Espera't
@@ -225,21 +189,21 @@ function get_search_music($attributes) {
             if (isset($_GET['opt'])) {
                 // ensenyem info tema                    
                 $temid = $_GET['opt'];
-                include WP_SNIPPETS_DIR . 'detail_song.php';
+                include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
                 //Ensenyem formulari del tema seleccionat per escollir una hora a sonar   
                 //canvi hora local                    
                 $mydate_1 = strtotime(current_time('mysql')) + 5 * 60; //date_i18n( 'Y-m-d g:i:s',  strtotime( get_the_time( "'Y-m-d g:i:s'" ) ) );
                 $mydate_2 = strtotime(current_time('mysql')) + 10 * 60;
                 $mydate_3 = strtotime(current_time('mysql')) + 15 * 60;
 
-                $strReturn .= "<P align=center><a class='capsule'>" . __('Select one hour', 'msc-automation') . "</a></P>";
+                $strReturn .= "<P align=center><a class='capsule'>" . __('Select one hour', 'mscra-automation') . "</a></P>";
                 $strReturn .= '<FORM class="search-form" METHOD=POST ACTION="' . get_permalink() . '" >';
                 $strReturn .= "<TABLE align=center>";
                 $strReturn .= "<tr><TD><input type=radio name=hp value=$mydate_1>" . strftime("%H:%M", $mydate_1) . "</TD></tr>\n";
                 $strReturn .= "<tr><TD><input type=radio name=hp value=$mydate_2>" . strftime("%H:%M", $mydate_2) . "</TD></tr>\n";
                 $strReturn .= "<tr><TD><input type=radio name=hp value=$mydate_3>" . strftime("%H:%M", $mydate_3) . "</TD></tr>\n";
                 $strReturn .= "<input type=hidden  name=sid value=" . $temid . "></table>";
-                $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'msc-automation') . "></p>";
+                $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'mscra-automation') . "></p>";
                 $strReturn .= "</form>";
                 echo $strReturn;
             } else {
@@ -250,7 +214,7 @@ function get_search_music($attributes) {
                 $str_disc = (isset($_GET['disc'])) ? $_GET['disc'] : 0;
                 if (strlen($strsql) > 0 or $str_disc > 0) {
                     // how many rows we have in database
-                    include MSC_PLUGIN_DIR.'connect_api.php';
+                    include MSCRA_PLUGIN_DIR.'connect_api.php';
                     //consulta a la API i construim formulari llistat.
                     $pageNum = get_query_var('page', 0);
                     if ($str_disc > 0) {
@@ -265,19 +229,23 @@ function get_search_music($attributes) {
                         $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::SEARCHSONG, $Vars);
                     }
 
-                    $offset = ($pageNum - 1) * ROWS_PER_PAGE;
+                    $offset = ($pageNum - 1) * WP_MSCRA_ROWS_PER_PAGE;
                     if ($MyRadio->RESPOSTA_ROWS > 0) {
                         // how many rows to show per page
                         // by default we show first page
                         // if $_GET['page'] defined, use it as page number                                                                  
                         if ($pageNum > 0) {
                             // counting the offset
-                            $offset = ($pageNum - 1) * ROWS_PER_PAGE;
+                            $offset = ($pageNum - 1) * WP_MSCRA_ROWS_PER_PAGE;
                         }
 
                         // how many pages we have when using paging?
-                        $maxPage = ceil($MyRadio->RESPOSTA_ROWS / ROWS_PER_PAGE);
-                        $rows_this_page = count($list['track']);
+                        $maxPage = ceil($MyRadio->RESPOSTA_ROWS / WP_MSCRA_ROWS_PER_PAGE);
+                        if (is_array($list['track'])){
+                            $rows_this_page = count($list['track']);
+                        }else{
+                            $rows_this_page = 0;
+                        }                                                
                         if ($maxPage > 1) {
                             // print the link to access each page                                
                             $self = get_bloginfo('url') . "?p=" . get_the_ID();
@@ -310,7 +278,7 @@ function get_search_music($attributes) {
                             // print the navigation link
                             $Navigator = "<p align=center>" . $first . $prev . $nav . $next . $last . "<p>";
 
-                            $nIni = (($pageNum - 1) * ROWS_PER_PAGE) + 1;
+                            $nIni = (($pageNum - 1) * WP_MSCRA_ROWS_PER_PAGE) + 1;
                             $nFi = ($nIni + $rows_this_page) - 1;
                             $strReturn .= $nav = $Navigator;
                             $strReturn .= "<p align=right>resultats " . $nIni . " - " . $nFi . " d&rsquo;un total de " . $MyRadio->RESPOSTA_ROWS . "</p>";
@@ -319,8 +287,8 @@ function get_search_music($attributes) {
                         $strReturn .= '<FORM class="search-form" METHOD=GET ACTION="' . get_permalink() . '" >
                                         <TABLE align=center>
                                         <TR><TH scope="col"></TH>
-                                        <TH scope="col">' . __('Title', 'msc-automation') . '</TH>
-                                        <TH scope="col">' . __('Artist', 'msc-automation') . '</TH></TR>';
+                                        <TH scope="col">' . __('Title', 'mscra-automation') . '</TH>
+                                        <TH scope="col">' . __('Artist', 'mscra-automation') . '</TH></TR>';
                         $counter = 0;
                         while ($counter < $rows_this_page):
                             if ($MyRadio->RESPOSTA_ROWS == 1) {
@@ -345,29 +313,29 @@ function get_search_music($attributes) {
                             $counter++;
                         endwhile;
                         $strReturn .= "</TABLE>\n";
-                        $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'msc-automation') . "></p>";
+                        $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'mscra-automation') . "></p>";
                         $strReturn .= "</form>";
                         echo $strReturn;
                     }
                     //Tornem a posar el formulari inputtex de la consulat
-                    include WP_SNIPPETS_DIR . 'form_search_song.php';
+                    include MSCRA_WP_SNIPPETS_DIR . 'form_search_song.php';
                 } else {
                     //formulari inputtex de la consulat
-                    include WP_SNIPPETS_DIR . 'form_search_song.php';
+                    include MSCRA_WP_SNIPPETS_DIR . 'form_search_song.php';
                 }
             }
         }
     }
 }
 
-add_shortcode('search_music', 'get_search_music');
+add_shortcode('mscra_search_music', 'mscra_get_search_music');
 
-function get_last_albums($attributes) {
+function mscra_get_last_albums($attributes) {
     if (is_admin()) {
         return;
     }
     $NumRows = (isset($attributes['rows'])) ? $attributes['rows'] : 5;
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     $Vars[0] = 'rows=' . $NumRows;
     $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::LASTALBUMS, $Vars);
     if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -399,7 +367,7 @@ function get_last_albums($attributes) {
             break;
         }
 
-        $strReturn .= '<TABLE align=center>';
+        $strReturn = '<TABLE align=center>';
         $loop_return = '';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
             $id = $list['albums'][$counter]['ID'];
@@ -409,11 +377,11 @@ function get_last_albums($attributes) {
             $comment = $list['albums'][$counter]['COMMENT'];
             $link = $list['albums'][$counter]['LINK'];
 
-            $PathToSaveImg = $upload_dir['basedir'] . '/' . TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
-            $PathToShowImg = $upload_dir['baseurl'] . '/' . TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
+            $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
+            $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
             $have_image = file_exists($PathToSaveImg);
             if ($have_image == FALSE) {
-                $have_image = getImage(base64_decode($list['albums'][$counter]['IMAGE']), $PathToSaveImg, $img_width);
+                $have_image = mscra_getImage(base64_decode($list['albums'][$counter]['IMAGE']), $PathToSaveImg, $img_width);
             }
 
             $loop_return .= '<TR><th>';
@@ -445,9 +413,9 @@ function get_last_albums($attributes) {
     }
 }
 
-add_shortcode('last_albums', 'get_last_albums');
+add_shortcode('mscra_last_albums', 'mscra_get_last_albums');
 
-function get_detail_song($attributes) {
+function mscra_get_detail_song($attributes) {
     if (is_admin()) {
         return;
     }
@@ -462,7 +430,7 @@ function get_detail_song($attributes) {
         $img_width = $attributes['img_width'];
     }
 
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     $Vars[0] = 'id=' . $id_song;
     $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::SHOWINFO, $Vars);
@@ -471,9 +439,9 @@ function get_detail_song($attributes) {
             $img_exist = FALSE;
         } else {
             $upload_dir = wp_upload_dir();
-            $PathToSaveImg = $upload_dir['basedir'] . '/' . TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
-            $PathToShowImg = $upload_dir['baseurl'] . '/' . TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
-            $img_exist = getImage(base64_decode($list['track']['IMAGE']), $PathToSaveImg, $img_width);
+            $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
+            $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
+            $img_exist = mscra_getImage(base64_decode($list['track']['IMAGE']), $PathToSaveImg, $img_width);
         }
         $interp = $list['track']['INTERP'];
         $title = $list['track']['TITLE'];
@@ -491,7 +459,7 @@ function get_detail_song($attributes) {
 
         // hook to add Open Graph Namespace
         //add_filter( 'language_attributes', 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"' );            
-        wp_register_script('script_opengraph', MSC_JQUERY_URL . 'refresh_og.js', '1.0.0');
+        wp_register_script('script_opengraph', MSCRA_JQUERY_URL . 'refresh_og.js', '1.0.0');
         $params_og = array('i' => $PathToShowImg, 't' => $title . ' | ' . $interp);
         wp_localize_script('script_opengraph', 'object_params', $params_og);
         wp_enqueue_script('script_opengraph');
@@ -504,11 +472,11 @@ function get_detail_song($attributes) {
             ?>
             <div class="jp_title"><span><?php echo $interp; ?></span></div>
             <div class="jp_subtitle-name"><?php echo $title; ?></div>
-            <div><i><?php echo __('From album', 'msc-automation') . ': ' . $album; ?></i></div>                
-            <div><?php _e('On', 'msc-automation'); ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b></div>
+            <div><i><?php echo __('From album', 'mscra-automation') . ': ' . $album; ?></i></div>                
+            <div><?php _e('On', 'mscra-automation'); ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b></div>
         </div>
         <?php
     }
 }
 
-add_shortcode('detail_song', 'get_detail_song');
+add_shortcode('mscra_detail_song', 'mscra_get_detail_song');

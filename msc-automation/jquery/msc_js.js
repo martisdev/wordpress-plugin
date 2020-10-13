@@ -1,4 +1,4 @@
-function displayList(myParent, myElement) {
+function mscra_displayList(myParent, myElement) {
     if (myElement.style.display === "none") {
         myElement.style.display = "inline";
     } else {
@@ -12,7 +12,7 @@ function displayList(myParent, myElement) {
     }
 }
 
-function ShowModalshare() {
+function mscra_ShowModalShare() {
     // Get the modal
     var modal = document.getElementById("myModalShare");
 
@@ -40,11 +40,7 @@ function ShowModalshare() {
     }
 }
 
-function ShowIframeCode() {
-    //function ShowIframeCode(elmnt) {
-    //var id = elmnt.data("pod"); 
-    //alert(id);
-    //var ifra = document.getElementById("iframe-"+id);
+function mscra_ShowIframeCode() {    
     var ifra = document.getElementById("iframe");
     if (ifra.style.display == "none") {
         ifra.style.display = "block";
@@ -53,7 +49,7 @@ function ShowIframeCode() {
     }
 }
 
-function LikeTrack() {
+function mscra_LikeTrack() {
     var key = msc_data.key,
         hear = document.getElementById("like"),
         id = document.getElementById('ID').innerHTML,

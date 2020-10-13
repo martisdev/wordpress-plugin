@@ -1,10 +1,10 @@
 <?php
 
-function get_calendar_day() {
+function mscra_get_calendar_day() {
     if (is_admin()) {
         return;
     }
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     //setlocale (LC_TIME, get_locale());
     if (!isset($_GET['goto'])) {
@@ -67,7 +67,7 @@ function get_calendar_day() {
                     $Strloop .= '<td><h2>' . $txtLabel . '</h2>';
                 }
                 break;
-            case TIP_CONEX_CENTRAL:$Strloop .= '<td><h2>' . __('Desconnection', 'msc-automation') . '</h2>';
+            case TIP_CONEX_CENTRAL:$Strloop .= '<td><h2>' . __('Desconnection', 'mscra-automation') . '</h2>';
                 break;
             case TIP_DIRECTE:
                 $page = get_page_by_title(html_entity_decode($txtLabel));
@@ -82,22 +82,22 @@ function get_calendar_day() {
         $Strloop .= '<p>' . $txtDescrip . '<p></td>';
         $Strloop .= '<td>';
         if ($is_reemissio == 1) {
-            $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'msc-automation') . '"></i></div>';
+            $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'mscra-automation') . '"></i></div>';
         }
         $Strloop .= '<div id="cal-bottom"><i class="fas fa-clock">' . $txtDurada . '</i></div></td></TR>';
 
 
         $StrReturn .= $Strloop;
-        $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'msc-automation') . ' ...</BR>';
+        $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'mscra-automation') . ' ...</BR>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= __('Radio music scheduling', 'msc-automation');
+                $StrReturn .= __('Radio music scheduling', 'mscra-automation');
                 break;
             case TIP_CONEX_CENTRAL:
-                $StrReturn .= __('Central connection', 'msc-automation');
+                $StrReturn .= __('Central connection', 'mscra-automation');
                 break;
             case TIP_DIRECTE:
-                $StrReturn .= __('On live', 'msc-automation');
+                $StrReturn .= __('On live', 'mscra-automation');
         }
         $StrReturn .= '</p></td><td></td><TR>';
     } elseif ($MyRadio->RESPOSTA_ROWS > 1) {
@@ -124,7 +124,7 @@ function get_calendar_day() {
                         $Strloop .= '<td><h2>' . $txtLabel . '</h2>';
                     }
                     break;
-                case TIP_CONEX_CENTRAL:$Strloop .= '<td><h2>' . __('Desconnection', 'msc-automation') . '</h2>';
+                case TIP_CONEX_CENTRAL:$Strloop .= '<td><h2>' . __('Desconnection', 'mscra-automation') . '</h2>';
                     break;
                 case TIP_DIRECTE:
                     $page = get_page_by_title(html_entity_decode($txtLabel));
@@ -139,22 +139,22 @@ function get_calendar_day() {
             $Strloop .= '<p>' . $txtDescrip . '<p></td>';
             $Strloop .= '<td>';
             if ($is_reemissio == 1) {
-                $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'msc-automation') . '"></i></div>';
+                $Strloop .= '<div id="cal-top"><i class="fas fa-sync-alt" title="' . __('Rebroadcast', 'mscra-automation') . '"></i></div>';
             }
             $Strloop .= '<div id="cal-bottom"><i class="fas fa-clock">' . $txtDurada . '</i></div></td></TR>';
             $counter += 1;
         endwhile;
         $StrReturn .= $Strloop;
-        $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'msc-automation') . ' ...</BR>';
+        $StrReturn .= '<TR><td></td><td><p>' . __('The rest of the hours', 'mscra-automation') . ' ...</BR>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= __('Radio music scheduling', 'msc-automation');
+                $StrReturn .= __('Radio music scheduling', 'mscra-automation');
                 break;
             case TIP_CONEX_CENTRAL:
-                $StrReturn .= __('Central connection', 'msc-automation');
+                $StrReturn .= __('Central connection', 'mscra-automation');
                 break;
             case TIP_DIRECTE:
-                $StrReturn .= __('On live', 'msc-automation');
+                $StrReturn .= __('On live', 'mscra-automation');
         }
         $StrReturn .= '</p></td><td></td><TR>';
     } else {
@@ -162,27 +162,27 @@ function get_calendar_day() {
         $StrReturn .= '<p>';
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
-                $StrReturn .= '<h2>' . __('Radio music scheduling', 'msc-automation') . '</h2>';
+                $StrReturn .= '<h2>' . __('Radio music scheduling', 'mscra-automation') . '</h2>';
                 break;
             case TIP_CONEX_CENTRAL:
-                $StrReturn .= '<h2>' . __('Central connection', 'msc-automation') . '</h2>';
+                $StrReturn .= '<h2>' . __('Central connection', 'mscra-automation') . '</h2>';
                 break;
             case TIP_DIRECTE:
-                $StrReturn .= '<h2>' . __('On live', 'msc-automation') . '</h2>';
+                $StrReturn .= '<h2>' . __('On live', 'mscra-automation') . '</h2>';
         }
-        $StrReturn .= __('default programming', 'msc-automation') . '</p></td></td><td></TR>';
+        $StrReturn .= __('default programming', 'mscra-automation') . '</p></td></td><td></TR>';
     }
     $StrReturn .= '</TABLE>';
     return $StrReturn;
 }
 
-add_shortcode('calendar_day', 'get_calendar_day');
+add_shortcode('mscra_calendar_day', 'mscra_get_calendar_day');
 
-function get_now_onair() {
+function mscra_get_now_onair() {
     if (is_admin()) {
         return;
     }
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     $Vars[0] = "date=" . urlencode(current_time('Y-m-d H:i:s'));
     $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWONAIR, $Vars);
@@ -237,7 +237,7 @@ function get_now_onair() {
                 } else {
                     $despres_nom = htmlentities($despres_nom);
                 }
-                //_e('Programa en directe','msc-automation');
+                //_e('Programa en directe','mscra-automation');
                 break;
                 break;
             case TIP_DIRECTE_:
@@ -247,32 +247,32 @@ function get_now_onair() {
                 } else {
                     $despres_nom = htmlentities($despres_nom);
                 }
-                //__('Programa en directe','msc-automation');
+                //__('Programa en directe','mscra-automation');
                 break;
-            case TIP_CONEX_CENTRAL_:/* __('Desconnexió','msc-automation') */;
+            case TIP_CONEX_CENTRAL_:/* __('Desconnexió','mscra-automation') */;
                 break;
         }
         ?>
         <div class="msc-now-after">
-            <i><?php _e('Your are listening ...', 'msc-automation'); ?></i>
+            <i><?php _e('Your are listening ...', 'mscra-automation'); ?></i>
 
             <div style="padding:20px;"><h2><?php echo $ara_nom; ?></h2>
                 <p><?php echo $ara_descrip; ?></p>
                 <?php
                 if ($ara_remission == 1) {
-                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i>
+                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'mscra-automation'); ?>"></i>
                     <?php
                 }
                 ?>
                 <i class="far fa-calendar-alt"> <?php echo htmlentities($ara_date_in . ' - ' . $ara_date_out); ?></i></div></div>                                
         <div class="msc-now-after" >
-            <i><?php _e('And after...', 'msc-automation'); ?></i>
+            <i><?php _e('And after...', 'mscra-automation'); ?></i>
 
             <div style="padding:20px;"><h2><?php echo $despres_nom; ?></h2>
                 <p><?php echo $despres_descrip; ?></p>
                 <?php
                 if ($despres_remission == 1) {
-                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'msc-automation'); ?>"></i><?php
+                    ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'mscra-automation'); ?>"></i><?php
                 }
                 ?><i class="far fa-calendar-alt" > <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i></div></div>
 
@@ -280,4 +280,4 @@ function get_now_onair() {
     }
 }
 
-add_shortcode('now_onair', 'get_now_onair');
+add_shortcode('mscra_now_onair', 'mscra_get_now_onair');

@@ -1,6 +1,6 @@
 <?php
 
-class PageTemplater {
+class mscra_PageTemplater {
 
     /**
      * A reference to an instance of this class.
@@ -18,7 +18,7 @@ class PageTemplater {
     public static function get_instance() {
 
         if (null == self::$instance) {
-            self::$instance = new PageTemplater();
+            self::$instance = new mscra_PageTemplater();
         }
 
         return self::$instance;
@@ -62,7 +62,7 @@ class PageTemplater {
 
         // Add your templates to this array.
         $this->templates = array(
-            NAME_TEMPLATE_IFRAME => 'Template for bare content',
+            MSCRA_NAME_TEMPLATE_IFRAME => 'Template for bare content',
         );
     }
 
@@ -141,3 +141,5 @@ class PageTemplater {
     }
 
 }
+
+add_action('plugins_loaded', array('mscra_PageTemplater', 'get_instance'));

@@ -28,7 +28,7 @@
 
     // End FaceBook
        
-    class Facebook{ 
+    class mscra_Facebook{ 
     
     var $URL_FACEBOOK_CLIENT =  '';
     /**
@@ -47,7 +47,7 @@
        </script> ';
     }
     
-    //Funció finalitza
+    //Funciï¿½ finalitza
     function __destruct() {
     }       
     /**
@@ -55,7 +55,7 @@
      * @param type $LayoutStyle Selects one of the different layouts that are available for the plugin. Can be one of "standard", "button_count", or "box_count". See the FAQ for more details.
      * @param type $width The width of the plugin. The layout you choose affects the minimum and default widths you can use, please see the FAQ below for more details (min 55).
      * @param type $ShowFaces Ensenya les cares de els seguidors
-     * @param type $ShareButton Ensenya el botó compartir
+     * @param type $ShareButton Ensenya el botï¿½ compartir
      */
     function show_LikeButton($LayoutStyle,$width='',$ShowFaces = false,$ShareButton= false){
 

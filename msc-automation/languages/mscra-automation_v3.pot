@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: msc-automation.php\n"
+"X-Poedit-WPHeader: mscra-automation.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
@@ -158,7 +158,7 @@ msgid "Listed with the latest published podcasting files"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: admin/msc-index.php:2 msc-automation.php:35 msc-automation.php:203
+#: admin/msc-index.php:2 mscra-automation.php:35 mscra-automation.php:203
 msgid "MSC Radio Automation"
 msgstr ""
 
@@ -438,52 +438,52 @@ msgstr ""
 msgid "Cannot be used for $file_extension files!"
 msgstr ""
 
-#: msc-automation.php:36
+#: mscra-automation.php:36
 msgid "Settings"
 msgstr ""
 
-#: msc-automation.php:39
+#: mscra-automation.php:39
 msgid "Initialize"
 msgstr ""
 
-#: msc-automation.php:41
+#: mscra-automation.php:41
 msgid "Help"
 msgstr ""
 
-#: msc-automation.php:128
+#: mscra-automation.php:128
 msgid "Now Playing"
 msgstr ""
 
-#: msc-automation.php:130
+#: mscra-automation.php:130
 msgid "Shows information about the current song"
 msgstr ""
 
-#: msc-automation.php:154
+#: mscra-automation.php:154
 msgid "Now playing..."
 msgstr ""
 
-#: msc-automation.php:159
+#: mscra-automation.php:159
 msgid "Title:"
 msgstr ""
 
-#: msc-automation.php:183 msc-install.php:397
+#: mscra-automation.php:183 msc-install.php:397
 msgid "Powered by MSC Radio Automation"
 msgstr ""
 
-#: msc-automation.php:185
+#: mscra-automation.php:185
 msgid "Show a link to developer web (thanks for put in your footer zone)"
 msgstr ""
 
 #. Author URI of the plugin/theme
-#: msc-automation.php:200 msc-automation.php:201
+#: mscra-automation.php:200 mscra-automation.php:201
 msgid "https://msc-soft.com/"
 msgstr ""
 
-#: msc-automation.php:215
+#: mscra-automation.php:215
 msgid "Powered by"
 msgstr ""
 
-#: msc-automation.php:220 shortcode/shortcode-music.php:26
+#: mscra-automation.php:220 shortcode/shortcode-music.php:26
 #: shortcode/shortcode-music.php:189 shortcode/shortcode-music.php:367
 msgid "Title"
 msgstr ""

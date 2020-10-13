@@ -104,7 +104,7 @@
 			}
 			if( '' != aws_data['loader'] ) {
 				$content
-						.html('<img src="' + rootUrl + 'wp-content/plugins/msc-automation/images/ajaxify/' + aws_data['loader'] + '" />')
+						.html('<img src="' + rootUrl + 'wp-content/plugins/mscra-automation/images/ajaxify/' + aws_data['loader'] + '" />')
 						.css('text-align', 'center');
 			}
 

@@ -1,58 +1,62 @@
 <?php
 
-function msc_load_scripts() {
+function mscra_load_scripts() {
 
     $def_image = get_site_icon_url('120');
-    $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/');
-    $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
-    $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;
-    $base_url_download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=';
+    //$page = mscra_get_page_by_meta(__('track', 'mscra-automation'));   
+    echo "<script> console.log('page URL: ".$page->guid."')</script>";
+    $page = get_page_by_title(__('track', 'mscra-automation'));            
+    $base_URL_Share = $page->guid;    
+    $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/' ;
+    $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' ;
+    $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
     $upload_dir = wp_upload_dir();
-    $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
+    $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
     $msc_data = array(
         'share_url' => $base_URL_Share,
         'def_image' => $def_image,
-        'path' => MSC_PLUGIN_URL,
-        'key' => get_option('msc_client_key'),
-        'img_dir' => DIR_TEMP_IMAGE,
-        'img_url' => URL_TEMP_IMAGE,
-        'jamendo_url' => URL_JAMENDO_TRACK,
+        'path' => MSCRA_PLUGIN_URL,
+        'key' => get_option('mscra_client_key'),
+        'img_dir' => MSCRA_DIR_TEMP_IMAGE,
+        'img_url' => MSC_URL_TEMP_IMAGE,
+        'jamendo_url' => WP_MSCRA_URL_JAMENDO_TRACK,
         'download_url' => $base_url_download,
         'url_podcast' => $url_podcast
     );
-    wp_enqueue_script('msc-data-js', MSC_JQUERY_URL . 'refresh_player.js', '', '1.0.0', false);
+    wp_enqueue_script('msc-data-js', MSCRA_JQUERY_URL . 'refresh_player.js', '', '1.0.0', false);
     wp_localize_script('msc-data-js', 'msc_data', $msc_data);
 }
 
-add_action('wp_enqueue_scripts', 'msc_load_scripts');
+add_action('wp_enqueue_scripts', 'mscra_load_scripts');
 
-function get_player() {
+function mscra_get_player() {
     if (is_admin()) {
         return;
     }
+    global $post;
     $name_template = get_page_template_slug($post->ID);
-    if ($name_template == NAME_TEMPLATE_IFRAME) {
+    if ($name_template == MSCRA_NAME_TEMPLATE_IFRAME) {
         return;
     }
 
-    wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
-    wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
-    wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
+    wp_enqueue_script('script_play_js1', MSCRA_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
+    wp_enqueue_script('script_play_js2', MSCRA_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
+    wp_enqueue_script('script_player_js', MSCRA_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
 
     $name_container_player = '';
-    if (get_option('msc_player') == 'head') {
+    if (get_option('mscra_player') == 'head') {
         $name_container_player = 'dvPlayerTop';
-        wp_enqueue_style('style_msc_player', MSC_CSS_URL . 'head.css', array(), '1.0.0');
+        wp_enqueue_style('style_mscra_player', MSCRA_CSS_URL . 'head.css', array(), '1.0.0');
         if (is_admin_bar_showing()) {
             ?><style type="text/css"> .dvPlayerTop { top: 28px; }</style><?php
         }
     } else {
         $name_container_player = 'dvPlayerBottom';
-        wp_enqueue_style('style_msc_player', MSC_CSS_URL . 'footer.css', array(), '1.0.0');
+        wp_enqueue_style('style_mscra_player', MSCRA_CSS_URL . 'footer.css', array(), '1.0.0');
     }
     /* Consulta a la dbs */
-    include MSC_PLUGIN_DIR . 'connect_api.php';
+    include MSCRA_PLUGIN_DIR . 'connect_api.php';
 
     $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWPLAYING);
 
@@ -69,7 +73,7 @@ function get_player() {
             case TIP_AUTOMATIC_LLISTA:
                 $img_mame = 'disc_img-' . $id . '.jpg';
                 if (strlen($list['item']['LINK']) > 0) {
-                    $URL_Download = URL_JAMENDO_TRACK . $list['item']['LINK'];
+                    $URL_Download = WP_MSCRA_URL_JAMENDO_TRACK . $list['item']['LINK'];
                 } else {
                     $URL_Download = '';
                 }
@@ -77,7 +81,7 @@ function get_player() {
             case TIP_AUTOMATIC_RADIOFORMULA:
                 $img_mame = 'disc_img-' . $id . '.jpg';
                 if (strlen($list['item']['LINK']) > 0) {
-                    $URL_Download = URL_JAMENDO_TRACK . $list['item']['LINK'];
+                    $URL_Download = WP_MSCRA_URL_JAMENDO_TRACK . $list['item']['LINK'];
                 } else {
                     $URL_Download = '';
                 }
@@ -86,7 +90,7 @@ function get_player() {
                 $img_mame = 'prg_img-' . $id . '.jpg';
                 //todo: download prg
                 $urlmp3 = $url_podcast . '/' . $list['item']['LINK'];
-                $URL_Download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($title);
+                $URL_Download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($title);
                 break;
             case TIP_DIRECTE_:
                 $img_mame = 'prg_img-' . $id . '.jpg';
@@ -104,25 +108,28 @@ function get_player() {
             $dwn_display = 'inline';
         }
         $def_image = get_site_icon_url('120');
-        $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
-        $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;
-        $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';
-        $base_url_download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=';
+        $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/';
+        $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' ;
+        
+        $page = get_page_by_title(__('track', 'mscra-automation'));        
+        $base_URL_Share = $page->guid;
+        $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
 
-        //$url_podcast = wp_get_upload_dir('baseurl').'/'.PODCAST_DIR; 
+        //$url_podcast = wp_get_upload_dir('baseurl').'/'.WP_MSCRA_PODCAST_DIR; 
         $upload_dir = wp_upload_dir();
-        $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
-        //$base_url_jamendo = URL_JAMENDO_TRACK;   
+        $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
+        //$base_url_jamendo = WP_MSCRA_URL_JAMENDO_TRACK;   
 
         if (!file_exists($PathToSaveImg)) {
-            if (getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == false) {
+            if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == false) {
                 //canvia a imatge per defecte                              
                 $PathToShowImg = $def_image;
             }
         }
         $decrip = $title . ' - ' . $subtitle;
-
-        $URL_Share = $base_URL_Share . $list['item']['ID'] . '&type=' . $type;
+        
+        $ref = "?ref=" . bin2hex($list['item']['ID']  . ',' . $type);
+        $URL_Share = $base_URL_Share . $ref;        
 
         $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
         $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
@@ -132,7 +139,7 @@ function get_player() {
         $URL_Iframe = '<iframe src="' . $URL_Share . '" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
     }
     ?>    
-    <div class="<?php echo $name_container_player; ?>" style="background-color:<?php echo get_option('msc_color'); ?>">                                                    
+    <div class="<?php echo $name_container_player; ?>" style="background-color:<?php echo get_option('mscra_color'); ?>">                                                    
         <div id="msc-left"></div>            
         <div id="msc-middle">
             <div id="jquery_jplayer"></div> 
@@ -143,7 +150,7 @@ function get_player() {
                             <span class="jp-current-time"></span><span class="slash">/</span><span class="jp-duration"></span>                             
                             <i class="jp-mute fas fa-volume-mute"></i>
                             <i class="jp-unmute fas fa-volume-up"></i>  
-                            <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower fa-sm" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#" style="display:none;" onclick="playThisFile(this)"></a>
+                            <a data-pos="0" class="jp-stream track track-default fas fa-broadcast-tower fa-sm" data-href="<?php echo $MyRadio->URLStreaming; ?>" href="#" style="display:none;" onclick="mscra_PlayThisFile(this)"></a>
                         </div>                                                    
 
                         <i class="jp-play fa fa-play-circle fa-4x" style="display:none;"></i>                                          
@@ -164,9 +171,9 @@ function get_player() {
                             <div><span id="jp_title"><?php echo $title; ?></span></div>
                             <i id="jp_subtitle-name"><?php echo $subtitle; ?></i>   
                             <div id="jp-socialbuttons" >
-                                <a id="like" class="fas fa-heart" aria-hidden="true" href="javascript:void" onclick="LikeTrack()"></a>
+                                <a id="like" class="fas fa-heart" aria-hidden="true" href="javascript:void" onclick="mscra_LikeTrack()"></a>
                                 <a id="download" class="fas fa-download" aria-hidden="true" href="<?php echo $URL_Download; ?>" target="_blank" style="display:<?php echo $dwn_display; ?>"></a>
-                                <a id="BtnShare" class="fas fa-share-alt" aria-hidden="true" onclick="ShowModalshare()" href="javascript:void"></a>                                            
+                                <a id="BtnShare" class="fas fa-share-alt" aria-hidden="true" onclick="mscra_ShowModalShare()" href="javascript:void"></a>                                            
                                 <!-- Modal Share -->
                                 <div id="myModalShare" class="modalShare">
                                     <!-- Modal content -->
@@ -176,31 +183,31 @@ function get_player() {
                                         <a id="fb" class="fab fa-facebook-square fa-2x" href="<?php echo $URL_Facebook; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on Facebook', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on Facebook', 'mscra-automation'); ?>">
                                         </a>                                                
                                         <a id="tw" class="fab fa-twitter-square fa-2x" href="<?php echo $URL_Twitter; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on WhatsApp', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on WhatsApp', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="pt" class="fab fa-pinterest-square fa-2x" href="<?php echo $URL_Pinterest; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-                                           target="_blank" title="<?php _e('Share on Pinterest', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on Pinterest', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="li" class="fab fa-linkedin fa-2x" href="<?php echo $URL_Linked_in; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="wa" class="fab fa-whatsapp-square fa-2x" href="<?php echo $URL_WhatsApp; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'mscra-automation'); ?>">
                                         </a>
-                                        <a class="fas fa-code fa-2x" onclick="ShowIframeCode()" title="<?php _e('Share on your web', 'msc-automation'); ?>" href="javascript:void"></a>
+                                        <a class="fas fa-code fa-2x" onclick="mscra_ShowIframeCode()" title="<?php _e('Share on your web', 'mscra-automation'); ?>" href="javascript:void"></a>
                                         <div id="iframe" style="display:none">
                                             <textarea type="text"  id="ifr"><?php echo $URL_Iframe; ?></textarea>
-                                            <i><?php _e('Copy this code for add in your web', 'msc-automation'); ?></i>
+                                            <i><?php _e('Copy this code for add in your web', 'mscra-automation'); ?></i>
                                         </div>
                                     </div>
                                 </div><!--END  Modal Share -->
@@ -222,18 +229,18 @@ function get_player() {
         <?php
     }
 
-    add_shortcode('player_streaming', 'get_player');
+    add_shortcode('mscra_player_streaming', 'mscra_get_player');
 
-    function get_iframe_player() {
+    function mscra_get_iframe_player() {
         if (is_admin()) {
             return;
         }
-        wp_enqueue_script('script_play_js1', MSC_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
-        wp_enqueue_script('script_play_js2', MSC_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
-        wp_enqueue_script('script_player_js', MSC_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
+        wp_enqueue_script('script_play_js1', MSCRA_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
+        wp_enqueue_script('script_play_js2', MSCRA_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
+        wp_enqueue_script('script_player_js', MSCRA_JQUERY_URL . 'jplayer/msc.player.js', array(), '1.0.0');
 
         
-        include MSC_PLUGIN_DIR . 'connect_api.php';
+        include MSCRA_PLUGIN_DIR . 'connect_api.php';
         $list = $MyRadio->QueryGetTable(seccions::CALENDAR, sub_seccions::NOWPLAYING);
 
         $img_width = '100';
@@ -249,7 +256,7 @@ function get_player() {
                 case TIP_AUTOMATIC_LLISTA:
                     $img_mame = 'disc_img-' . $id . '.jpg';
                     if (strlen($list['item']['LINK']) > 0) {
-                        $URL_Download = URL_JAMENDO_TRACK . $list['item']['LINK'];
+                        $URL_Download = WP_MSCRA_URL_JAMENDO_TRACK . $list['item']['LINK'];
                     } else {
                         $URL_Download = '';
                     }
@@ -257,7 +264,7 @@ function get_player() {
                 case TIP_AUTOMATIC_RADIOFORMULA:
                     $img_mame = 'disc_img-' . $id . '.jpg';
                     if (strlen($list['item']['LINK']) > 0) {
-                        $URL_Download = URL_JAMENDO_TRACK . $list['item']['LINK'];
+                        $URL_Download = WP_MSCRA_URL_JAMENDO_TRACK . $list['item']['LINK'];
                     } else {
                         $URL_Download = '';
                     }
@@ -266,7 +273,7 @@ function get_player() {
                     $img_mame = 'prg_img-' . $id . '.jpg';
                     //todo: download prg
                     $urlmp3 = $url_podcast . '/' . $list['item']['LINK'];
-                    $URL_Download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($title);
+                    $URL_Download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($title);
                     break;
                 case TIP_DIRECTE_:
                     $img_mame = 'prg_img-' . $id . '.jpg';
@@ -283,19 +290,21 @@ function get_player() {
                 $dwn_display = 'inline';
             }
 
-            $PathToSaveImg = DIR_TEMP_IMAGE . '/' . $img_mame;
-            $PathToShowImg = URL_TEMP_IMAGE . '/' . $img_mame;
-            $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/') . '?id=';
-            $base_url_download = MSC_PLUGIN_URL . 'inc/download.php?fileurl=';
-            $url_podcast = $upload_dir['baseurl'] . '/' . PODCAST_DIR;
+            $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/' . $img_mame;
+            $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' . $img_mame;
+            $base_URL_Share = get_home_url(0, MSC_NAME_PAGE_TRACK . '/') . '?id=';
+            $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
+            $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
-            $base_url_jamendo = URL_JAMENDO_TRACK;
+            $base_url_jamendo = WP_MSCRA_URL_JAMENDO_TRACK;
             if (!file_exists($PathToSaveImg)) {
-                if (getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == TRUE) {
+                if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == TRUE) {
                     //canvia a imatge per defecte                            
                 }
             }
-            $URL_Share = $base_URL_Share . $list['item']['ID'] . '&type=' . $type;
+            $ref = "?ref=" . bin2hex($list['item']['ID']  . ',' . $type);
+            $URL_Share = $base_URL_Share . $ref;        
+            
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
             $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
             $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . $decrip . '&media=' . $urlmp3;
@@ -304,7 +313,7 @@ function get_player() {
             $URL_Iframe = '<iframe src="' . $URL_Share . '" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
         }
         ?>    
-        <div class="dvPlayerTop" style="background-color:<?php echo get_option('msc_color'); ?>">
+        <div class="dvPlayerTop" style="background-color:<?php echo get_option('mscra_color'); ?>">
 
             <div id="jquery_jplayer"></div>   
             <div id="jp_container" class="jp-audio">                                                     
@@ -334,9 +343,9 @@ function get_player() {
                             <div><span id="jp_title"><?php echo $title; ?></span></div>
                             <i id="jp_subtitle-name"><?php echo $subtitle; ?></i>   
                             <div id="jp-socialbuttons" >
-                                <a id="like" class="fas fa-heart" aria-hidden="true" href="javascript:void" onclick="LikeTrack()"></a>
+                                <a id="like" class="fas fa-heart" aria-hidden="true" href="javascript:void" onclick="mscra_LikeTrack()"></a>
                                 <a id="download" class="fas fa-download" aria-hidden="true" href="<?php echo $URL_Download; ?>" target="_blank" style="display:<?php echo $dwn_display; ?>"></a>
-                                <a id="BtnShare" class="fas fa-share-alt" aria-hidden="true" onclick="ShowModalshare()" href="javascript:void"></a>                                            
+                                <a id="BtnShare" class="fas fa-share-alt" aria-hidden="true" onclick="mscra_ShowModalShare()" href="javascript:void"></a>                                            
 
                                 <!-- Modal Share -->
                                 <div id="myModalShare" class="modalShare">
@@ -347,32 +356,32 @@ function get_player() {
                                         <a id="fb" class="fab fa-facebook-square fa-2x" href="<?php echo $URL_Facebook; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on Facebook', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on Facebook', 'mscra-automation'); ?>">
                                         </a>                                                
                                         <a id="tw" class="fab fa-twitter-square fa-2x" href="<?php echo $URL_Twitter; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on WhatsApp', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on WhatsApp', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="pt" class="fab fa-pinterest-square fa-2x" href="<?php echo $URL_Pinterest; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on Pinterest', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on Pinterest', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="li" class="fab fa-linkedin fa-2x" href="<?php echo $URL_Linked_in; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'mscra-automation'); ?>">
                                         </a>                                            
                                         <a id="wa" class="fab fa-whatsapp-square fa-2x" href="<?php echo $URL_WhatsApp; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
-                                           target="_blank" title="<?php _e('Share on LinkedIn', 'msc-automation'); ?>">
+                                           target="_blank" title="<?php _e('Share on LinkedIn', 'mscra-automation'); ?>">
                                         </a>
-                                        <a class="fas fa-code fa-2x" onclick="ShowIframeCode()" title="<?php _e('Share on your web', 'msc-automation'); ?>" href="javascript:void"></a>
+                                        <a class="fas fa-code fa-2x" onclick="mscra_ShowIframeCode()" title="<?php _e('Share on your web', 'mscra-automation'); ?>" href="javascript:void"></a>
                                         <div id="iframe" style="display:none">
                                             <textarea type="text"  id="ifr"><?php echo $URL_Iframe; ?></textarea>
-                                            <i><?php _e('Copy this code for add in your web', 'msc-automation'); ?></i>
+                                            <i><?php _e('Copy this code for add in your web', 'mscra-automation'); ?></i>
                                         </div>
                                     </div>
                                 </div><!--END  Modal Share -->
@@ -393,10 +402,10 @@ function get_player() {
             </div>
         </div>
         <div id="link_home">
-            <?php _e('On', 'msc-automation') . ' '; ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b>
+            <?php _e('On', 'mscra-automation') . ' '; ?> <b><a href="<?php echo get_home_url(); ?>" title="<?php echo get_bloginfo('description'); ?>" target="_blank"><?php echo get_bloginfo('name'); ?></a></b>
         </div> 
     </div> 
     <?php
 }
 
-add_shortcode('iframe_player_streaming', 'get_iframe_player');
+add_shortcode('mscra_iframe_player_streaming', 'mscra_get_iframe_player');

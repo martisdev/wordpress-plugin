@@ -1,4 +1,4 @@
-function playThisFile(elmnt) {
+function mscra_PlayThisFile(elmnt) {
     
     //var my_text = elmnt.text;
     var nodes = [], values = [];
@@ -129,13 +129,13 @@ function playThisFile(elmnt) {
         jQuery('.jp-stream').css('display', 'inline');        
         //S'ha de capturar el id i buscar resultats via XML                            
         var urlRequest = path + "wp-snippets/refresh_player_podcast.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&id=" + id_pod + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;
-        //StopRefresh();
+        //mscra_StopRefresh();
     } else {
         document.getElementById('refresh').innerHTML = 1;
         jQuery('.jp-stream').css('display', 'none');                
         var jamendo_url = msc_data.jamendo_url;
         var urlRequest = path + "wp-snippets/refresh_player_live.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&url_jamendo=" + jamendo_url + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;        
-    }    
+    }        
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState < 4) {
@@ -175,9 +175,7 @@ function playThisFile(elmnt) {
                 link.type = 'image/x-icon';
                 link.rel = 'icon';
                 link.href = my_img;
-                document.getElementsByTagName('head')[0].appendChild(link);
-                //$base_url_download = MSC_PLUGIN_URL.'inc/download.php?fileurl=';                                
-
+                document.getElementsByTagName('head')[0].appendChild(link);                
                 document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
                 if (URL_download[0].childNodes[0].nodeValue.length > 3)
                 {
@@ -195,7 +193,7 @@ function playThisFile(elmnt) {
                 document.getElementById('wa').href = URL_WhatsApp;
                 document.getElementById('ifr').innerHTML = URL_Iframe;
                     
-                //ChangeInterval(t_remain);                   
+                //mscra_ChangeInterval(t_remain);                   
             } else if (xmlhttp.status === 404) {
                 //Page Not Found
             }
@@ -206,14 +204,14 @@ function playThisFile(elmnt) {
     first_track = false;
     
     //https://stackoverflow.com/questions/1280263/changing-the-interval-of-setinterval-while-its-running
-    //setTimeout(myrefresh, tmr);
+    //setTimeout(mscra_refreshPlayer, tmr);
         
     //jQuery(this).blur();                
     //return false;
 }
 
 
-var myrefresh = function () {
+var mscra_refreshPlayer = function () {
     var refresh = document.getElementById('refresh').innerHTML;
     if (refresh == 1) {        
         var r = (-0.5) + (Math.random() * (1000.99));
@@ -265,9 +263,7 @@ var myrefresh = function () {
                     link.type = 'image/x-icon';
                     link.rel = 'icon';
                     link.href = my_img;
-                    document.getElementsByTagName('head')[0].appendChild(link);
-                    //$base_url_download = MSC_PLUGIN_URL.'inc/download.php?fileurl=';                                
-
+                    document.getElementsByTagName('head')[0].appendChild(link);                    
                     document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
                     if (URL_download[0].childNodes[0].nodeValue.length > 3)
                     {
@@ -290,7 +286,7 @@ var myrefresh = function () {
                     }
                     //const now = new Date();
                     //console.log('Time remain:'+t_remain+' date: '+now.getTime());
-                    //ChangeInterval(tmr);
+                    //mscra_ChangeInterval(tmr);
                 } else if (xmlhttp.status === 404) {
                 }
             }
@@ -301,16 +297,16 @@ var myrefresh = function () {
     }
 };
 
-//setTimeout(myrefresh, tmr);
+//setTimeout(mscra_refreshPlayer, tmr);
 
-setInterval(myrefresh, 15000)
+setInterval(mscra_refreshPlayer, 15000)
 
-function ChangeInterval(tmr){
-    setInterval(myrefresh, tmr);
+function mscra_ChangeInterval(tmr){
+    setInterval(mscra_refreshPlayer, tmr);
     console.log('Change interval:'+tmr);
 }
 
-function StopRefresh() {
-    clearInterval(myrefresh);
+function mscra_StopRefresh() {
+    clearInterval(mscra_refreshPlayer);
     console.log('Stop refresh');
 }

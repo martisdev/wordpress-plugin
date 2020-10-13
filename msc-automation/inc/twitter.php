@@ -1,6 +1,6 @@
 <?php
 
-class twitter{
+class mscra_twitter{
     var $URL_TWITTER_USUARI =  '';
     var $TWITTER_USUARI =  '';
     var $Lang = '';    
@@ -24,10 +24,10 @@ class twitter{
     }
 
     /**
-     * Ensenya el botó segueix a
+     * Ensenya el botï¿½ segueix a
      */
     function show_FollowButton(){
-        //TODO: Segons idioma canviar expressió
+        //TODO: Segons idioma canviar expressiï¿½
         return '<a href="'.$this->URL_TWITTER_USUARI.'" 
                     class="twitter-follow-button" 
                     data-show-count="false" 
@@ -40,7 +40,7 @@ class twitter{
      * @param type $ShowCount
      */
     function show_ShareLink($ShowCount=true){
-        //TODO: Segons idioma canviar expressió
+        //TODO: Segons idioma canviar expressiï¿½
         $strEcho = '<a href="https://twitter.com/share" 
                     class="twitter-share-button" 
                     data-url="'.$this->URL_TWITTER_USUARI.'" 
@@ -78,7 +78,7 @@ class twitter{
     
     /**
      * 
-     * @param type $KEY_GINY Clau única del giny
+     * @param type $KEY_GINY Clau ï¿½nica del giny
      */
     function show_Cronologia($twiterKey){
         return '<a class="twitter-timeline"  

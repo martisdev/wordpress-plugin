@@ -1,16 +1,21 @@
 <?php         
     //Used in functions: get_last_played, 
-    session_start();
+    if (!session_id()) {
+        session_start();
+    }
+    
     global $MyRadio;        
     if(!isset($MyRadio)){ 
         include_once '../inc/defines.php';
         include_once '../inc/my_radio.php';
         include_once '../inc/utils.php';
-        $MyRadio = new my_radio($key,get_locale(),get_option('msc_debug')); 
+        $plugin_data = get_plugin_data(MSCRA_PLUGIN_DIR.'msc-automation.php');        
+        $plugin_version = $plugin_data['Version']; 
+        $MyRadio = new my_radio($key,get_locale(),$plugin_version,get_option('mscra_debug')); 
         if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
             if ($MyRadio->IS_DEGUG == true){                                                
                     $msg = 'STATUS:'.$MyRadio->RESPOSTA_STATUS.' CODE:'.$MyRadio->RESPOSTA_CODE.' MSG'.$MyRadio->RESPOSTA_MESSAGE ;
-                    show_msc_message($msg ,message_type::DANGER);
+                    mscra_show_message($msg ,message_type::DANGER);
                     return;
             }           
         }        
@@ -22,8 +27,7 @@
     }       
         
     $Vars[0] = 'rows='.$NumRows;    
-    if ($dradi<>null){
-        //if (test_date(urlencode($dradi))== TRUE){$Vars[1]= 'date='.urlencode($dradi);}
+    if ($dradi<>null){        
         $Vars[count($Vars)]= 'date='.urlencode($dradi);            
     }
     if($image==TRUE){
@@ -51,9 +55,9 @@
                     $StrEcho= "<TR class='altrow'>";
             }            
             if($image==TRUE){                                        
-                $PathToSaveImg = $upload_dir['basedir'].'/'.TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg'; 
-                $PathToShowImg = $upload_dir['baseurl'].'/'.TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg';                     
-                if (getImage(base64_decode($list['track'][$counter]['IMAGE']),$PathToSaveImg,200)==TRUE){
+                $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg'; 
+                $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg';                     
+                if (mscra_getImage(base64_decode($list['track'][$counter]['IMAGE']),$PathToSaveImg,200)==TRUE){
                     $StrEcho .= '<TD><img src='.$PathToShowImg.'></TD>';
                 }else{
                     $StrEcho .= '<TD></TD>';

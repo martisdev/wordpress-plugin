@@ -8,7 +8,7 @@
         $my_id = $_GET['id'];        
         $my_type = $_GET['type'];        
         $my_val = $_GET['val'];        
-        $MyRadio = new my_radio($my_key,LANG_DEF);                            
+        $MyRadio = new my_radio($my_key,WP_MSCRA_LANG_DEF,0);                            
         if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
             if ($MyRadio->IS_DEGUG == true){               
                 $title = 'MSC API Error';

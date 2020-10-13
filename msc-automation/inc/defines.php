@@ -164,9 +164,9 @@
     const TIP_CONEX_CENTRAL_             = 4; 
     
     
-    const TMP_IMG_DIR = 'msc-tmp-img';
-    const PODCAST_DIR = 'podcasting';
-    CONST ROWS_PER_PAGE = 20;
-    Const LANG_DEF = 'en';
+    const WP_MSCRA_TMP_IMG_DIR = 'msc-tmp-img';
+    const WP_MSCRA_PODCAST_DIR = 'podcasting';
+    CONST WP_MSCRA_ROWS_PER_PAGE = 20;
+    Const WP_MSCRA_LANG_DEF = 'en';
     
-    const URL_JAMENDO_TRACK = 'https://www.jamendo.com/track/';
+    const WP_MSCRA_URL_JAMENDO_TRACK = 'https://www.jamendo.com/track/';

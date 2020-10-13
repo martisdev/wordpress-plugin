@@ -5,9 +5,8 @@
         include_once '../inc/defines.php';        
         include_once '../inc/my_radio.php';
         include_once '../inc/utils.php';
-        $my_key = $_GET['key'];
-        
-        $MyRadio = new my_radio($my_key,LANG_DEF);            
+        $my_key = $_GET['key'];        
+        $MyRadio = new my_radio($my_key,WP_MSCRA_LANG_DEF,0);            
     
         if ($MyRadio->RESPOSTA_MESSAGE <> 'OK' ){
             if ($MyRadio->IS_DEGUG == true){               
@@ -72,7 +71,7 @@
         $PathToSaveImg = $dir_images.$img_mame; 
         $PathToShowImg = $url_images.$img_mame;         
         if (!file_exists($PathToSaveImg)){
-            if (getImage(base64_decode($list['item']['IMAGE']),$PathToSaveImg,$img_width)==TRUE){                 
+            if (mscra_getImage(base64_decode($list['item']['IMAGE']),$PathToSaveImg,$img_width)==TRUE){                 
             //canvia a imatge per defecte     
                 $PathToShowImg = $def_img;
             }            

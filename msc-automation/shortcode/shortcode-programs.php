@@ -1,6 +1,6 @@
 <?php
 
-function get_show_program($attributes) {
+function mscra_get_show_program($attributes) {
     if (is_admin()) {
         return;
     }
@@ -10,37 +10,43 @@ function get_show_program($attributes) {
         return;
     }
 
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
     
     $Vars[0] = 'id=' . $prg_id;
     $list = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::SHOWINFO_PRG, $Vars);
+    $StrReturn = "";
     if ($MyRadio->RESPOSTA_ROWS > 0) {
         $nom_programa = $list['item']['NAME'];
         //$StrReturn .='<h1>'.  utf8_decode($nom_programa).'</h1>';                                
         $upload_dir = wp_upload_dir();
-        $PathToSaveImg = $upload_dir['basedir'] . '/' . TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
-        $PathToShowImg = $upload_dir['baseurl'] . '/' . TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
-        if (getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, 700) == TRUE) {
+        $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
+        $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
+        if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, 700) == TRUE) {
             $StrReturn .= '<img src="' . $PathToShowImg . '" class="aligncenter size-full"><br><br>';
         }
         $StrReturn .= '<p>' . html_entity_decode($list['item']['DESCRIP']) . '</p><br>';
-        $StrReturn .= '<p>' . __('Thematic', 'msc-automation') . ': ' . $list['item']['TOPIC'] . '<br>';
-        $StrReturn .= __('Duration', 'msc-automation') . ': ' . $list['item']['DURATION'] . '</p>';
+        $StrReturn .= '<p>' . __('Thematic', 'mscra-automation') . ': ' . $list['item']['TOPIC'] . '<br>';
+        $StrReturn .= __('Duration', 'mscra-automation') . ': ' . $list['item']['DURATION'] . '</p>';
 
         $listTags = $list['item']['TAGS']['TAG'];
-        $rows = count($listTags); //(count($listTags,1)/count($listTags,0))-1;            
+        if(isset($listTags)){
+            $rows = count($listTags); 
+        }else{
+            $rows = 0;
+        }
+        
         if ($rows > 0) {
             $StrReturn .= '<div id="content"> ';
-            $StrReturn .= '<h2>' . htmlentities(__('Program tags', 'msc-automation')) . ': ' . '</h2';
-            $StrReturn .= '<p>' . tag_cloud($listTags, "#", 10) . '</p>';
+            $StrReturn .= '<h2>' . htmlentities(__('Program tags', 'mscra-automation')) . ': ' . '</h2';
+            $StrReturn .= '<p>' . mscra_tag_cloud($listTags, "#", 10) . '</p>';
             $StrReturn .= '</div>';
         }
         //Facebook del programa
         $url_facebook = $list['item']['FACEBOOK'];
         if (strlen($url_facebook) > 3) {
             $StrReturn .= '<div id="content"> ';
-            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'msc-automation') . ' Facebook</h3>';
-            $fb_prg = new Facebook($url_facebook);
+            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'mscra-automation') . ' Facebook</h3>';
+            $fb_prg = new mscra_Facebook($url_facebook);
             //$fb_prg->show_Co mments(20, 450, ColorScheme::COLOR_SCHEME_LIGHT);
             $StrReturn .= $fb_prg->show_LikeBox(ColorScheme::COLOR_SCHEME_LIGHT, 550, 200, true);
             $StrReturn .= '</div>';
@@ -49,23 +55,29 @@ function get_show_program($attributes) {
         $LinkTwitter = $list['item']['TWITTER'];
         if (strlen($LinkTwitter) > 3) {
             $StrReturn .= '<div id="content"> ';
-            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'msc-automation') . ' Twitter</h3>';
-            $twitter_prg = new twitter($LinkTwitter, $MyRadio->LANG);
+            $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'mscra-automation') . ' Twitter</h3>';
+            $twitter_prg = new mscra_twitter($LinkTwitter, $MyRadio->LANG);
             $StrReturn .= $twitter_prg->show_FollowButton();
             $StrReturn .= '</div>';
         }
         //Podcast del programa
-        $list_podcast = $list['item']['PODS']['POD'];
-        $rows = count($list_podcast);
-        $counter = 0;
+        $list_podcast = $list['item']['PODS']['POD'];                    
+        
         $upload_dir = wp_upload_dir();        
-        $url_podcast = $upload_dir['baseurl'].'/'.PODCAST_DIR;
-        $base_URL_Share = get_home_url(0, NAME_PAGE_TRACK . '/');
-
-
+        $url_podcast = $upload_dir['baseurl'].'/'.WP_MSCRA_PODCAST_DIR;
+        
+        $page = get_page_by_title(__('track', 'mscra-automation'));        
+        $base_URL_Share = $page->guid;
         $StrReturn .= '<div>';
         
-        while ($counter < $rows):
+        if(is_array($list_podcast)){
+            $rows = count($list_podcast);
+        }else{
+            $rows = 0;
+        }        
+        $counter = 0;
+        
+        while ($counter < $rows):            
             if ($rows == 1) {
                 $id = $list_podcast["ID"];
                 //$nom_programa = $list_podcast['NAME'];
@@ -87,7 +99,7 @@ function get_show_program($attributes) {
                 //TODO: contemplar si el player és el pròpi.
                 $marks = $list_podcast[$counter]['MARKS']['MARK'];
             }
-            $urldownload = MSC_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id;
+            $urldownload = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id;
             $ref= "?ref=".bin2hex($id.','.TIP_AUTOMATIC_PROGRAMA);
             $URL_Share = $base_URL_Share.$ref;
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t='.urlencode($nom_programa).'&u='.$URL_Share;
@@ -96,38 +108,42 @@ function get_show_program($attributes) {
             $URL_Linked_in = 'https://www.linkedin.com/shareArticle?mini=true&title=' . urlencode($nom_programa).'&url=' . $URL_Share ;
             $URL_WhatsApp = 'https://wa.me/?text=' . $nom_programa . '+-+' . $URL_Share;
             $URL_Iframe = '<iframe src="'.$URL_Share.'" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
+            if(is_array($marks)){
+                $count_marks = count($marks);
+            }else{
+                $count_marks = 0;
+            }
             
-            $count_marks = count($marks);
-            if ($count_marks > 0) {
-                $StrReturn .= '<li class="fas fa-plus-square" onclick="displayList(this, list_parts_' . $counter . ')" style="padding:5px"></li>'
-                        . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $titol . '</a>';
+            if ($count_marks > 0) {            
+                $StrReturn .= '<li class="fas fa-plus-square" onclick="mscra_displayList(this, list_parts_' . $counter . ')" style="padding:5px"></li>'
+                        . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $titol . '</a>';
                 if (strlen($descrip) > 2) {
                     $StrReturn .= '<i>' . $descrip . '</i><br>';
                 }
-                $StrReturn .= '<i class="fas fa-clock"></i><i> [' . $duration . '] </i> '
-                        . '<a class="no-ajaxy fas fa-download" href="' . $urldownload . '"></a>';
+                $StrReturn .= '<i class="fas fa-clock"></i><i> [' . $duration . '] </i> ';                
+                
                 $StrReturn .= '<ul style="display:none" id="list_parts_' . $counter . '">';
                 $counter_mark = 0;
                 while ($counter_mark < $count_marks):
                     $seg = $marks[$counter_mark]['SECOND'];
                     $comment = $marks[$counter_mark]['COMMENT'];
-                    $StrReturn .= '<li style="margin-left:50px"><a class="fpod" data-pos="' . $seg . '" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $comment . '</a></li>';
-                    $counter_mark++;
+                    $StrReturn .= '<li style="margin-left:50px"><a class="fpod" data-pos="' . $seg . '" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $comment . '</a></li>';
+                    $counter_mark++;                    
                 endwhile;
                 $StrReturn .= '</ul>';
+                $StrReturn .= '<p>'.mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload).'</p>';
             } else {
-                if (get_option('msc_player') == 'nothing') {
-                    $StrReturn .= '<figure class="wp-block-audio">' . $titol . '<br><audio controls="" src=' . $urlmp3 . ' style="width:90%"></audio><i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>'
-                            . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
-                    $StrReturn .= social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe);
+                if (get_option('mscra_player') == 'nothing') {
+                    $StrReturn .= '<figure class="wp-block-audio">' . $titol . '<br><audio controls="" src=' . $urlmp3 . ' style="width:90%"></audio><i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>';
+                    $StrReturn .= mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload,$urldownload);
                     $StrReturn .= '</figure>';
                 } else {
-                    $StrReturn .= '<ul><li>'
-                            . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="playThisFile(this)" >' . $titol . '</a>'
-                            . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>'
-                            . '<a class="no-ajaxy fas fa-arrow-alt-square-down fa-2x" href="' . $urldownload . '"></a>';
-                    $StrReturn .= social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe);
-                    $StrReturn .= '</li></ul>';
+                    $StrReturn .= '<p>';
+                    $StrReturn .= '<li class="fas fa-podcast" style="padding:5px"></li>'
+                            . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $titol . '</a>'
+                            . '<i class="fas fa-clock"></i><i> [' . $duration . '] </i><br>';                            
+                    $StrReturn .= mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $URL_Linked_in, $URL_WhatsApp, $URL_Iframe,$urldownload);
+                    $StrReturn .= '</p>';
                 }
             }
             $counter++;
@@ -138,20 +154,20 @@ function get_show_program($attributes) {
     }
 }
 
-add_shortcode('show_program', 'get_show_program');
+add_shortcode('mscra_show_program', 'mscra_get_show_program');
 
-function get_cloud_tags_programs() {
+function mscra_get_cloud_tags_programs() {
     //list of programs with own tags
-    //tag_cloud($listTags,$urlDesti,$div_size = 400);
+    //mscra_tag_cloud($listTags,$urlDesti,$div_size = 400);
 }
 
-add_shortcode('cloud_tags_programs', 'get_cloud_tags_programs');
+add_shortcode('msc_cloud_tags_programs', 'mscra_get_cloud_tags_programs');
 
-function get_list_programs() {
+function mscra_get_list_programs() {
     if (is_admin()) {
         return;
     }
-    include MSC_PLUGIN_DIR.'connect_api.php';
+    include MSCRA_PLUGIN_DIR.'connect_api.php';
 
     $list = $MyRadio->QueryGetTable(seccions::PROGRAMS, sub_seccions::LIST_PRGS);
 
@@ -170,9 +186,9 @@ function get_list_programs() {
         } 
 
         $upload_dir = wp_upload_dir();
-        $PathToSaveImg = $upload_dir['basedir'] . '/' . TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
-        $PathToShowImg = $upload_dir['baseurl'] . '/' . TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
-        if (getImage(base64_decode($list['item'][$counter]['IMAGE']), $PathToSaveImg, 250) == TRUE) {
+        $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
+        $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/prg-' . $prg_id . '.jpg';
+        if (mscra_getImage(base64_decode($list['item'][$counter]['IMAGE']), $PathToSaveImg, 250) == TRUE) {
             //$strReturn .= '<img src="' . $PathToShowImg . '" class="aligncenter size-full">';            
             $strReturn .= '<a href="' . $url_prg . '"><div class="prg-list" style=background-image:url(' . $PathToShowImg . ')><p>';
         } else {
@@ -189,4 +205,4 @@ function get_list_programs() {
     echo $strReturn;
 }
 
-add_shortcode('list_programs', 'get_list_programs');
+add_shortcode('mscra_list_programs', 'mscra_get_list_programs');

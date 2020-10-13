@@ -2,7 +2,7 @@
 /**
  * Download file.
  */
-$file_name = urldecode($_GET["filename"]); 
+$download_name = urldecode($_GET["filename"]); 
 $file_url = $_GET["fileurl"];
 $id = $_GET["id"];
 $web_root = $_SERVER["DOCUMENT_ROOT"];
@@ -14,7 +14,7 @@ if(!isset($MyRadio)){
     include_once '../inc/my_radio.php';
     include_once '../inc/utils.php';
     $my_key = $_GET['key'];    
-    $MyRadio = new my_radio($my_key,LANG_DEF);            
+    $MyRadio = new my_radio($my_key,WP_MSCRA_LANG_DEF,0);            
     if ($MyRadio->RESPOSTA_MESSAGE !== 'OK' ){
         if ($MyRadio->IS_DEGUG == true){               
             $title = 'Error API MSC';
@@ -46,7 +46,7 @@ $filename = basename ($file_url) ;
 $file_extension = strtolower (substr (strrchr ($filename, '.'), 1)) ;
 
 
-function getFileSize($url) {
+function mscra_getFileSize($url) {
     if (substr($url,0,4)=='http') {
         $x = array_change_key_case(get_headers($url, 1),CASE_LOWER);
         if ( strcasecmp($x[0], 'HTTP/1.1 200 OK') != 0 ) { $x = $x['content-length'][1]; }
@@ -56,14 +56,14 @@ function getFileSize($url) {
     return $x;
 }
 
-$filesize = getFileSize($file_url);
+$filesize = mscra_getFileSize($file_url);
 
-function fileExists($path){
+function mscra_fileExists($path){
     return (@fopen($path,"r")==true);
 }
 
-if(!fileExists($file_url))
-    die("<br> ".__('The file <b> $file_url </b> doesn\'t exist; check the URL','msc-automation') );
+if(!mscra_fileExists($file_url))
+    die("<br> ".__('The file <b> $file_url </b> doesn\'t exist; check the URL','mscra-automation') );
 
 
 //This will set the Content-Type to the appropriate setting for the file
@@ -129,7 +129,7 @@ switch ($file_extension)
     case 'htm':
     case 'html':
     case 'txt':
-        die ('<b>'.__('Cannot be used for $file_extension files!','msc-automation').'</b>') ;
+        die ('<b>'.__('Cannot be used for $file_extension files!','mscra-automation').'</b>') ;
         break;
     default:
         $content_type = 'application/force-download' ;
@@ -137,14 +137,14 @@ switch ($file_extension)
 
 //die("<br> - file_extension::  ". $file_extension ."<br> - content_type::  ". $content_type ."<br> - file_name::  ". $file_name ."<br> - file_url::  ". $file_url ."<br> - file size::  ". $filesize . "<br> - curl exist::  ". function_exists('curl_version') ."<br> - allow_url_fopen::  ". ($fp=@fopen($file_url,'rb')) );
 
-header ('Pragma: public') ;
-header ('Expires: 0') ;
-header ('Cache-Control: must-revalidate, post-check=0, pre-check=0') ;
-header ('Cache-Control: private') ;
-header ('Content-Type: ' . $content_type);
+header('Pragma: public') ;
+header('Expires: 0') ;
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0') ;
+header('Cache-Control: private') ;
+header('Content-Type: ' . $content_type);
 header("Content-Description: File Transfer");
 header("Content-Transfer-Encoding: Binary");
-header("Content-disposition: attachment; filename=\"".$filename."\"");
+header("Content-disposition: attachment; filename=\"".$download_name.'('.$filename.')'."\"");
 header('Content-Length: '.$filesize);
 header('Connection: close');
 

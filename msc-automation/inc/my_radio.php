@@ -4,7 +4,7 @@ class my_radio {
     protected $CLIENT_KEY       = '';
     //protected $MSC_KEY       = '';
     public $IS_DEGUG            = false;
-    protected $LANG             = LANG_DEF;
+    protected $LANG             = WP_MSCRA_LANG_DEF;
     protected $COOKIE_USER      = '';
     protected $URL_API        =  'http://api.msc-soft.com';
     //protected $URL_API        =  'http://localhost/api';
@@ -26,28 +26,30 @@ class my_radio {
     public $NomAudio1           = '';
     public $NomAudio2           = '';    
     
-    function __construct($client_key,$lang,$debug= FALSE) {        
-        $this->my_client_key  = $client_key;//(isset($_SESSION['msc_client_key']))  ? $_SESSION['msc_client_key'] : get_option('msc_client_key');        
-        $this->IS_DEGUG  = ($debug== '')  ? FALSE : TRUE;// $debug; //(isset($_SESSION['msc_debug']))  ? $_SESSION['msc_debug'] : get_option('msc_debug');         
+    function __construct($client_key,$lang,$version, $debug= FALSE) {        
+        $this->my_client_key  = $client_key;//(isset($_SESSION['mscra_client_key']))  ? $_SESSION['mscra_client_key'] : get_option('mscra_client_key');        
+        $this->IS_DEGUG  = ($debug== '')  ? FALSE : TRUE;// $debug; //(isset($_SESSION['mscra_debug']))  ? $_SESSION['mscra_debug'] : get_option('mscra_debug');         
         $this->LANG  = $lang;//(isset($_SESSION['msc_lang']))  ? $_SESSION['msc_lang'] : get_locale();                                        
         
         if ($this->my_client_key == '') {
             $this->RESPOSTA_MESSAGE = 'No client';
             return;
         }
-        
-        if(!isset($_SESSION['msc_client_key'])){session_start();}
-        $_SESSION['msc_client_key'] = $this->my_client_key;
-        $_SESSION['msc_debug'] = $this->IS_DEGUG; 
+        /*
+        if (!session_id()) {
+            session_start();
+        }        
+        $_SESSION['mscra_client_key'] = $this->my_client_key;
+        $_SESSION['mscra_debug'] = $this->IS_DEGUG; 
         $_SESSION['msc_lang'] = $this->LANG; 
-        
+        */
         //$this->COOKIE_USER = session_id();                
-        $this->COOKIE_USER = $_COOKIE['msc_usr'];                
+        $this->COOKIE_USER = $_COOKIE['mscra_usr'];                
         $this->RESPOSTA_MESSAGE = 'OK' ;    
         $this->TIME_CONNECTION = date(datetime::ISO8601);
         // consultem els paràmetres de configuració
         $vars[0] = 'lang='.$this->LANG;        
-        $vars[1] = 'ver='.MSC_PLUGIN_VERSION ;
+        $vars[1] = 'ver='.$version ;
         
         $this->QueryGetTable(seccions::ADMIN, sub_seccions::INIWORDPRESS,$vars); 
         if ( $this->IS_DEGUG==TRUE){
@@ -61,7 +63,22 @@ class my_radio {
             //$message = 'End connection API ('. $this->TIME_CONNECTION .' / '.date(datetime::ISO8601).')' ;            
        }
     }
-                
+    
+    
+    /*
+    function download_page($path){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$path);
+        curl_setopt($ch, CURLOPT_FAILONERROR,1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        $retValue = curl_exec($ch);          
+        curl_close($ch);
+        return $retValue;
+    }
+    */
+    
     /**
  * Adds up two int numbers
  * @param string $seccion the first number to add
@@ -81,10 +98,18 @@ class my_radio {
         $url_vars .= '&user='.$this->COOKIE_USER.'&lang='.$this->LANG;
         $this->URL_QUERY_API = $this->URL_API.'/'.$this->API_VERSION.'/'.$this->my_client_key.'/'.$seccion.'/'.$sub_seccion.'/'.$url_vars;                        
         
+        /*
+        if ($sub_seccion==sub_seccions::LISTPODCAST_PRG){
+            $response = wp_remote_get( $this->URL_QUERY_API );            
+            $body     = wp_remote_retrieve_body( $response );
+            print_r($body);
+        }         
+        */        
+        
         $xml = new DOMDocument();        
         if ($xml->load($this->URL_QUERY_API) == FALSE){                              
             $my_message = $this->URL_QUERY_API ;
-            show_msc_message( $my_message,message_type::DANGER);            
+            mscra_show_message( $my_message,message_type::DANGER);            
             $this->RESPOSTA_STATUS = 'KO';
             $this->RESPOSTA_CODE = SERVER_ERROR_NO_DEF;
             $this->RESPOSTA_MESSAGE = 'Error XML';
@@ -94,7 +119,7 @@ class my_radio {
              if ($MSGonJS==TRUE){
                 $this->RESPOSTA_MESSAGE = $this->URL_QUERY_API ;
             }else{
-                show_msc_message( $this->URL_QUERY_API ,message_type::INFO);            
+                mscra_show_message( $this->URL_QUERY_API ,message_type::INFO);            
             } 
         }
         $status = $xml->getElementsByTagName( "status" );
