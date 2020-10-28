@@ -1,5 +1,6 @@
 <?php
 
+
 function mscra_get_manager_adv() {
     if (is_admin()) {
         return;
