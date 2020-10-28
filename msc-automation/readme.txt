@@ -24,7 +24,7 @@ Developed by podcasters for podcasters
 1 Download this file (https://msc-soft.com/download/plugin-wordpress/).
 2 Upload plugin .zip file to the /wp-content/plugins/ directory and unzip.
 3 Activate the plugin through the ‘Plugins’ menu in WordPress.
-5 Configure this pluging by going to the **Settings** > **MSC Radio Automation** page. 
+5 Configure this pluging by going to the **MSC Radio Automation** > **Settings** page. 
 6 Paste your Client Key in **Settings** page.
 
 == Screenshots ==
@@ -34,9 +34,10 @@ Developed by podcasters for podcasters
 4 WordPress settings
 
 == Changelog ==
-= 2. =
+= 2.3 =
 * Released 10/09/2020
-* 
+* modifications suggested by WordPress Plugin Review Team
+
 
 = 2.2 =
 * Released 10/07/2020

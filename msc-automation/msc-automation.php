@@ -54,7 +54,7 @@ if (is_admin()) {
         register_setting('mscra_settings', 'mscra_container-id', 'main');
         register_setting('mscra_settings', 'mscra_mcdc', 'menu');
         register_setting('mscra_settings', 'mscra_search-form', 'search-form');
-        register_setting('mscra_settings', 'msc_transition', 0);
+        register_setting('mscra_settings', 'mscra_transition', 0);
         register_setting('mscra_settings', 'mscra_scrollTop', 0);
         register_setting('mscra_settings', 'mscra_loader', '');
     }
@@ -70,6 +70,11 @@ if (is_admin()) {
             mscra_get_player();
         }
         add_action('wp_footer', 'mscra_show_player');
+    }
+    // NO work
+    $hp = (isset($_GET['hp']))? sanitize_text_field($_GET['hp']):0;//get_query_var('hp',0);
+    if ($hp !=0) {         
+        setcookie("mscra_date_vote", time(), time() + 3600, COOKIEPATH, COOKIE_DOMAIN); //espera una hora
     }
 }
 

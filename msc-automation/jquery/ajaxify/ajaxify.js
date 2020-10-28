@@ -104,10 +104,9 @@
 			}
 			if( '' != aws_data['loader'] ) {
 				$content
-						.html('<img src="' + rootUrl + 'wp-content/plugins/mscra-automation/images/ajaxify/' + aws_data['loader'] + '" />')
+						.html('<img src="' +  aws_data['loader'] + '" />')
 						.css('text-align', 'center');
 			}
-
 			// Ajax Request the Traditional Page
 			$.ajax({
 				url: url,
@@ -216,13 +215,11 @@ jQuery(document).ready(function(){
         //Make the link ajaxify.	                
         jQuery("#ajax-search").ajaxify();	
         //After submitting the search form search the post without refreshing the browser.                        
-        var host = aws_data['rootUrl'] + "?s=";
-        console.log('AAAA'+host);
+        var host = aws_data['rootUrl'] + "?s=";        
         jQuery(aws_data['searchID']).on('submit',
 		function(d){
 			d.preventDefault();
-			//var host = aws_data['rootUrl'] + "?s=";
-                        console.log('BBBB'+host);
+			//var host = aws_data['rootUrl'] + "?s=";                        
 			jQuery("#ajax-search a").attr("href", host + jQuery(this).find('input[type="search"]').val());
 			jQuery("#ajax-search a").trigger("click");
 		}

@@ -3,9 +3,18 @@
     <h2><?php _e('Radio Automation Software | The radio on cloud', 'mscra-automation'); ?></h2>
     <h3><?php _e('Thank you', 'mscra-automation'); ?></h3>
     <p><?php _e('Thank you for choosing MSC-soft.com and ours services, we hope that this software meets all your espectactives and contribute to a better quality of work and broadcast of your radio.', 'mscra-automation'); ?></p>
+    <p><?php _e('You can download the free MSC Radio Automation Suite.', 'mscra-automation'); ?><a href='https://msc-soft.com/download/'> Downloads</a></p>
+    
     <dd>
-        <p><i><?php _e('The MSC-Soft.com team', 'mscra-automation'); ?></i></p>
+        <h3><?php _e('Global service', 'mscra-automation'); ?></h3>
+        <p><?php _e('All the computer technology of your radio into a single service.', 'mscra-automation'); ?></p>
+        <h3><?php _e('Total control', 'mscra-automation'); ?></h3>
+        <p><?php _e('We give you the tools to easily create quality programming and expand the contents for all channels. ', 'mscra-automation'); ?></p>
+        <h3><?php _e('We grow with you', 'mscra-automation'); ?></h3>
+        <p><?php _e('We adapt to your needs, we offer new tools to go much further. ', 'mscra-automation'); ?></p>                
     </dd>
+    <p><i><?php _e('The MSC-Soft.com team', 'mscra-automation'); ?></i></p>
+    
     <h3><?php _e('Contact information', 'mscra-automation'); ?></h3>
     <p><?php _e('For more information, please contact us.', 'mscra-automation'); ?></p>
     <dl>

@@ -13,10 +13,10 @@ function mscra_get_last_podcast() {
         $upload_dir = wp_upload_dir();
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
         
-        $page = get_page_by_title(__('track', 'mscra-automation'));        
+        $page = mscra_get_page_by_meta('track');
         $base_URL_Share = $page->guid;
 
-        $StrReturn .= '<div>';
+        $StrReturn = '<div>';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
             $id = $list_podcast['item'][$counter]["ID"];
             $nom_programa = ($list_podcast['item'][$counter]['NAME']);
@@ -25,10 +25,12 @@ function mscra_get_last_podcast() {
             $data_crea = $list_podcast['item'][$counter]['DATE_PUBLICATION'];
             $titol = $nom_programa . ' ' . date('d-m-Y', strtotime($data_crea));
             $urlmp3 = strtolower($url_podcast . '/' . $list_podcast['item'][$counter]['FILE']);
-            $urldownload = strtolower(MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id . '&key=' . $my_key);
-
-            $ref = "?ref=" . bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA);
-            $URL_Share = $base_URL_Share . $ref;
+            $urldownload = strtolower(MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id . '&key=' . get_option('mscra_client_key',''));
+            
+            $hexid = bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA);
+            $params = array('ref' => $hexid);
+            
+            $URL_Share = add_query_arg($base_URL_Share,$params);                        
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t=' . urlencode($nom_programa) . '&u=' . $URL_Share;
             $URL_Twitter = 'https://twitter.com/share?via=TWITTER_HANDLE&text=' . urlencode($nom_programa) . '&url=' . $URL_Share . '';
             $URL_Pinterest = 'https://pinterest.com/pin/create/button/?description=' . urlencode($nom_programa) . '&url=' . $URL_Share;
@@ -40,12 +42,13 @@ function mscra_get_last_podcast() {
             if (strlen($descrip) > 2) {
                 $StrReturn .= '<i>' . $descrip . '</i><br>';
             }
-            $marks = $list_podcast['item'][$counter]['MARKS']['MARK'];
-            if (is_array($marks) == true) {
+            if (isset($list_podcast['item'][$counter]['MARKS']['MARK'])){
+                $marks = $list_podcast['item'][$counter]['MARKS']['MARK'];
                 $count_marks = count($marks);
-            } else {
+            }else{
                 $count_marks = 0;
             }
+                        
             if ($count_marks > 0) {
                 $StrReturn .= '<li class="fas fa-plus-square" onclick="mscra_displayList(this, list_parts_' . $counter . ')" style="padding:5px"></li>'
                         . '<a class="fpod" data-pos="0" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $titol . '</a>'

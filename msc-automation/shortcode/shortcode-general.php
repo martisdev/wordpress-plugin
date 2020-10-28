@@ -13,9 +13,9 @@ function mscra_get_detail_track($attributes) {
     if (is_admin()) {
         return;
     }
-       
-    if (isset($_GET['ref'])) {        
-        $values= explode (',',hex2bin($_GET['ref']));
+    $ref = (isset($_GET['ref']))? sanitize_text_field($_GET['ref']):'';
+    if ($ref != '') {        
+        $values= explode(',',hex2bin($ref));
         $id_track= $values[0];
         $type_track =$values[1];        
     }else{
@@ -71,7 +71,7 @@ function mscra_get_detail_track($attributes) {
             mscra_get_detail_song($attributes);
             return;
     }
-    $post_title = $title . ' | ' . $subtitle;
+    $post_title = $title.' | '.$subtitle;
     echo "<script> document.title =".$post_title." ; </script>"; 
     
     /*wp_register_script('script_opengraph', MSCRA_JQUERY_URL . 'refresh_og.js', '1.0.0');

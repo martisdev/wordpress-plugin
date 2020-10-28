@@ -13,6 +13,7 @@ if(!isset($MyRadio)){
     include_once '../inc/defines.php';        
     include_once '../inc/my_radio.php';
     include_once '../inc/utils.php';
+    
     $my_key = $_GET['key'];    
     $MyRadio = new my_radio($my_key,WP_MSCRA_LANG_DEF,0);            
     if ($MyRadio->RESPOSTA_MESSAGE !== 'OK' ){

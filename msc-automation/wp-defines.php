@@ -23,3 +23,19 @@
     //include_once 'widgets.php';    
     include_once 'templates.php';    
     include_once 'ajaxify.php';
+    
+    define('MSCRA_HOOK_SEARCH', 'search');        
+    define('MSCRA_HOOK_PLAYER_STREAM', 'playerstream');    
+    define('MSCRA_HOOK_TRACK', 'track');    
+    define('MSCRA_HOOK_SONG', 'song');    
+    define('MSCRA_HOOK_ALBUM', 'album');    
+    define('MSCRA_HOOK_HOME', 'home');    
+    define('MSCRA_HOOK_CALENDAR', 'calendar');    
+    define('MSCRA_HOOK_PROGRAMS', 'progs');    
+    define('MSCRA_HOOK_ON_DEMAND', 'demand');    
+    define('MSCRA_HOOK_ON_ACTIVITY', 'activity');    
+    define('MSCRA_HOOK_ON_HISTORY', 'history');    
+    define('MSCRA_HOOK_ON_VOTE', 'vote');    
+    define('MSCRA_HOOK_ON_ADS', 'ads');    
+    define('MSCRA_HOOK_ON_NEWS', 'news');    
+    

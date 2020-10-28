@@ -155,7 +155,6 @@ function mscra_PlayThisFile(elmnt) {
                 my_subtitle = subtit[0].childNodes[0].nodeValue;
                 var descrip = my_title + ' - ' + my_subtitle;
 
-
                 URL_Facebook = "https://www.facebook.com/sharer/sharer.php?u=" + URL_Share[0].childNodes[0].nodeValue + "&t=" + descrip;
                 URL_twitter = 'https://twitter.com/share?url=' + URL_Share[0].childNodes[0].nodeValue + '&via=TWITTER_HANDLE&text=' + descrip;
                 URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' + URL_Share[0].childNodes[0].nodeValue + '&description=' + descrip;
@@ -176,14 +175,14 @@ function mscra_PlayThisFile(elmnt) {
                 link.rel = 'icon';
                 link.href = my_img;
                 document.getElementsByTagName('head')[0].appendChild(link);                
-                document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
-                if (URL_download[0].childNodes[0].nodeValue.length > 3)
+                if ( typeof URL_download[0].childNodes[0] !== 'undefined')
                 {
+                    document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
                     document.getElementById('download').style.display = "inline";
                 } else {
+                    document.getElementById('download').href = '';
                     document.getElementById('download').style.display = "none";
                 }
-                 
                 
                 document.getElementById("like").style.color = 'inherit';
                 document.getElementById('fb').href = URL_Facebook;
@@ -225,7 +224,7 @@ var mscra_refreshPlayer = function () {
         def_image = msc_data.def_image,
         path = msc_data.path;
         
-        var urlRequest = path + "wp-snippets/refresh_player_live.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&url_jamendo=" + jamendo_url + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;        
+        var urlRequest = path + "wp-snippets/refresh_player_live.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&url_jamendo=" + jamendo_url + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;                
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState < 4) {
@@ -250,8 +249,7 @@ var mscra_refreshPlayer = function () {
                     URL_LinkedIn = 'https://www.linkedin.com/shareArticle?mini=true&url=' + URL_Share[0].childNodes[0].nodeValue + '&title=' + descrip;
                     URL_WhatsApp = 'https://wa.me/?text=' + descrip + '+-+' + URL_Share[0].childNodes[0].nodeValue;                    
                     URL_Iframe = '<iframe src="' + URL_Share[0].childNodes[0].nodeValue + '" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
-                    //Title page
-                    
+                    //Title page                    
                     document.getElementById('jp_title').innerHTML = my_title;
                     document.getElementById("jp_subtitle-name").innerHTML = my_subtitle;
                     document.title = my_title + ' | ' + my_subtitle
@@ -264,11 +262,13 @@ var mscra_refreshPlayer = function () {
                     link.rel = 'icon';
                     link.href = my_img;
                     document.getElementsByTagName('head')[0].appendChild(link);                    
-                    document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
-                    if (URL_download[0].childNodes[0].nodeValue.length > 3)
+                    
+                    if ( typeof URL_download[0].childNodes[0] !== 'undefined')
                     {
+                        document.getElementById('download').href = URL_download[0].childNodes[0].nodeValue;
                         document.getElementById('download').style.display = "inline";
                     } else {
+                        document.getElementById('download').href = '';
                         document.getElementById('download').style.display = "none";
                     }
                     document.getElementById("like").style.color = 'inherit';

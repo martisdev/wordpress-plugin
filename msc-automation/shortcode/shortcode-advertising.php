@@ -3,22 +3,31 @@
 function mscra_get_manager_adv() {
     if (is_admin()) {
         return;
-    }
-    if (isset($_GET['logout'])) {
+    }    
+    $lOut = ( isset( $_GET['logout'] ) ) ?  sanitize_text_field($_GET['logout'])  : 0;
+    if ($lOut==1) {
         return mscra_logOut();
     }
-    if (isset($_GET['cpsw']) || isset($_POST['oldPsw'])) {
-        return mscra_changePassword();
+    $cuPass = ( isset( $_GET['cpsw'] ) ) ?  sanitize_text_field($_GET['cpsw'])  : '';
+    $nePass = ( isset( $_GET['npsw'] ) ) ?  sanitize_text_field($_GET['npsw'])  : '';
+    if ($cuPass !='' || $cuPass !='') {
+        $cli = ( isset( $_GET['cliID'] ) ) ?  $_GET['cliID']  : 0;
+        if (is_numeric($cli) || $cli>0 ){
+            return mscra_changePassword($cuPass,$nePass,$cli);
+        }else{
+            $strReturn = mscra_show_formLogin(true);
+        }        
     }
-    if (isset($_POST['select']) || isset($_POST['cliID'])) {
-        //list inform radiotion        
-        $falcaID = $_POST['select'];
-        $ClientID = $_POST['cliID'];
+    
+    $falcaID = (isset($_GET['select']))? sanitize_text_field($_GET['select']):'';
+    $ClientID = (isset($_GET['cliID']))? sanitize_text_field($_GET['cliID']):0;
+    if ($falcaID != '' || $ClientID!= 0) {
+        //list inform radiotion                
         $strReturn = mscra_show_ListRadiation($ClientID, $falcaID);
     } else {
-        if (isset($_GET['CliUser']) || isset($_GET['CliPsw'])) {
-            $CliUsusari = $_GET['CliUser'];
-            $CliPassword = $_GET['CliPsw'];
+        $CliUsusari = (isset($_GET['CliUser'] ) ) ?  sanitize_text_field($_GET['CliUser'])  : '';
+        $CliPassword = (isset($_GET['CliPsw'] ) ) ?  sanitize_text_field($_GET['CliPsw'])  : '';
+        if ($CliUsusari != '' || $CliPassword !='') {            
             if (!$CliUsusari || !$CliPassword) {
                 //Error falten dades al formulari
                 $strReturn = mscra_show_formLogin(true);
@@ -47,8 +56,7 @@ function mscra_show_formLogin($errorlog = false) {
     }
     $strform .= "<tr><td>" . __('Customer', 'mscra-automation') . ":</td><td ><input name=CliUser type=password></td></tr>";
     $strform .= "<tr><td><span>" . __('Password', 'mscra-automation') . ":</span></td><td><input name=CliPsw type=password></td></tr>";
-    $strform .= "<tr><td><span></span></td><td><input name=submit type=submit value=" . __('Send', 'mscra-automation') . "></td></tr>";
-    //$strform .= '<span id="ajax-search" style="display:none;"><a href=""></a></span>';
+    $strform .= "<tr><td><span></span></td><td><input name=submit type=submit value=" . __('Send', 'mscra-automation') . "></td></tr>";    
     $strform .= "</table></form>";
     return $strform;
 }
@@ -63,16 +71,16 @@ function mscra_show_listAdvertising($user, $psw) {
     $info_client = $MyRadio->QueryGetTable(seccions::ADVERTISING, sub_seccions::LOGIN, $Vars);
     if ($MyRadio->RESPOSTA_CODE == ADV_LOGIN_KO) {
         //$strform .= "<CENTER><span>" . __('No s&acute;ha trobat cap client.', 'mscra-automation') . "</span></CENTER>";        
-        $strform .= show_formLogin(true);
+        $strform = mscra_show_formLogin(true);
     } else {
         if ($MyRadio->RESPOSTA_ROWS > 0) {
             $_SESSION["client_expire"] = time() + 300;
             //Commercial list                           
-            $CliId = $info_client['item']['ID'];
-            $Empresa = $info_client['item']['NAME'];
-            $Titular = $info_client['item']['CONTACT'];
+            $CliId = sanitize_text_field ($info_client['item']['ID']);
+            $Empresa = sanitize_text_field ($info_client['item']['NAME']);
+            $Titular = sanitize_text_field ($info_client['item']['CONTACT']);
 
-            $strform .= mscra_show_mnu_client($CliId);
+            $strform = mscra_show_mnu_client($CliId);
             $strform .= "<h2>" . sprintf(__('Welcome Mr/Ms %s from %s', 'mscra-automation'), $Titular, $Empresa) . "</h2>";
             //Busca totes les seves falques				
             $falques = $info_client['item']['ADVS']['ADV'];
@@ -91,7 +99,7 @@ function mscra_show_listAdvertising($user, $psw) {
 
                 $strform .= "<select name=select>";
                 $strform .= "<option value = 0>" . __('All', 'mscra-automation') . "</option>";
-                $strform .= "<option value = " . $falques ['ID'] . ">" . $falques ['NAME'] . "</option>";
+                $strform .= "<option value = " . sanitize_text_field ($falques ['ID']) . ">" . sanitize_text_field($falques ['NAME']) . "</option>";
                 $strform .= "</select>";
 
                 $strform .= "</td></tr>";
@@ -110,7 +118,7 @@ function mscra_show_listAdvertising($user, $psw) {
                 $strform .= "<option value = 0>" . __('All', 'mscra-automation') . "</option>";
                 $counter = 0;
                 while ($counter < $total_rows):
-                    $strform .= "<option value = " . $falques [$counter]['ID'] . ">" . $falques [$counter]['NAME'] . "</option>";
+                    $strform .= "<option value = " . sanitize_text_field ($falques [$counter]['ID']) . ">" . sanitize_text_field ($falques [$counter]['NAME']) . "</option>";
                     $counter = $counter + 1;
                 endwhile;
                 $strform .= "</select>";
@@ -119,7 +127,7 @@ function mscra_show_listAdvertising($user, $psw) {
                 $strform .= "<tr><td><span></span></td><td><input name=\"cliID\" type=\"hidden\" value=" . $CliId . "><input name=falca type=submit value=" . __('Send', 'mscra-automation') . "></td></tr>";
                 $strform .= "</table></form>";
             } else {
-                $strform .= __('There are no ad for this client..', 'mscra-automation');
+                $strform .= __('There are no ads for this client..', 'mscra-automation');
             }
         }
     }
@@ -144,7 +152,7 @@ function mscra_show_ListRadiation($client, $falca) {
     $Vars[0] = "f=" . $falca;
     $Vars[1] = "c=" . $client;
     $list = $MyRadio->QueryGetTable(seccions::ADVERTISING, sub_seccions::RADIATION, $Vars);
-    $strform .= show_mnu_client($client);
+    $strform = show_mnu_client($client);
     if ($MyRadio->RESPOSTA_ROWS > 0) {
         if ($MyRadio->RESPOSTA_ROWS == 1) {
             $strform .= "<h3>" . __('Choose the ad you want to list', 'mscra-automation') . " ...</h3>";
@@ -198,7 +206,7 @@ function mscra_show_ListRadiation($client, $falca) {
             $StrEcho .= '</TR>';
             $strform .= $StrEcho;
         } else {
-            $counter = 0;
+            $counter = 0;            
             while ($counter < $MyRadio->RESPOSTA_ROWS):
                 if (fmod($counter, 2) == 0) {
                     $StrEcho = "<TR>";
@@ -235,36 +243,35 @@ function mscra_logOut() {
       $strform .= "<META HTTP-EQUIV='Refresh' CONTENT='3;URL=".get_home_url()."'>";
       return $strform; */
 
-    $strform .= "<h3>" . __('You have been logged out', 'mscra-automation') . "</h3>";
+    $strform = "<h3>" . __('You have been logged out', 'mscra-automation') . "</h3>";
     $strform .= show_formLogin();
     return $strform;
 }
 
-function mscra_changePassword() {
-    if (isset($_POST['oldPsw'])) {
-        
+function mscra_changePassword($cuPass,$nePass,$cli) {
+    if ($cuPass!='') {        
         include MSCRA_PLUGIN_DIR.'connect_api.php';
 
-        $Vars[0] = "op=" . bin2hex($_POST['oldPsw']);
-        $Vars[1] = "np=" . bin2hex($_POST['newPsw']);
-        $Vars[2] = "c=" . bin2hex($_POST['cliID']);
+        $Vars[0] = "op=" . bin2hex($cuPass);
+        $Vars[1] = "np=" . bin2hex($nePass);
+        $Vars[2] = "c=" . bin2hex($cli);
         $info_client = $MyRadio->QueryGetTable(seccions::ADVERTISING, sub_seccions::CREDENTIALS, $Vars);
         if ($MyRadio->RESPOSTA_STATUS == SUCCES) {
-            $strform .= "<h3>" . __('The changes have been successful', 'mscra-automation') . "...</h3>";
+            $strform = "<h3>" . __('The changes have been successful', 'mscra-automation') . "...</h3>";
             unset($_SESSION["client_expire"]);
             $strform .= show_formLogin();
         } else {
             $strform .= "<h3>" . __('Error setting changes', 'mscra-automation') . "...</h3>";
         }
     } else {
-        $client = $_GET['c'];
-        $strform .= "<h3>" . __('Change your password', 'mscra-automation') . "...</h3>";
+        
+        $strform = "<h3>" . __('Change your password', 'mscra-automation') . "...</h3>";
         $strform .= "<FORM METHOD=POST ACTION=" . get_permalink() . " >\n";
         $strform .= "<table>";
-        $strform .= "<tr><td><span>" . __('Current password', 'mscra-automation') . ":</span></td><td><input name=oldPsw type=password></td></tr>";
-        $strform .= "<tr><td><span>" . __('New Password', 'mscra-automation') . ":</span></td><td><input name=newPsw type=password></td></tr>";
+        $strform .= "<tr><td><span>" . __('Current password', 'mscra-automation') . ":</span></td><td><input name=cpsw type=password></td></tr>";
+        $strform .= "<tr><td><span>" . __('New Password', 'mscra-automation') . ":</span></td><td><input name=npsw type=password></td></tr>";
         $strform .= "</td></tr>";
-        $strform .= "<tr><td><span></span></td><td><input name=cliID type=hidden value=" . $client . "><input name=falca type=submit value=" . __('Send', 'mscra-automation') . "></td></tr>";
+        $strform .= "<tr><td><span></span></td><td><input name=cliID type=hidden value=" . $cli . "><input name=falca type=submit value=" . __('Send', 'mscra-automation') . "></td></tr>";
         $strform .= "</table></form>";
     }
 
@@ -272,10 +279,15 @@ function mscra_changePassword() {
 }
 
 function mscra_show_mnu_client($client) {
-
+    
+    $params = array('logout' => 1, 'c' => $client);
+    $urlLogout = add_query_arg($params,get_permalink());    
+    $params = array('cpsw' => 1, 'c' => $client);
+    $urlCPass = add_query_arg($params,get_permalink());
+    
     $strform = "<div class='topnav'>
-                    <a href='" . get_permalink() . "?logout=1&c=" . $client . "'><b>" . __('Logout', 'mscra-automation') . "</b></a> | 
-                    <a href='" . get_permalink() . "?cpsw=1&c=" . $client . "'><b>" . __('Change Password', 'mscra-automation') . "</b></a>                    
+                    <a href='" . $urlLogout. "'><b>" . __('Logout', 'mscra-automation') . "</b></a> | 
+                    <a href='" . $urlCPass . "'><b>" . __('Change Password', 'mscra-automation') . "</b></a>                    
                 </div>";
     return $strform;
 }

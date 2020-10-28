@@ -33,7 +33,7 @@ if ($MyRadio->RESPOSTA_ROWS > 0) {
     $id = $list['item']['ID'];
     $type = $list['item']['TYPE'];
     $ref = "?ref=" . bin2hex($id . ',' . $type);
-    $URL_Share = $url_base_share . $ref;
+    $URL_Share = $url_base_share . $ref;    
     switch ($type) {
         case TIP_AUTOMATIC_LLISTA:
             $img_mame = 'disc_img-' . $id . '.jpg';

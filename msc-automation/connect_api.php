@@ -12,9 +12,10 @@ if (!isset($MyRadio)) {
     $MyRadio = new my_radio($key, get_locale(),$plugin_version, get_option('mscra_debug'));
     if ($MyRadio->RESPOSTA_STATUS !== SUCCES) {
         if ($MyRadio->IS_DEGUG == true) {
-            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . $MyRadio->RESPOSTA_MESSAGE;
-            mscra_show_message($msg, message_type::DANGER);
-            return;
+            $msg = 'STATUS: ' . $MyRadio->RESPOSTA_STATUS . ' CODE: ' . $MyRadio->RESPOSTA_CODE . ' MSG: ' . sanitize_text_field($MyRadio->RESPOSTA_MESSAGE);
+            mscra_show_message($msg, message_type::DANGER);            
         }
+        //message
+        exit;
     }
 }

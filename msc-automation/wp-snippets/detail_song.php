@@ -11,8 +11,8 @@
     }    
 
     $img_width = 200;    
-
-    $strReturn .= '<div id="nowinfo" style="width:'.$img_width.'px;">';
+    
+    $strReturn = '<div id="nowinfo" style="width:'.$img_width.'px;">';
     $upload_dir = wp_upload_dir();
     $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track']['ID'].'.jpg'; 
     $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track']['ID'].'.jpg';                     

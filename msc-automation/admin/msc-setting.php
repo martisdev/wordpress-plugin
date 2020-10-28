@@ -54,7 +54,11 @@
                 </td>                    
             </tr>
             <!-- Player iframe-->
-            <?php $url_player_stream =  get_permalink( get_page_by_title( __('Player Stream', 'mscra-automation')));?>
+            <?php 
+                $page = mscra_get_page_by_meta(__('Player Stream', 'mscra-automation'));       
+                $url_player_stream = $page->guid;
+            ?>
+            
             <tr valign="top">
                 <th scope="row">                                   
                     <label for="msc_iframe_player"><?php _e('Share your streaming','mscra-automation')?></label>                    
@@ -126,11 +130,11 @@
             </tr>			
             <tr valign="top">
                 <th scope="row">                                   
-                    <label for="msc_transition"><?php _e('Enable Transition Effect','mscra-automation')?>:</label>
+                    <label for="mscra_transition"><?php _e('Enable Transition Effect','mscra-automation')?>:</label>
                 </th>												
                 <td>                            
-                    <input type="checkbox" name="msc_transition" id="msc_transition" 
-                       value="true" <?php if (get_option('msc_transition',0) == "true") {echo' checked="checked"';}?>/>
+                    <input type="checkbox" name="msc_transition" id="mscra_transition" 
+                       value="true" <?php if (get_option('mscra_transition',0) == "true") {echo' checked="checked"';}?>/>
                 </td>
             </tr>
             <tr valign="top">

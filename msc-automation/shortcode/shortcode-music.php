@@ -7,10 +7,9 @@ function mscra_get_last_played($attributes) {
     $refresh = (isset($attributes['refresh'])) ? $attributes['refresh'] : FALSE;
     $image = (isset($attributes['image'])) ? $attributes['image'] : FALSE;
     $NumRows = (isset($attributes['rows'])) ? $attributes['rows'] : 10;
-    $cssbutton = (isset($attributes['stylebutton'])) ? $attributes['stylebutton'] : "";
-    //$_SESSION['MyUrlRoot'] = get_site_url();        
+    $cssbutton = (isset($attributes['stylebutton'])) ? $attributes['stylebutton'] : "";    
 
-    $dradi = (isset($_POST['dradi'])) ? $_POST['dradi'] : NULL;
+    $dradi = (isset($_GET['dradi']))? sanitize_text_field($_GET['dradi']):NULL;
     
     include MSCRA_PLUGIN_DIR.'connect_api.php';
 
@@ -66,6 +65,7 @@ function mscra_get_now_playing($attributes) {
     }
     $image = (isset($attributes['image'])) ? $attributes['image'] : FALSE;
     $img_width = (isset($attributes['img_width'])) ? $attributes['img_width'] : 200;
+    
     include MSCRA_PLUGIN_DIR.'connect_api.php';
 
     $_SESSION['image'] = $image;
@@ -104,8 +104,8 @@ function mscra_get_public_vote_player($attributes) {
     $cssbutton = (isset($attributes['stylebutton'])) ? $attributes['stylebutton'] : "";
     
     include MSCRA_PLUGIN_DIR.'connect_api.php';
-    
-    if (!isset($_POST['GrupOpc'])) {
+    $temid = (isset($_POST['GrupOpc']))? sanitize_text_field($_POST['GrupOpc']):0;
+    if ($temid==0) {
         //llista formulari
         $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::LISTOPCIONSWEB);
         if ($MyRadio->RESPOSTA_ROWS > 0) {
@@ -145,8 +145,7 @@ function mscra_get_public_vote_player($attributes) {
             _e('Wait a moment and try again later.', 'mscra-automation');
         }
     } else {
-        //Ja s'ha votat, registrar el vot
-        $temid = $_POST['GrupOpc'];
+        //Ja s'ha votat, registrar el vot        
         $Vars[0] = 'id=' . $temid;
         $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::VOTEOPCIONWEB, $Vars);
         ?>                        
@@ -163,17 +162,19 @@ add_shortcode('mscra_public_vote_player', 'mscra_get_public_vote_player');
 function mscra_get_search_music($attributes) {
     if (is_admin()) {
         return;
-    }
-    if (isset($_GET['HoraPrg'])) {
+    }    
+    $hp = get_query_var('hp',0);
+    if (($hp!=0)){         
+        //register the cookie 'mscra_date_vote' in msc-automation.php        
         //Programem la cançó            
-
-        $HoraPrg = strftime("%Y-%m-%d %H:%M:%S", $_REQUEST['hp']);
-        $temid = $_REQUEST['sid'];
+        $HoraPrg = strftime("%Y-%m-%d %H:%M:%S", $hp);        
+        $temid = (isset($_GET['sid']))? sanitize_text_field($_GET['sid']):0;
         $strReturn = '<h2>' . _e('Scheduled song, thanks for participating', 'mscra-automation') . '</h2>';
         include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
-        echo $strReturn;
-        setcookie("mscra_date_vote", time(), time() + 3600, COOKIEPATH, COOKIE_DOMAIN); //espera una hora
+        return $strReturn;
+        
     } else {
+        $strReturn='';
         $espera = 0;
         if (isset($_COOKIE["mscra_date_vote"])) {
             $hora = time(); //mktime(date("H"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
@@ -185,10 +186,10 @@ function mscra_get_search_music($attributes) {
             }
         }
         if ($espera == 0) {
-            //seguim endavant	            
-            if (isset($_GET['opt'])) {
-                // ensenyem info tema                    
-                $temid = $_GET['opt'];
+            //seguim endavant	
+            $temid =  (isset($_GET['opt']))? sanitize_text_field($_GET['opt']):0;
+            if ($temid != 0) {
+                // ensenyem info tema                                    
                 include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
                 //Ensenyem formulari del tema seleccionat per escollir una hora a sonar   
                 //canvi hora local                    
@@ -205,30 +206,26 @@ function mscra_get_search_music($attributes) {
                 $strReturn .= "<input type=hidden  name=sid value=" . $temid . "></table>";
                 $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'mscra-automation') . "></p>";
                 $strReturn .= "</form>";
-                echo $strReturn;
-            } else {
-                $strsql = "";
-                if (isset($_GET['q'])) {
-                    $strsql = urldecode($_GET['q']);
-                }
-                $str_disc = (isset($_GET['disc'])) ? $_GET['disc'] : 0;
+                return $strReturn;
+            } else {                
+                $strsql = (isset($_GET['q']))? sanitize_text_field($_GET['q']):'';
+                $str_disc = (isset($_GET['disc']))? sanitize_text_field($_GET['disc']):0;
                 if (strlen($strsql) > 0 or $str_disc > 0) {
-                    // how many rows we have in database
-                    include MSCRA_PLUGIN_DIR.'connect_api.php';
-                    //consulta a la API i construim formulari llistat.
-                    $pageNum = get_query_var('page', 0);
+                    $enc_strsql = urldecode($strsql);                    
+                    include MSCRA_PLUGIN_DIR.'connect_api.php';                                        
+                    $pageNum = (isset($_GET['o']))? sanitize_text_field($_GET['o']):0;                  
                     if ($str_disc > 0) {
                         //Query per un disc concret                            
-                        $Vars[0] = 'query=' . $str_disc;
+                        $Vars[0] = 'query=' . $str_disc;                                                
                         $Vars[1] = 'offset=' . $pageNum;
                         $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::SEARCHALBUM, $Vars);
                     } else {
                         //Query general                            
-                        $Vars[0] = 'query=' . urlencode($strsql);
+                        $Vars[0] = 'query=' . $enc_strsql;                                                
                         $Vars[1] = 'offset=' . $pageNum;
                         $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::SEARCHSONG, $Vars);
-                    }
-
+                    }                    
+                    
                     $offset = ($pageNum - 1) * WP_MSCRA_ROWS_PER_PAGE;
                     if ($MyRadio->RESPOSTA_ROWS > 0) {
                         // how many rows to show per page
@@ -248,20 +245,25 @@ function mscra_get_search_music($attributes) {
                         }                                                
                         if ($maxPage > 1) {
                             // print the link to access each page                                
-                            $self = get_bloginfo('url') . "?p=" . get_the_ID();
-                            $nav = '';
-                            $enc_strsql = urlencode($strsql);
+                            $self = get_permalink().'?';
+                            $nav = '';                            
                             for ($page = 1; $page <= $maxPage; $page++) {
                                 if ($page == $pageNum) {
                                     $nav .= $page; // no need to create a link to current page	  
                                 } else {
-                                    $nav .= " <a href=" . $self . "&page=$page&strsql=$enc_strsql \">$page</a> ";
+                                    $params = array('q' => $enc_strsql, 'o' => $page);
+                                    $url = add_query_arg($params);
+                                    $nav .= "<a href=".$url.">".$page."</a>".' | ';
                                 }
                             }
                             if ($pageNum > 1) {
-                                $page = $pageNum - 1;
-                                $prev = " <a href=\"$self&page=$page&strsql=$enc_strsql\"><i class='fas fa-angle-left' aria-hidden='true'></i></a> ";
-                                $first = " <a href=\"$self&page=1&strsql=$enc_strsql\"><i class='fas fa-angle-double-left' aria-hidden='true'></i></a> ";
+                                $page = $pageNum - 1;                                
+                                $params = array('q' => $enc_strsql, 'o' => $page);
+                                $url = add_query_arg($params);
+                                $prev = '<a href="'.$url.'"><i class="fas fa-angle-left" aria-hidden="true"></i></a>'.' | ';
+                                $params = array('q' => $enc_strsql, 'o' => '1');
+                                $url = add_query_arg($params);
+                                $first = '<a href="'.$url.'"><i class="fas fa-angle-double-left" aria-hidden="true"></i></i></a>'.' | ';                                
                             } else {
                                 $prev = '&nbsp;'; // we're on page one, don't print previous link
                                 $first = '&nbsp;'; // nor the first page link
@@ -269,8 +271,13 @@ function mscra_get_search_music($attributes) {
 
                             if ($pageNum < $maxPage) {
                                 $page = $pageNum + 1;
-                                $next = " <a href=\"$self&page=$page&strsql=$enc_strsql\"><i class='fas fa-angle-right' aria-hidden='true'></i></i></a> ";
-                                $last = " <a href=\"$self&page=$maxPage&strsql=$enc_strsql\"><i class='fas fa-angle-double-right' aria-hidden='true'></i></a> ";
+                                $params = array('q' => $enc_strsql, 'o' => $page);
+                                $url = add_query_arg($params);
+                                $next = '<a href="'.$url.'"><i class="fas fa-angle-right" aria-hidden="true"></i></i></a>'.' | ';
+                                $params = array('q' => $enc_strsql, 'o' => $maxPage);
+                                $url = add_query_arg($params);
+                                $last = '<a href="'.$url.'"><i class="fas fa-angle-double-right" aria-hidden="true"></i></i></a>'.' | ';
+                                
                             } else {
                                 $next = '&nbsp;'; // we're on the last page, don't print next link
                                 $last = '&nbsp;'; // nor the last page link
@@ -278,10 +285,10 @@ function mscra_get_search_music($attributes) {
                             // print the navigation link
                             $Navigator = "<p align=center>" . $first . $prev . $nav . $next . $last . "<p>";
 
-                            $nIni = (($pageNum - 1) * WP_MSCRA_ROWS_PER_PAGE) + 1;
+                            $nIni = (($pageNum ) * WP_MSCRA_ROWS_PER_PAGE) + 1;                            
                             $nFi = ($nIni + $rows_this_page) - 1;
                             $strReturn .= $nav = $Navigator;
-                            $strReturn .= "<p align=right>resultats " . $nIni . " - " . $nFi . " d&rsquo;un total de " . $MyRadio->RESPOSTA_ROWS . "</p>";
+                            $strReturn .= "<p align=right>". $nIni . " - " . $nFi . " ,Total results: " . $MyRadio->RESPOSTA_ROWS . "</p>";
                         }
 
                         $strReturn .= '<FORM class="search-form" METHOD=GET ACTION="' . get_permalink() . '" >
@@ -314,14 +321,16 @@ function mscra_get_search_music($attributes) {
                         endwhile;
                         $strReturn .= "</TABLE>\n";
                         $strReturn .= "<p align=center><input type=submit value=" . __('Send', 'mscra-automation') . "></p>";
-                        $strReturn .= "</form>";
-                        echo $strReturn;
-                    }
-                    //Tornem a posar el formulari inputtex de la consulat
-                    include MSCRA_WP_SNIPPETS_DIR . 'form_search_song.php';
+                        $strReturn .= "</form>";                        
+                    }                    
+                    //Tornem a posar el formulari inputtex de la consulat                    
+                    include MSCRA_WP_SNIPPETS_DIR . 'form_search_song.php';                    
+                    return $strReturn;
                 } else {
                     //formulari inputtex de la consulat
+                    $strReturn = '';
                     include MSCRA_WP_SNIPPETS_DIR . 'form_search_song.php';
+                    return $strReturn;
                 }
             }
         }
@@ -341,32 +350,9 @@ function mscra_get_last_albums($attributes) {
     if ($MyRadio->RESPOSTA_ROWS > 0) {
         $counter = 0;
         $img_width = 150;
-        $upload_dir = wp_upload_dir();
-        $page_seach = '#';
-        $args = array(
-            'post_type' => 'page',
-            'posts_per_page' => '10',
-            'post_status' => 'publish',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => '_msc_hook_id',
-                    'value' => 'search',
-                    'compare' => '='
-                )
-            )
-        );
-        $query = new WP_Query($args);
-        while ($query->have_posts()) {
-            $query->the_post();
-            $id = get_the_ID();
-            $page = get_page($id);
-            //$page_seach = $page->guid;
-            $page_seach = get_permalink($id);
-
-            break;
-        }
-
+        $upload_dir = wp_upload_dir();        
+       //$page_seach= '#';
+        $page_seach = mscra_get_page_by_meta(MSCRA_HOOK_SEARCH);        
         $strReturn = '<TABLE align=center>';
         $loop_return = '';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
@@ -387,7 +373,7 @@ function mscra_get_last_albums($attributes) {
             $loop_return .= '<TR><th>';
             if ($have_image == TRUE) {
                 if (strlen($link) > 1) {
-                    $loop_return .= "<a href='" . $LINKS . "' target='_blank'>" . $link . ">";
+                    $loop_return .= "<a href='" . $link . "' target='_blank'>";
                 }
                 $loop_return .= '<img src=' . $PathToShowImg . '>';
                 if (strlen($link) > 1) {
@@ -395,7 +381,7 @@ function mscra_get_last_albums($attributes) {
                 }
             }
             $loop_return .= '</th><th><h3>' . htmlentities($interp) . '</h3>';
-            $url = add_query_arg('disc', $id, $page_seach);
+            $url = add_query_arg('disc', $id, $page_seach->guid);
             $loop_return .= '<a href="' . $url . '"><h4>' . htmlentities($titol) . '</h4></a>';
             $loop_return .= '<p><i>' . htmlentities($comment) . '</i></p>';
             $strStyle = htmlentities($style);

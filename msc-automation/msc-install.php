@@ -21,7 +21,7 @@ function mscra_ini_all_action() {
     // create page song for iframe               
     $song_page = array(
         'post_type' => 'page',
-        'post_title' => __('Song', 'mscra-automation'),
+        'post_title' => sanitize_text_field (__('Song', 'mscra-automation')),
         'post_status' => 'publish',
         'post_content' => '[mscra_detail_song]',
         'post_author' => $post_author,
@@ -32,12 +32,13 @@ function mscra_ini_all_action() {
     $song_page_check = get_page_by_title(__('Song', 'mscra-automation'));
     if (!isset($song_page_check->ID)) {
         $song_page_id = wp_insert_post($song_page);
+        add_post_meta($song_page_id, '_msc_hook_id', MSCRA_HOOK_SONG,true);
     }
 
     // create page album for iframe           
     $album_page = array(
         'post_type' => 'page',
-        'post_title' => __('album', 'mscra-automation'),
+        'post_title' => sanitize_text_field (__('album', 'mscra-automation')),
         'post_status' => 'publish',
         'post_content' => '[mscra_detail_album]',
         'post_author' => $post_author,
@@ -48,10 +49,11 @@ function mscra_ini_all_action() {
     $album_page_check = get_page_by_title(__('album', 'mscra-automation'));
     if (!isset($album_page_check->ID)) {
         $album_page_id = wp_insert_post($album_page);
+        add_post_meta($album_page_id, '_msc_hook_id', MSCRA_HOOK_ALBUM,true);
     }
 
     // create page track for iframe  
-    $track_page_name = __('track', 'mscra-automation');
+    $track_page_name = sanitize_text_field (__('track', 'mscra-automation'));
     $track_page = array(
         'post_type' => 'page',
         'post_title' => $track_page_name,
@@ -62,17 +64,17 @@ function mscra_ini_all_action() {
         // Assign page template
         'page_template' => MSCRA_NAME_TEMPLATE_IFRAME
     );
-    $track_page_check = get_page_by_title(__('track', 'mscra-automation'));
+    $track_page_check = get_page_by_title($track_page_name);
     if (!isset($track_page_check->ID)) {
         $track_page_id = wp_insert_post($track_page);
-        add_post_meta($track_page_id, '_msc_hook_id', $track_page_name,true);
+        add_post_meta($track_page_id, '_msc_hook_id', MSCRA_HOOK_TRACK,true);
     }
     
     // create page player streaming for iframe             
     
     $player_page = array(
         'post_type' => 'page',        
-        'post_title' => __('Player Stream', 'mscra-automation'),
+        'post_title' => sanitize_text_field (__('Player Stream', 'mscra-automation')),
         'post_status' => 'publish',
         'post_content' => '[mscra_iframe_player_streaming]',
         'post_author' => $post_author,
@@ -83,6 +85,7 @@ function mscra_ini_all_action() {
     $player_page_check = get_page_by_title(__('Player Stream', 'mscra-automation'));
     if (!isset($player_page_check->ID)) {
         $player_page_id = wp_insert_post($player_page);
+        add_post_meta($player_page_id, '_msc_hook_id', MSCRA_HOOK_PLAYER_STREAM,true);
     }
     
     update_option('mscra_initialize', 'true');
@@ -101,7 +104,7 @@ function mscra_create_basic_mnu($post_author) {
             'menu-item-url' => home_url('/'),
             'menu-item-status' => 'publish'));
 
-        $home_page_title = __('Now on air ...', 'mscra-automation');
+        $home_page_title = sanitize_text_field (__('Now on air ...', 'mscra-automation'));
         $home_page_check = get_page_by_title($home_page_title);
         $home_page = array(
             'post_type' => 'page',
@@ -113,6 +116,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($home_page_check->ID)) {
             $home_page_id = wp_insert_post($home_page);
+            add_post_meta($home_page_id, '_msc_hook_id', MSCRA_HOOK_HOME,true);
             update_option('page_on_front', $home_page_id);
             update_option('show_on_front', 'page');
         }
@@ -122,7 +126,7 @@ function mscra_create_basic_mnu($post_author) {
 
     // mnu Programació
     if ($_POST['create_calendar'] == 'true') {
-        $schedu_page_title = __('Schedule', 'mscra-automation');
+        $schedu_page_title = sanitize_text_field (__('Schedule', 'mscra-automation'));
         $schedu_page_check = get_page_by_title($schedu_page_title);
         $schedu_page = array(
             'post_type' => 'page',
@@ -135,6 +139,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($schedu_page_check->ID)) {
             $schedu_page_id = wp_insert_post($schedu_page);
+            add_post_meta($schedu_page_id, '_msc_hook_id', MSCRA_HOOK_CALENDAR,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $schedu_page_title,
@@ -146,7 +151,7 @@ function mscra_create_basic_mnu($post_author) {
     }
 
     //mnu Programes  
-    $prg_page_title = __('Programs', 'mscra-automation');
+    $prg_page_title = sanitize_text_field (__('Programs', 'mscra-automation'));
     $prg_page_check = get_page_by_title($prg_page_title);
     $prg_page = array(
         'post_type' => 'page',
@@ -158,6 +163,7 @@ function mscra_create_basic_mnu($post_author) {
     );
     if (!isset($prg_page_check->ID)) {
         $prg_id_pare = wp_insert_post($prg_page);
+        add_post_meta($prg_id_pare, '_msc_hook_id', MSCRA_HOOK_PROGRAMS,true);
     }
 
     $prg_nav_id = wp_update_nav_menu_item($nav_item, 0, array(
@@ -180,16 +186,14 @@ function mscra_create_basic_mnu($post_author) {
             $prg_page_check = get_page_by_title($prg_page_title);
             $prg_page = array(
                 'post_type' => 'page',
-                'post_title' => $prg_page_title,
+                'post_title' => sanitize_text_field ($prg_page_title),
                 'post_status' => 'publish',
-                'post_content' => '[mscra_show_program id="' . $prg_id . '" download="TRUE"]',
+                'post_content' => '[mscra_show_program id="'.$prg_id.'" download="TRUE"]',
                 'post_author' => $post_author,
                 'post_parent' => $prg_id_pare
             );            
-            if (!isset($prg_page_check->ID)) {
-                //$_POST['_msc_hook_id'] = $prg_id;
-                $prg_page_id = wp_insert_post($prg_page);
-                //unset($_POST['_msc_hook_id']);
+            if (!isset($prg_page_check->ID)) {                
+                $prg_page_id = wp_insert_post($prg_page);                
                 add_post_meta($prg_page_id, '_msc_hook_id', $prg_id,true);
                 // TODO: add tags                
 
@@ -208,7 +212,7 @@ function mscra_create_basic_mnu($post_author) {
     // mnu Podcast
     if ($_POST['create_podcast'] == 'true') {
 
-        $pod_page_title = __('Radio on demand', 'mscra-automation');
+        $pod_page_title = sanitize_text_field (__('Radio on demand', 'mscra-automation'));
         $pod_page_check = get_page_by_title($pod_page_title);
         $pod_page = array(
             'post_type' => 'page',
@@ -221,6 +225,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($pod_page_check->ID)) {
             $pod_page_id = wp_insert_post($pod_page);
+            add_post_meta($pod_page_id, '_msc_hook_id', MSCRA_HOOK_ON_DEMAND,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $pod_page_title,
@@ -232,7 +237,7 @@ function mscra_create_basic_mnu($post_author) {
     }
     //INI mnu Ràdio activitat
     if ($_POST['create_search'] == 'true' || $_POST['create_new_album'] == 'true' || $_POST['create_history_play'] == 'true' || $_POST['create_vote_payer'] == 'true') {
-        $act_page_title = __('Radio Activity', 'mscra-automation');
+        $act_page_title = sanitize_text_field (__('Radio Activity', 'mscra-automation'));
         $act_page_check = get_page_by_title($act_page_title);
         $act_page = array(
             'post_type' => 'page',
@@ -244,7 +249,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($act_page_check->ID)) {
             $act_page_id = wp_insert_post($act_page);
-            add_post_meta($act_page_id, '_msc_hook_id', $act_page_title,true);
+            add_post_meta($act_page_id, '_msc_hook_id', MSCRA_HOOK_ON_ACTIVITY,true);
         }
         $parent_mnu = wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $act_page_title,
@@ -255,7 +260,7 @@ function mscra_create_basic_mnu($post_author) {
     }//END mnu Ràdio Activitat        
     // page search music
     if ($_POST['create_search'] == 'true') {
-        $search_page_title = __('Search music', 'mscra-automation');
+        $search_page_title = sanitize_text_field (__('Search music', 'mscra-automation'));
         $search_page_check = get_page_by_title($search_page_title);
         $search_page = array(
             'post_type' => 'page',
@@ -269,6 +274,7 @@ function mscra_create_basic_mnu($post_author) {
         if (!isset($search_page_check->ID)) {
             //$_POST['_msc_hook_id'] = 'search';
             $search_page_id = wp_insert_post($search_page);
+            add_post_meta($search_page_id, '_msc_hook_id', MSCRA_HOOK_SEARCH,true);
             
             //unset($_POST['_msc_hook_id']);
         }
@@ -282,7 +288,7 @@ function mscra_create_basic_mnu($post_author) {
     }
     // page Albums release
     if ($_POST['create_new_album'] == 'true') {
-        $release_page_title = __('Albums release', 'mscra-automation');
+        $release_page_title = sanitize_text_field (__('Albums release', 'mscra-automation'));
         $release_page_check = get_page_by_title($release_page_title);
         $release_page = array(
             'post_type' => 'page',
@@ -295,6 +301,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($release_page_check->ID)) {
             $release_page_id = wp_insert_post($release_page);
+            add_post_meta($release_page_id, '_msc_hook_id', MSCRA_HOOK_ALBUM,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $release_page_title,
@@ -306,7 +313,7 @@ function mscra_create_basic_mnu($post_author) {
     }
     // page History played
     if ($_POST['create_history_play'] == 'true') {
-        $history_page_title = __('History played', 'mscra-automation');
+        $history_page_title = sanitize_text_field (__('History played', 'mscra-automation'));
         $history_page_check = get_page_by_title($history_page_title);
         $history_page = array(
             'post_type' => 'page',
@@ -319,6 +326,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($history_page_check->ID)) {
             $history_page_id = wp_insert_post($history_page);
+            add_post_meta($history_page_id, '_msc_hook_id', MSCRA_HOOK_ON_HISTORY,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $history_page_title,
@@ -330,7 +338,7 @@ function mscra_create_basic_mnu($post_author) {
     }
     // page Vote music to player
     if ($_POST['create_vote_payer'] == 'true') {
-        $vote_page_title = __('Vote music to play', 'mscra-automation');
+        $vote_page_title = sanitize_text_field (__('Vote music to play', 'mscra-automation'));
         $vote_page_check = get_page_by_title($vote_page_title);
         $vote_page = array(
             'post_type' => 'page',
@@ -343,6 +351,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($vote_page_check->ID)) {
             $vote_page_id = wp_insert_post($vote_page);
+            add_post_meta($vote_page_id, '_msc_hook_id', MSCRA_HOOK_ON_VOTE,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $vote_page_title,
@@ -355,8 +364,8 @@ function mscra_create_basic_mnu($post_author) {
 
     //page NEWS
     if ($_POST['create_news'] == 'true') {
-        $news_page_title = __('News', 'mscra-automation');
-        $$news_page_check = get_page_by_title($news_page_title);
+        $news_page_title = sanitize_text_field (__('News', 'mscra-automation'));
+        $news_page_check = get_page_by_title($news_page_title);
         $news_page = array(
             'post_type' => 'page',
             'post_title' => $news_page_title,
@@ -365,8 +374,9 @@ function mscra_create_basic_mnu($post_author) {
             'post_author' => $post_author,
             'post_parent' => 0
         );
-        if (!isset($$news_page_check->ID)) {
+        if (!isset($news_page_check->ID)) {
             $news_page_id = wp_insert_post($news_page);
+            add_post_meta($news_page_id, '_msc_hook_id', MSCRA_HOOK_ON_NEWS,true);
         }
         wp_update_nav_menu_item($nav_item, 0, array(
             'menu-item-title' => $news_page_title,
@@ -380,7 +390,7 @@ function mscra_create_basic_mnu($post_author) {
     // page Advertising
     if ($_POST['create_Advertising'] == 'true') {
         $adv_page_title = __('Advertising', 'mscra-automation');
-        $adv_page_check = get_page_by_title($vote_page_title);
+        $adv_page_check = get_page_by_title($adv_page_title);
         $adv_page = array(
             'post_type' => 'page',
             'post_title' => $adv_page_title,
@@ -392,6 +402,7 @@ function mscra_create_basic_mnu($post_author) {
         );
         if (!isset($adv_page_check->ID)) {
             $adv_page_id = wp_insert_post($adv_page);
+            add_post_meta($adv_page_id, '_msc_hook_id', MSCRA_HOOK_ON_ADS,true);
         }        
     }
 
@@ -417,65 +428,22 @@ function mscra_reset_system() {
     wp_delete_nav_menu(__('MSC Main', 'mscra-automation'));
     wp_delete_nav_menu(__('MSC Footer', 'mscra-automation'));
 
-    $page = get_page_by_title(__('Schedule', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Programs', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Radio on demand', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Listen', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Search music', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Albums release', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('History played', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Vote music to play', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-    $page = get_page_by_title(__('Advertising', 'mscra-automation'));
-    if ($page) {
-        wp_delete_post($page->ID, true);
-    }
-
-//Llistar tots les pàgines de programes i borrar el post i el meta
+    //List and delete all pages with the meta _msc_hook_id
     $args = array(
         'post_type' => 'page',
         'posts_per_page' => '100',
+        'post_status' => 'publish',
         'meta_query' => array(
-            'key' => '_msc_hook_id',
-            'value' => '0',
-            'compare' => '>',
+            array(
+                'key' => '_msc_hook_id',            
+                'compare' => 'EXISTS'
+            )            
         )
     );
     $query = new WP_Query($args);
     while ($query->have_posts()) {
-        $query->the_post();
-        $id = get_the_ID();
+        $query->the_post();        
+        $id = get_the_ID();        
         wp_delete_post($id, TRUE);
     }
     /* Restore original Post Data */
@@ -514,17 +482,15 @@ function mscra_unistall() {
     $option_name = 'mscra_mcdc';
     delete_option($option_name);
     delete_site_option($option_name);
-    $option_name = 'msc_search_form';
+    $option_name = 'mscra_transition';
     delete_option($option_name);
     delete_site_option($option_name);
-    $option_name = 'msc_transition';
+    $option_name = 'mscra_transition';
     delete_option($option_name);
     delete_site_option($option_name);
     $option_name = 'mscra_scrollTop';
     delete_option($option_name);
-    delete_site_option($option_name);
-    $option_name = 'msc_transition';
-    delete_option($option_name);
+    delete_site_option($option_name);    
     delete_site_option($option_name);
     $option_name = 'mscra_loader';
     delete_option($option_name);

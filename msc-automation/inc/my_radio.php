@@ -35,15 +35,10 @@ class my_radio {
             $this->RESPOSTA_MESSAGE = 'No client';
             return;
         }
-        /*
+        
         if (!session_id()) {
             session_start();
         }        
-        $_SESSION['mscra_client_key'] = $this->my_client_key;
-        $_SESSION['mscra_debug'] = $this->IS_DEGUG; 
-        $_SESSION['msc_lang'] = $this->LANG; 
-        */
-        //$this->COOKIE_USER = session_id();                
         $this->COOKIE_USER = $_COOKIE['mscra_usr'];                
         $this->RESPOSTA_MESSAGE = 'OK' ;    
         $this->TIME_CONNECTION = date(datetime::ISO8601);
@@ -51,17 +46,12 @@ class my_radio {
         $vars[0] = 'lang='.$this->LANG;        
         $vars[1] = 'ver='.$version ;
         
-        $this->QueryGetTable(seccions::ADMIN, sub_seccions::INIWORDPRESS,$vars); 
-        if ( $this->IS_DEGUG==TRUE){
-            //$message = 'Ini Connection API ('. $this->TIME_CONNECTION .')' ;            
-        }        
+        $this->QueryGetTable(seccions::ADMIN, sub_seccions::INIWORDPRESS,$vars);                 
     }
     
             //Funci� finalitza
     function __destruct() {
-        if ( $this->IS_DEGUG==TRUE){
-            //$message = 'End connection API ('. $this->TIME_CONNECTION .' / '.date(datetime::ISO8601).')' ;            
-       }
+        
     }
     
     
@@ -102,10 +92,11 @@ class my_radio {
         if ($sub_seccion==sub_seccions::LISTPODCAST_PRG){
             $response = wp_remote_get( $this->URL_QUERY_API );            
             $body     = wp_remote_retrieve_body( $response );
-            print_r($body);
+            $xml  = simplexml_load_string($body);
+            $code = $xml->header->status->code;
+            print_r($code);
         }         
-        */        
-        
+        */      
         $xml = new DOMDocument();        
         if ($xml->load($this->URL_QUERY_API) == FALSE){                              
             $my_message = $this->URL_QUERY_API ;
@@ -114,8 +105,9 @@ class my_radio {
             $this->RESPOSTA_CODE = SERVER_ERROR_NO_DEF;
             $this->RESPOSTA_MESSAGE = 'Error XML';
             $this->RESPOSTA_ROWS = 0;        
-            return;
-        }elseif ( $this->IS_DEGUG==TRUE){
+            return;             
+        }    
+        if ( $this->IS_DEGUG==TRUE){
              if ($MSGonJS==TRUE){
                 $this->RESPOSTA_MESSAGE = $this->URL_QUERY_API ;
             }else{
@@ -155,7 +147,7 @@ class my_radio {
         $counter = 0;
         $params = $xml->getElementsByTagName('param');
         foreach ($params as $param) {                                
-            $value = utf8_decode($param ->textContent);             
+            $value = $param ->textContent;             
             $name =  $param ->getAttribute('NAME');
             $id = $param ->getAttribute('ID');            
             switch ($id){

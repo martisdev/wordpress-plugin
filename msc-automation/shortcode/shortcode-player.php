@@ -3,9 +3,7 @@
 function mscra_load_scripts() {
 
     $def_image = get_site_icon_url('120');
-    //$page = mscra_get_page_by_meta(__('track', 'mscra-automation'));   
-    echo "<script> console.log('page URL: ".$page->guid."')</script>";
-    $page = get_page_by_title(__('track', 'mscra-automation'));            
+    $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);       
     $base_URL_Share = $page->guid;    
     $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/' ;
     $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' ;
@@ -35,10 +33,13 @@ function mscra_get_player() {
         return;
     }
     global $post;
-    $name_template = get_page_template_slug($post->ID);
-    if ($name_template == MSCRA_NAME_TEMPLATE_IFRAME) {
-        return;
+    if(isset($post)){
+        $name_template = get_page_template_slug($post->ID);
+        if ($name_template == MSCRA_NAME_TEMPLATE_IFRAME) {
+            return;
+        }    
     }
+    
 
     wp_enqueue_script('script_play_js1', MSCRA_JQUERY_URL . 'jplayer/jquery.min.js', array(), '1.0.0');
     wp_enqueue_script('script_play_js2', MSCRA_JQUERY_URL . 'jplayer/jquery.jplayer.min.js', array(), '1.0.0');
@@ -62,6 +63,7 @@ function mscra_get_player() {
 
     $img_width = '100';
     if ($MyRadio->RESPOSTA_ROWS > 0) {
+        $urlmp3 = '';
         $counter = 0;
         $id = $list['item']['ID'];
         $title = $list['item']['NAME'];
@@ -108,29 +110,28 @@ function mscra_get_player() {
             $dwn_display = 'inline';
         }
         $def_image = get_site_icon_url('120');
-        $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/';
-        $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' ;
+        $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/'. $img_mame;
+        $PathToShowImg = MSC_URL_TEMP_IMAGE . '/'. $img_mame ;
         
-        $page = get_page_by_title(__('track', 'mscra-automation'));        
+        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK) ;
         $base_URL_Share = $page->guid;
         $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
 
         //$url_podcast = wp_get_upload_dir('baseurl').'/'.WP_MSCRA_PODCAST_DIR; 
         $upload_dir = wp_upload_dir();
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
-        //$base_url_jamendo = WP_MSCRA_URL_JAMENDO_TRACK;   
-
+        //$base_url_jamendo = WP_MSCRA_URL_JAMENDO_TRACK;        
         if (!file_exists($PathToSaveImg)) {
             if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == false) {
                 //canvia a imatge per defecte                              
                 $PathToShowImg = $def_image;
             }
         }
-        $decrip = $title . ' - ' . $subtitle;
+        $decrip = $title . ' - ' . $subtitle;        
+                
+        $params = array('ref' => bin2hex($list['item']['ID']  . ',' . $type));    
+        $URL_Share = add_query_arg($params,$base_URL_Share);       
         
-        $ref = "?ref=" . bin2hex($list['item']['ID']  . ',' . $type);
-        $URL_Share = $base_URL_Share . $ref;        
-
         $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
         $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
         $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . $decrip . '&media=' . $urlmp3;
@@ -245,6 +246,7 @@ function mscra_get_player() {
 
         $img_width = '100';
         if ($MyRadio->RESPOSTA_ROWS > 0) {
+            $urlmp3 = '';
             $counter = 0;
             $id = $list['item']['ID'];
             $title = utf8_encode($list['item']['NAME']);

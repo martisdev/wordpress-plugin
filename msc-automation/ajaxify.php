@@ -31,9 +31,9 @@ function mscra_load_ajaxify() {
             'container_id' => get_option('mscra_container-id'),
             'mcdc' => get_option('mscra_mcdc'),
             'searchID' => get_option('mscra_search-form'),
-            'transition' => get_option('msc_transition'),
+            'transition' => get_option('mscra_transition'),
             'scrollTop' => get_option('mscra_scrollTop'),
-            'loader' => get_option('mscra_loader'),
+            'loader' => MSCRA_PLUGIN_URL . '/images/ajaxify/'. get_option('mscra_loader'),
             'bp_status' => $bp_status
         );
         wp_localize_script('ajaxify-js', 'aws_data', $aws_data);
