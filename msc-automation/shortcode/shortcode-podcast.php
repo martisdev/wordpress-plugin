@@ -13,24 +13,24 @@ function mscra_get_last_podcast() {
         $upload_dir = wp_upload_dir();
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
         
-        $page = mscra_get_page_by_meta('track');
+        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
         $base_URL_Share = $page->guid;
 
         $StrReturn = '<div>';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
-            $id = $list_podcast['item'][$counter]["ID"];
-            $nom_programa = ($list_podcast['item'][$counter]['NAME']);
-            $descrip = ($list_podcast['item'][$counter]['DESCRIP']);
-            $duration = $list_podcast['item'][$counter]['DURATION'];
-            $data_crea = $list_podcast['item'][$counter]['DATE_PUBLICATION'];
+            $id = sanitize_text_field($list_podcast['item'][$counter]["ID"]);
+            $nom_programa = sanitize_text_field($list_podcast['item'][$counter]['NAME']);
+            $descrip = sanitize_text_field($list_podcast['item'][$counter]['DESCRIP']);
+            $duration = sanitize_text_field($list_podcast['item'][$counter]['DURATION']);
+            $data_crea = sanitize_text_field($list_podcast['item'][$counter]['DATE_PUBLICATION']);
             $titol = $nom_programa . ' ' . date('d-m-Y', strtotime($data_crea));
-            $urlmp3 = strtolower($url_podcast . '/' . $list_podcast['item'][$counter]['FILE']);
+            $urlmp3 = strtolower($url_podcast . '/' . sanitize_text_field($list_podcast['item'][$counter]['FILE']));
             $urldownload = strtolower(MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($nom_programa) . '&id=' . $id . '&key=' . get_option('mscra_client_key',''));
             
             $hexid = bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA);
-            $params = array('ref' => $hexid);
-            
+            $params = array('ref' => $hexid);            
             $URL_Share = add_query_arg($base_URL_Share,$params);                        
+
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t=' . urlencode($nom_programa) . '&u=' . $URL_Share;
             $URL_Twitter = 'https://twitter.com/share?via=TWITTER_HANDLE&text=' . urlencode($nom_programa) . '&url=' . $URL_Share . '';
             $URL_Pinterest = 'https://pinterest.com/pin/create/button/?description=' . urlencode($nom_programa) . '&url=' . $URL_Share;
@@ -57,8 +57,8 @@ function mscra_get_last_podcast() {
                 $StrReturn .= '<ul style = "display:none" id = "list_parts_' . $counter . '">';
                 $counter_mark = 0;
                 while ($counter_mark < $count_marks):
-                    $seg = $marks[$counter_mark]['SECOND'];
-                    $comment = $marks[$counter_mark]['COMMENT'];
+                    $seg = sanitize_text_field($marks[$counter_mark]['SECOND']);
+                    $comment = sanitize_text_field($marks[$counter_mark]['COMMENT']);
                     $StrReturn .= '<li style="margin-left:50px"><a class="fpod" data-pos="' . $seg . '" data-pod="' . $id . '" data-href="' . $urlmp3 . '" href="javascript:void" onclick="mscra_PlayThisFile(this)" >' . $comment . '</a></li>';
                     $counter_mark++;
                 endwhile;

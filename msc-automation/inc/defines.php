@@ -51,81 +51,27 @@
     }
     
     interface params{   
-    // Parametres del sistema
-    //const paramPathProgram = 1;
-    //const paramSenyalHoraria = 2;
-    //const paramCtlUsrCartut = 3;
-    //const paramHoresTop = 4;
-    //const paramHoresHitTop = 5;
-    //const paramHoresHit = 6;
-    //const paramHoresOld = 7;
-    //const paramHoresOldTop = 8;
+    // Parametres del sistema    
     const paramLogoEmpresa = 9;
-    const paramNomClient = 10;
-    //const paramHoresBorrInterp = 11;
+    const paramNomClient = 10;    
     const paramIntervRitme = 12;
     const paramFaceBooK = 13;
     const paramTwitter = 14;
-    const paramProgramacioDefecte = 15;
-    //const paramPathDefPauta = 16;
-    const paramUrlStreaming = 17;
-    //const paramPathCapeles = 18;
-    //const paramCanviCat = 19;
-    //const paramNTopHit = 20;
-    //const paramNHitOld = 21;
-    //const paramBorInterpIni = 22;
+    const paramProgramacioDefecte = 15;    
+    const paramUrlStreaming = 17;    
     const paramVersioDBS = 23;
-    const paramTwitterKey = 24;
-    //const paramPathNoticies = 25;
+    const paramTwitterKey = 24;    
     const paramIntentsUsers = 26;
     const paramTempPasPoxConex = 27;
-    const paramAtvPSW = 28;
-    //const paramActvTabProgram = 29;
+    const paramAtvPSW = 28;    
     const paramMoneda = 30;
     const paramContraValor = 31;
     const paramCanvi = 32;
     const paramActvSrvEmergenci = 33;
-    const paramErrEmail = 34;
-    //const paramInputRadio = 35;
-    //const paramMaxRadiTop = 36;
-    //const paramMaxRadiHit = 37;
-    //const paramMaxRadiOld = 38;
-
-    //const   paramThreshold = 39;
-    //const   paramAttack = 40;
-    //const   paramVolNormalize = 41;
-    //const   paramVolIni = 42;
-    //const   paramSegActivate = 43;
-    //const   paramSegIniLoad = 44;
-    //const   paramMSegOClock = 45;
-    //const   paramFHExacte = 46;
-    //const   paramVolFader = 47;
-    //const   paramMilFader = 48;
-    //const   paramMilSegSH = 49;
-    //const   paramNomAudio1 = 50;
-    //const   paramNomAudio2 = 51;
-    //const   paramDeviceRec = 52;
-    //const   paramDevicePlay = 53;
-    //const   paramAccesWeb = 54;
-    const   paramDirRemote = 55; //Poder no �s correcte segons conf FTP
-    //const   paramServerFTP = 56;
-    //const   paramHide = 57;
-    //const   paramUserFTP = 58;
-    //const   paramHD = 59;
-    //const   paramDeviceInput = 60;
-    //const   paramVolumIni = 61;
-    //const   paramDiesArxiv = 62;
-    //const   paramPathSaveLogger = 63;
+    const paramErrEmail = 34;    
+    const   paramDirRemote = 55;     
     const   paramNumTracsVotWeb = 64;
-    const   paramNumVotWebTorn = 65;
-    //const   paramPswFTP = 66;
-    //const   paramSequencia = 67;
-    //const   paramMailServerCR = 68;
-    //const   paramUserNameCR = 69;
-    //const   paramPasswordCR = 70;
-    //const   paramRemitentCR = 71;
-    //const   paramIntervalCR = 72;
-    //TODO: Pendents de crear a la dbs
+    const   paramNumVotWebTorn = 65;    
     const paramDIR_PODCAST      = '';
 }   
 //Status de la API
@@ -151,7 +97,7 @@
     const ADV_LOGIN_OK = 500; 
     const ADV_LOGIN_KO = 501; 
     
-    //Tipus d'emissi�
+    //Tipus d'emissió
     const TIP_AUTOMATIC     = 0;
     const TIP_CONEX_CENTRAL = 1;
     const TIP_DIRECTE       = 2;     

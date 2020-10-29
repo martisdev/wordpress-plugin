@@ -1,8 +1,6 @@
 <?php         
     //Used in functions: get_last_played, 
-    if (!session_id()) {
-        session_start();
-    }
+    if (!session_id()) {session_start();}
     
     global $MyRadio;        
     if(!isset($MyRadio)){ 
@@ -55,18 +53,18 @@
                     $StrEcho= "<TR class='altrow'>";
             }            
             if($image==TRUE){                                        
-                $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg'; 
-                $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track'][$counter]['ID'].'.jpg';                     
+                $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.sanitize_text_field($list['track'][$counter]['ID']).'.jpg'; 
+                $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.sanitize_text_field($list['track'][$counter]['ID']).'.jpg';                     
                 if (mscra_getImage(base64_decode($list['track'][$counter]['IMAGE']),$PathToSaveImg,200)==TRUE){
                     $StrEcho .= '<TD><img src='.$PathToShowImg.'></TD>';
                 }else{
                     $StrEcho .= '<TD></TD>';
                 }                
             }                              
-            $StrEcho .= '<TD>'.$list['track'][$counter]['TITLE'].'</TD>';
-            $StrEcho .= '<TD>'.$list['track'][$counter]['INTERP'].'</TD>';
-            $StrEcho .= '<TD>'.$list['track'][$counter]['STYLE'].'</TD>';                
-            $StrEcho .= '<TD>'.$list['track'][$counter]['RADIATION'].'</TD>';
+            $StrEcho .= '<TD>'.sanitize_text_field($list['track'][$counter]['TITLE']).'</TD>';
+            $StrEcho .= '<TD>'.sanitize_text_field($list['track'][$counter]['INTERP']).'</TD>';
+            $StrEcho .= '<TD>'.sanitize_text_field($list['track'][$counter]['STYLE']).'</TD>';                
+            $StrEcho .= '<TD>'.sanitize_text_field($list['track'][$counter]['RADIATION']).'</TD>';
             $StrEcho .= '</TR>';
 
             $counter = $counter + 1;

@@ -26,8 +26,8 @@
         $counter = 0;
         
         if($image==TRUE){                     
-            $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track']['ID'].'.jpg'; 
-            $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.$list['track']['ID'].'.jpg';                     
+            $PathToSaveImg = $upload_dir['basedir'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.sanitize_text_field($list['track']['ID']).'.jpg'; 
+            $PathToShowImg = $upload_dir['baseurl'].'/'.WP_MSCRA_TMP_IMG_DIR.'/disc_img-'.sanitize_text_field($list['track']['ID']).'.jpg';                     
             if (mscra_getImage(base64_decode($list['track']['IMAGE']),$PathToSaveImg,$img_width)==TRUE){                
                 ?>
                 <div id="jp-image" style="width:<?php echo $img_width;?>px;">
@@ -40,9 +40,9 @@
         <div id="jp_container" class="jp-audio">                 
             <div id="jp-info">
                 <div id="jp_title">
-                    <span><?php echo $list['track']['INTERP']; ?></span>
+                    <span><?php echo sanitize_text_field($list['track']['INTERP']); ?></span>
                 </div>
-                <i id="jp_subtitle-name"><?php echo $list['track']['TITLE'] ?></i>
+                <i id="jp_subtitle-name"><?php echo sanitize_text_field($list['track']['TITLE']) ?></i>
                 <div id="jp-socialbuttons">
                     <a class="fas fa-heart" aria-hidden="true" href="#"></a>
                     <i class="fas fa-download" aria-hidden="true"></i>
@@ -50,5 +50,5 @@
                 </div>
             </div>
     </div>
-        <?php                
+    <?php                
     }

@@ -47,8 +47,9 @@ function mscra_metabox_callback($post) {
  */
 function mscra_add_custom_fields($post_id) {
     if (isset($_POST['post_type'])){
-        if ($_POST['post_type'] == 'post') {
-            $prg_id = $_POST['_msc_hook_id'];
+        $pt = sanitize_text_field($_POST['post_type']);
+        if ( $pt == 'post') {
+            $prg_id = sanitize_text_field($_POST['_msc_hook_id']);
             add_post_meta($post_id, '_msc_hook_id', $prg_id, true);
         }
         return true;
@@ -89,7 +90,7 @@ function mscra_save_postdata($post_id) {
     }
     
     // OK, we're authenticated: we need to find and save the data
-    $meta = isset($_POST["_msc_hook_id"] ) ? $_POST["_msc_hook_id"]  : '-1';
+    $meta = isset($_POST["_msc_hook_id"] ) ? sanitize_text_field($_POST["_msc_hook_id"])  : '-1';
     
     // save data in INVISIBLE custom field (note the "_" prefixing the custom fields' name
     update_post_meta($post_id, '_msc_hook_id', $meta);

@@ -1,9 +1,8 @@
 <?php
 
 function mscra_get_last_played($attributes) {
-    if (is_admin()) {
-        return;
-    }
+    if (is_admin()) {return;}
+
     $refresh = (isset($attributes['refresh'])) ? $attributes['refresh'] : FALSE;
     $image = (isset($attributes['image'])) ? $attributes['image'] : FALSE;
     $NumRows = (isset($attributes['rows'])) ? $attributes['rows'] : 10;
@@ -26,8 +25,7 @@ function mscra_get_last_played($attributes) {
     $_SESSION['upload_dir'] = $upload_dir;
 
     $doc_refresh = MSCRA_WP_SNIPPETS_DIR . 'list_radia.php';
-    $name_div = 'list-radia';
-    //if($refresh==false || $dradi<> null){$name_div = 'list-radia';}else{$name_div = 'refresh';}            
+    $name_div = 'list-radia';    
     if ($refresh == TRUE) {
         $name_div = 'refresh-radia';
         $doc_refresh_js = MSCRA_WP_SNIPPETS_URL . 'list_radia.php';
@@ -160,16 +158,15 @@ function mscra_get_public_vote_player($attributes) {
 add_shortcode('mscra_public_vote_player', 'mscra_get_public_vote_player');
 
 function mscra_get_search_music($attributes) {
-    if (is_admin()) {
-        return;
-    }    
+    if (is_admin()) {return;}
+
     $hp = get_query_var('hp',0);
     if (($hp!=0)){         
         //register the cookie 'mscra_date_vote' in msc-automation.php        
         //Programem la cançó            
         $HoraPrg = strftime("%Y-%m-%d %H:%M:%S", $hp);        
-        $temid = (isset($_GET['sid']))? sanitize_text_field($_GET['sid']):0;
-        $strReturn = '<h2>' . _e('Scheduled song, thanks for participating', 'mscra-automation') . '</h2>';
+        $temid = (isset($_POST['sid']))? sanitize_text_field($_POST['sid']):0;
+        $strReturn = '<h2>' . __('Scheduled song, thanks for participating', 'mscra-automation') . '</h2>';
         include MSCRA_WP_SNIPPETS_DIR . 'detail_song.php';
         return $strReturn;
         
@@ -177,7 +174,7 @@ function mscra_get_search_music($attributes) {
         $strReturn='';
         $espera = 0;
         if (isset($_COOKIE["mscra_date_vote"])) {
-            $hora = time(); //mktime(date("H"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
+            $hora = current_time( 'timestamp', 1 ) ; //time(); 
             $expiration_date = strtotime($_COOKIE["mscra_date_vote"]);
             $Resta = $expiration_date - $hora;
             if ($Resta < 0) {
@@ -356,12 +353,12 @@ function mscra_get_last_albums($attributes) {
         $strReturn = '<TABLE align=center>';
         $loop_return = '';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
-            $id = $list['albums'][$counter]['ID'];
-            $titol = $list['albums'][$counter]['NAME'];
-            $interp = $list['albums'][$counter]['INTERP'];
-            $style = $list['albums'][$counter]['STYLE'];
-            $comment = $list['albums'][$counter]['COMMENT'];
-            $link = $list['albums'][$counter]['LINK'];
+            $id = sanitize_text_field($list['albums'][$counter]['ID']);
+            $titol = sanitize_text_field($list['albums'][$counter]['NAME']);
+            $interp = sanitize_text_field($list['albums'][$counter]['INTERP']);
+            $style = sanitize_text_field($list['albums'][$counter]['STYLE']);
+            $comment = sanitize_text_field($list['albums'][$counter]['COMMENT']);
+            $link = sanitize_text_field($list['albums'][$counter]['LINK']);
 
             $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
             $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $id . '.jpg';
@@ -402,9 +399,9 @@ function mscra_get_last_albums($attributes) {
 add_shortcode('mscra_last_albums', 'mscra_get_last_albums');
 
 function mscra_get_detail_song($attributes) {
-    if (is_admin()) {
-        return;
-    }
+    
+    if (is_admin()) {return;}
+
     if (isset($_GET['id'])) {
         $id_song = $_GET['id'];
     } else {
@@ -429,17 +426,10 @@ function mscra_get_detail_song($attributes) {
             $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
             $img_exist = mscra_getImage(base64_decode($list['track']['IMAGE']), $PathToSaveImg, $img_width);
         }
-        $interp = $list['track']['INTERP'];
-        $title = $list['track']['TITLE'];
-        $album = $list['track']['ALBUM'];
-        /* global $post;
-          $my_post = array(
-          'ID' => $post->ID,
-          'post_title' => $title . ' | ' . $album
-          );
-
-          // Update the post into the database
-          wp_update_post($my_post); */
+        $interp = sanitize_text_field($list['track']['INTERP']);
+        $title = sanitize_text_field($list['track']['TITLE']);
+        $album = sanitize_text_field($list['track']['ALBUM']);        
+        
         $post_title = $title . ' | ' . $album;
         echo "<script> document.title =" . $post_title . " ; </script>";
 

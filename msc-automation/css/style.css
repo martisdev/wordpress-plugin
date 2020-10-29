@@ -138,9 +138,9 @@
     width: 80%;  
     float:  left;        
 }            
-#msc-middle a, #msc-middle a:link, #msc-middle a:visited, #msc-middle a:hover, #msc-middle a:focus, #msc-middle a:active {
-    /*color: #009BE3;*/
-}
+/*#msc-middle a, #msc-middle a:link, #msc-middle a:visited, #msc-middle a:hover, #msc-middle a:focus, #msc-middle a:active {
+    color: #009BE3;
+}*/
 
 #msc-middle ul {
     list-style-type:none;
@@ -160,10 +160,11 @@
     color: #CC0090;
 }
 
-.jp-audio {
-    /*width: 420px;
-    height: 80px;*/
-}
+/*.jp-audio {
+    width: 420px;
+    height: 80px;
+}*/
+
 .jp-audio button::-moz-focus-inner {
     /* Disable the browser CSS3 focus highlighting. */
     border: 0; }
@@ -178,13 +179,12 @@
     outline-style:none;
     /*IE*/
 }
-.jp-audio .jp-controls {
-    /*width: 380px;
-    padding: 2px 1px 0 1px; */}
+/*.jp-audio .jp-controls {
+    width: 380px;
+    padding: 2px 1px 0 1px; 
+}*/
 
 .jp-time-mute{        
-    /*position: absolute;*/
-
     float: left;
     left: 100px;
     right: 20%;

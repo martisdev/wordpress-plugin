@@ -2,12 +2,10 @@
     
 class my_radio {
     protected $CLIENT_KEY       = '';
-    //protected $MSC_KEY       = '';
     public $IS_DEGUG            = false;
     protected $LANG             = WP_MSCRA_LANG_DEF;
     protected $COOKIE_USER      = '';
-    protected $URL_API        =  'http://api.msc-soft.com';
-    //protected $URL_API        =  'http://localhost/api';
+    protected $URL_API        =  'http://api.msc-soft.com';    
     protected $API_VERSION      = 'V2';
     protected $URL_QUERY_API    = '';
     protected $TIME_CONNECTION  = '';
@@ -27,9 +25,9 @@ class my_radio {
     public $NomAudio2           = '';    
     
     function __construct($client_key,$lang,$version, $debug= FALSE) {        
-        $this->my_client_key  = $client_key;//(isset($_SESSION['mscra_client_key']))  ? $_SESSION['mscra_client_key'] : get_option('mscra_client_key');        
-        $this->IS_DEGUG  = ($debug== '')  ? FALSE : TRUE;// $debug; //(isset($_SESSION['mscra_debug']))  ? $_SESSION['mscra_debug'] : get_option('mscra_debug');         
-        $this->LANG  = $lang;//(isset($_SESSION['msc_lang']))  ? $_SESSION['msc_lang'] : get_locale();                                        
+        $this->my_client_key  = $client_key;
+        $this->IS_DEGUG  = ($debug== '')  ? FALSE : TRUE;
+        $this->LANG  = $lang;
         
         if ($this->my_client_key == '') {
             $this->RESPOSTA_MESSAGE = 'No client';
@@ -49,7 +47,7 @@ class my_radio {
         $this->QueryGetTable(seccions::ADMIN, sub_seccions::INIWORDPRESS,$vars);                 
     }
     
-            //Funci� finalitza
+            //Funció finalitza
     function __destruct() {
         
     }
@@ -156,8 +154,7 @@ class my_radio {
                 case params::paramProgramacioDefecte:  $this->ProgramacioDefecte  = $value ;break;
                 case params::paramFaceBooK:  $this->URL_FaceBook  = $value ; break;
                 case params::paramTwitter:  $this->USER_Twitter  = $value ; break;
-                case params::paramTwitterKey:  $this->KEY_Twitter  = $value ; break;
-                //case 0:$this->MSC_KEY  = $value ; break;                
+                case params::paramTwitterKey:  $this->KEY_Twitter  = $value ; break;                
             }            
         }
        

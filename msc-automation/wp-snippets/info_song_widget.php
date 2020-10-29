@@ -33,8 +33,8 @@
                     $StrEcho .= '<img src='.$PathToShowImg.'>';                    
                 }
             }                                                              
-            $StrEcho .= '<div class="artist">'.$list['track']['INTERP'].'</div>';
-            $StrEcho .= '<div class="song">'.$list['track']['TITLE'].'</div>';  
+            $StrEcho .= '<div class="artist">'.sanitize_text_field($list['track']['INTERP']).'</div>';
+            $StrEcho .= '<div class="song">'.sanitize_text_field($list['track']['TITLE']).'</div>';  
 
             $counter = $counter + 1;
             $strReturn .= $StrEcho ;
