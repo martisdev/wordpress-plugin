@@ -8,7 +8,7 @@ include_once MSCRA_PLUGIN_DIR . '/shortcode/shortcode-general.php';
 include_once MSCRA_PLUGIN_DIR . '/shortcode/shortcode-advertising.php';
 include_once MSCRA_PLUGIN_DIR . '/shortcode/shortcode-socialmedia.php';
 include_once MSCRA_PLUGIN_DIR . '/shortcode/shortcode-utils.php';
-
+include_once MSCRA_PLUGIN_DIR . '/shortcode/shortcode-cloud.php';
 
 
 /**
