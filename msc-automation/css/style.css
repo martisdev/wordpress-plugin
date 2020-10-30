@@ -290,7 +290,7 @@
 #jp_subtitle-name{
     padding-left: 20px; 
     height: 50px;   
-
+    line-height: 80%;
 }
 #jp_title{
     /*max-width: 10px;*/
