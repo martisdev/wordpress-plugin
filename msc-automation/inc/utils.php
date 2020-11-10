@@ -23,11 +23,11 @@
         }
     }
     
-    function mscra_getImage($img_data,$NameToSave,$widthMax) {        
+    function mscra_getImage($img_data,$NameToSave,$widthMax) {                
         if (empty($img_data)) {
             return false;            
         }
-        try {            
+        try {                        
             $src = imagecreatefromstring($img_data);
             $size = $widthMax;  // new image width
             $width = imagesx($src);

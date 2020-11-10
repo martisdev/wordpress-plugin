@@ -6,6 +6,7 @@
         const PROGRAMS = 'PROGRAMS';
         const PODCAST = 'PODCAST';
         const ADVERTISING = 'ADVERTISING';
+        const CLOUD = 'CLOUD';
     }
 
     interface sub_seccions {
@@ -48,6 +49,8 @@
         const LOGIN = 'LOGIN';  
         const RADIATION = 'RADIATION';  
         const CREDENTIALS = 'CREDENTIALS';
+        //cloud
+        const REGISTER = 'REGISTER';  
     }
     
     interface params{   

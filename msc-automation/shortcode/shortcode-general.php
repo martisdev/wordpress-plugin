@@ -19,6 +19,9 @@ function mscra_get_detail_track($attributes)
         $id_track = $values[0];
         $type_track = $values[1];
     } else {
+        if(!isset($attributes['id'])){
+            return;
+        }
         $id_track = $attributes['id'];
         $type_track = $attributes['type'];
     }

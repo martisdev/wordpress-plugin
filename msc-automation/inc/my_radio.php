@@ -36,8 +36,15 @@ class my_radio {
         
         if (!session_id()) {
             session_start();
-        }        
-        $this->COOKIE_USER = $_COOKIE['mscra_usr'];                
+        }
+        if (isset($_COOKIE['mscra_usr'])) {
+            $this->COOKIE_USER = $_COOKIE['mscra_usr'];                
+        }else{
+            //TODO:
+            $this->COOKIE_USER = '';
+        }
+
+        
         $this->RESPOSTA_MESSAGE = 'OK' ;    
         $this->TIME_CONNECTION = date(datetime::ISO8601);
         // consultem els paràmetres de configuració

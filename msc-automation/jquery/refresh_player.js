@@ -128,7 +128,7 @@ function mscra_PlayThisFile(elmnt) {
         document.getElementById('refresh').innerHTML = 0;
         jQuery('.jp-stream').css('display', 'inline');
         //S'ha de capturar el id i buscar resultats via XML                            
-        var urlRequest = path + "wp-snippets/refresh_player_podcast.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&id=" + id_pod + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;
+        var urlRequest = path + "wp-snippets/refresh_player_podcast.php?key=" + key + "&img_dir=" + img_dir + "&img_url=" + img_url + "&share_url=" + share_url + "&url_download=" + download_url + "&id=" + id_pod + "&url_podcast=" + url_podcast + "&di=" + def_image + "&ram=" + r;        
         //mscra_StopRefresh();
     } else {
         document.getElementById('refresh').innerHTML = 1;

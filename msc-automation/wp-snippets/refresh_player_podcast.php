@@ -72,10 +72,11 @@ if ($MyRadio->RESPOSTA_ROWS > 0) {
     }
     $PathToSaveImg = $dir_images . $img_mame;
     $PathToShowImg = $url_images . $img_mame;
+    
     if (!file_exists($PathToSaveImg)) {
-        if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == true) {
+        if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == false) {
             //canvia a imatge per defecte
-            $PathToShowImg = $def_img;
+            $PathToShowImg = $def_img;            
         }
     }
     $doc = new DOMDocument("1.0", "ISO-8859-15");

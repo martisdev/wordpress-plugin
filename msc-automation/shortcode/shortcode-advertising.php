@@ -2,9 +2,8 @@
 
 function mscra_get_manager_adv()
 {
-    if (is_admin()) {
-        return;
-    }
+    if (is_admin()) {return;}
+    
     $lOut = (isset($_GET['logout'])) ? sanitize_text_field($_GET['logout']) : 0;
     if ($lOut == 1) {
         return mscra_logOut();

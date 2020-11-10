@@ -64,7 +64,7 @@ function mscra_fileExists($path){
 }
 
 if(!mscra_fileExists($file_url))
-    die("<br> ".__('The file <b> $file_url </b> doesn\'t exist; check the URL','mscra-automation') );
+    die("<br>The file <b> $file_url </b> doesn\'t exist; check the URL");
 
 
 //This will set the Content-Type to the appropriate setting for the file
@@ -130,7 +130,7 @@ switch ($file_extension)
     case 'htm':
     case 'html':
     case 'txt':
-        die ('<b>'.__('Cannot be used for $file_extension files!','mscra-automation').'</b>') ;
+        die ('<b>Cannot be used for $file_extension files!') ;
         break;
     default:
         $content_type = 'application/force-download' ;
