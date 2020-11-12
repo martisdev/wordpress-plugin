@@ -8,7 +8,16 @@ function mscra_load_scripts()
     $base_URL_Share = $page->guid;
     $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/';
     $PathToShowImg = MSC_URL_TEMP_IMAGE . '/';
-    $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
+    
+    
+    /*$params = array('fileurl' => $urlmp3,
+    'download_file' => 1,
+    'filename' => urlencode($nom_programa),
+    'id' => $id                             
+   );
+    $urldownload = add_query_arg($params, get_permalink());
+    
+    $base_url_download = '/?fileurl=';*/
     $upload_dir = wp_upload_dir();
     $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
@@ -20,7 +29,7 @@ function mscra_load_scripts()
         'img_dir' => MSCRA_DIR_TEMP_IMAGE,
         'img_url' => MSC_URL_TEMP_IMAGE,
         'jamendo_url' => WP_MSCRA_URL_JAMENDO_TRACK,
-        'download_url' => $base_url_download,
+        /*'download_url' => $base_url_download,*/
         'url_podcast' => $url_podcast,
     );
     wp_enqueue_script('msc-data-js', MSCRA_JQUERY_URL . 'refresh_player.js', '', '1.0.0', false);

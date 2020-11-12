@@ -12,6 +12,9 @@ Radio Automation Software | The radio on cloud.
 Syncronize your radio station with your web page and powered it for advanced functionalities.
 This plugin is the tool to offer our advanced services, you need to hire some type of service (https://msc-soft.com/services-and-prices/). 
 the application engine is an API that calls our servers and responds with your account data.
+Example: On the page on you want show a grid calendar (shortcode [mscra_calendar_day]) the pluging call to:
+http://api.msc-soft.com/V2/{YOUR_CLIENT_KEY}/CALENDAR/GRIDDAY/?&date=2020-11-12&user={USER_COOKIE}&lang=en_US
+and return then information of your calendar.
 
 == Description ==
 Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.

@@ -6,7 +6,7 @@ $img_width = '100';
 $dir_images = $_GET['img_dir'] . '/';
 $url_images = $_GET['img_url'] . '/';
 $url_base_share = $_GET['share_url'];
-$url_base_download = $_GET['url_download'] . '/';
+$url_base_download = $_GET['url_download'] ;
 $url_base_jamendo = $_GET['url_jamendo'];
 $url_podcast = $_GET['url_podcast'];
 $def_image = $_GET['di'];
@@ -61,7 +61,8 @@ if ($MyRadio->RESPOSTA_ROWS > 0) {
             $img_mame = 'prg_img-' . $id . '.jpg';
             //todo: download prg
             $urlmp3 = $url_podcast . '/' . ($list['item']['LINK']);
-            $URL_Download = $url_base_download . $urlmp3 . '&filename=' . urlencode($title);
+            //$URL_Download = $url_base_download . $urlmp3 . '&filename=' . urlencode($title);
+            $URL_Download = $url_base_download.'?fileurl='. $urlmp3 . '&download_file=1&id='.$id;
             break;
         case TIP_DIRECTE_:
             $img_mame = 'prg_img-' . $id . '.jpg';

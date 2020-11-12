@@ -46,7 +46,7 @@ function mscra_get_show_program($attributes)
         if (strlen($url_facebook) > 3) {
             $StrReturn .= '<div id="content"> ';
             $StrReturn .= '<h3>' . htmlentities($nom_programa) . ' ' . __('On', 'mscra-automation') . ' Facebook</h3>';
-            $fb_prg = new mscra_Facebook($url_facebook);            
+            $fb_prg = new mscra_Facebook($url_facebook);
             $StrReturn .= $fb_prg->show_LikeBox(ColorScheme::COLOR_SCHEME_LIGHT, 550, 200, true);
             $StrReturn .= '</div>';
         }
@@ -66,10 +66,10 @@ function mscra_get_show_program($attributes)
 
         $upload_dir = wp_upload_dir();
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
-        
+
         $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
         $base_URL_Share = $page->guid;
-        
+
         $StrReturn .= '<div>';
         if (isset($list_podcast)) {
             $rows = count($list_podcast);
@@ -104,17 +104,15 @@ function mscra_get_show_program($attributes)
                 }
             }
 
-            $params = array(
-                'fileurl' => $urlmp3,
-                'filename' => urlencode($nom_programa),
+            $params = array('fileurl' => $urlmp3,
+                'download_file' => 1,                
                 'id' => $id,
-                'key' => get_option('mscra_client_key', ''),
             );
-            $urldownload = add_query_arg($params, MSCRA_PLUGIN_URL . 'inc/download.php');
-            
+            $urldownload = add_query_arg($params, get_permalink());
+
             $params = array('ref' => bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA));
             $URL_Share = add_query_arg($params, $base_URL_Share);
-            
+
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t=' . urlencode($nom_programa) . '&u=' . $URL_Share;
             $URL_Twitter = 'https://twitter.com/share?via=TWITTER_HANDLE&text=' . urlencode($nom_programa) . '&url=' . $URL_Share . '';
             $URL_Pinterest = 'https://pinterest.com/pin/create/button/?description=' . urlencode($nom_programa) . '&url=' . $URL_Share;
@@ -187,7 +185,7 @@ function mscra_get_list_programs()
 
     $counter = 0;
 
-    $strReturn = '';    
+    $strReturn = '';
     while ($counter < $MyRadio->RESPOSTA_ROWS):
         $prg_id = sanitize_text_field($list['item'][$counter]['ID']);
         $titol = sanitize_text_field($list['item'][$counter]['NAME']);
@@ -213,7 +211,7 @@ function mscra_get_list_programs()
         $strReturn .= '</p></div></a>';
 
         $counter = $counter + 1;
-    endwhile;    
+    endwhile;
     echo $strReturn;
 }
 

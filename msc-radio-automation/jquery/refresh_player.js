@@ -111,8 +111,8 @@ function mscra_PlayThisFile(elmnt) {
     var r = (-0.5) + (Math.random() * (1000.99));
     var key = msc_data.key;
     var img_dir = msc_data.img_dir;
-    var img_url = msc_data.img_url;
-    var download_url = msc_data.download_url;
+    var img_url = msc_data.img_url;    
+    var download_url = window.location.href;
     var url_podcast = msc_data.url_podcast;
     var share_url = msc_data.share_url;
     var def_image = msc_data.def_image;
@@ -201,10 +201,7 @@ function mscra_PlayThisFile(elmnt) {
     first_track = false;
 
     //https://stackoverflow.com/questions/1280263/changing-the-interval-of-setinterval-while-its-running
-    //setTimeout(mscra_refreshPlayer, tmr);
-
-    //jQuery(this).blur();                
-    //return false;
+    //setTimeout(mscra_refreshPlayer, tmr);    
 }
 
 var mscra_refreshPlayer = function () {
