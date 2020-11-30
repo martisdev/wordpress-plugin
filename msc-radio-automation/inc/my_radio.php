@@ -15,6 +15,10 @@ class my_radio {
     Public $RESPOSTA_CODE       = '0';
     Public $RESPOSTA_ROWS       = '0';
 
+    Public $RESPOSTA_ROWS_PODCAST   = '0';
+    Public $RESPOSTA_ROWS_MARKS     = '0';
+    Public $RESPOSTA_ROWS_ADS       = '0';
+
     public $NomEmissora         = '';
     public $URLStreaming        = '';
     public $ProgramacioDefecte  = '';
@@ -49,8 +53,7 @@ class my_radio {
         $this->TIME_CONNECTION = date(datetime::ISO8601);
         // consultem els paràmetres de configuració
         $vars[0] = 'lang='.$this->LANG;        
-        $vars[1] = 'ver='.$version ;
-        
+        $vars[1] = 'ver='.$version ;        
         $this->QueryGetTable(seccions::ADMIN, sub_seccions::INIWORDPRESS,$vars);                 
     }
     
@@ -59,22 +62,7 @@ class my_radio {
         
     }
     
-    
-    /*
-    function download_page($path){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$path);
-        curl_setopt($ch, CURLOPT_FAILONERROR,1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-        $retValue = curl_exec($ch);          
-        curl_close($ch);
-        return $retValue;
-    }
-    */
-    
-    /**
+/**
  * Adds up two int numbers
  * @param string $seccion the first number to add
  * @param string $sub_seccion the second number to add
@@ -97,6 +85,7 @@ class my_radio {
         if ($sub_seccion==sub_seccions::LISTPODCAST_PRG){
             $response = wp_remote_get( $this->URL_QUERY_API );            
             $body     = wp_remote_retrieve_body( $response );
+            $body     = $response['body'];
             $xml  = simplexml_load_string($body);
             $code = $xml->header->status->code;
             print_r($code);
@@ -129,8 +118,16 @@ class my_radio {
         $this->RESPOSTA_MESSAGE = $message->item(0)->nodeValue;
         $this->RESPOSTA_ROWS = $rows->item(0)->nodeValue;
         
+        if($xml->getElementsByTagName( "row_pod" ).length == 0){
+            $this->RESPOSTA_ROWS_PODCAST = 0;
+        }else{
+            $rows = $xml->getElementsByTagName( "row_pod" );
+            $this->RESPOSTA_ROWS_PODCAST = $rows->item(0)->nodeValue;
+        }
+
+        
         if ($this->RESPOSTA_ROWS>0){                                                   
-            switch (strtoupper($seccion)){                
+            switch (strtoupper($seccion)){
                 case 'ADMIN':
                     switch  (strtoupper($sub_seccion)){                                                
                         case 'INIWORDPRESS':
@@ -140,13 +137,63 @@ class my_radio {
                     break;
                 default:
                     //Per defecte
-                    $list_general=  $this->xml_to_array($xml);
-                    return $list_general['msc-soft']['results'];                                            
+                    $list_results =  $this->xml_to_array($xml);
+                    return $list_results['msc-soft']['results'];                                        
                     break;                            
+            }
+        }else{
+            switch (strtoupper($seccion)){
+                case 'ADVERTISING':
+                    switch  (strtoupper($sub_seccion)){                                                
+                        case 'RADIATION':
+                            $list_results =  $this->xml_to_array($xml);
+                            return $list_results['msc-soft']['results'];                                        
+                            break;                            
+                    }                    
+                    break;
             }
         }
     }
     
+    function ExecuteNonQuery($seccion,$sub_seccion,$vars= NULL,$MSGonJS= FALSE){
+        $url_vars = '?';
+        //$url_vars = '';
+        if($vars<> NULL){            
+            $count = count($vars);            
+            for ($i = 0; $i < $count; $i++) {
+                $url_vars .= '&'.$vars[$i];
+            }            
+        }                      
+        $url_vars .= '&user='.$this->COOKIE_USER.'&lang='.$this->LANG;
+        $this->URL_QUERY_API = $this->URL_API.'/'.$this->API_VERSION.'/'.$this->my_client_key.'/'.$seccion.'/'.$sub_seccion.'/'.$url_vars;  
+        $xml = new DOMDocument();
+        if ($xml->load($this->URL_QUERY_API) == FALSE){                              
+            $my_message = $this->URL_QUERY_API ;
+            mscra_show_message( $my_message,message_type::DANGER);            
+            $this->RESPOSTA_STATUS = 'KO';
+            $this->RESPOSTA_CODE = SERVER_ERROR_NO_DEF;
+            $this->RESPOSTA_MESSAGE = 'Error XML';
+            $this->RESPOSTA_ROWS = 0;        
+            return;             
+        }    
+        if ( $this->IS_DEGUG==TRUE){
+             if ($MSGonJS==TRUE){
+                $this->RESPOSTA_MESSAGE = $this->URL_QUERY_API ;
+            }else{
+                mscra_show_message( $this->URL_QUERY_API ,message_type::INFO);            
+            } 
+        }
+        $status = $xml->getElementsByTagName( "status" );
+        $code = $xml->getElementsByTagName( "code" );
+        $message = $xml->getElementsByTagName( "message" );
+        $rows = $xml->getElementsByTagName( "rows" );
+        
+        $this->RESPOSTA_STATUS = $status->item(0)->nodeValue;
+        $this->RESPOSTA_CODE = $code->item(0)->nodeValue;
+        $this->RESPOSTA_MESSAGE = $message->item(0)->nodeValue;
+        $this->RESPOSTA_ROWS = $rows->item(0)->nodeValue;        
+    }
+
     function get_params($xml){
         // establim variables               
         $counter = 0;

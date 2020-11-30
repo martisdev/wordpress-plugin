@@ -19,7 +19,7 @@ function mscra_PlayThisFile(elmnt) {
             url_play = att.nodeValue;
         }
     }
-
+    var share = document.getElementById('BtnShare');
     var my_jPlayer = jQuery("#jquery_jplayer");
     //var my_trackName = jQuery("#jp_container .track-name");
     // Some options
@@ -164,7 +164,7 @@ function mscra_PlayThisFile(elmnt) {
                 //Title page
                 document.getElementById('jp_title').innerHTML = my_title;
                 document.getElementById("jp_subtitle-name").innerHTML = my_subtitle;
-                document.title = my_title + ' | ' + my_subtitle
+                /*document.title = descrip */
 
                 //Image page
                 my_img = img[0].childNodes[0].nodeValue;
@@ -182,7 +182,8 @@ function mscra_PlayThisFile(elmnt) {
                     document.getElementById('download').style.display = "none";
                 }
 
-                document.getElementById("like").style.color = 'inherit';
+                //document.getElementById('like').style.color = 'inherit' / 'initial';
+                document.getElementById('like').style.color = share.style.color;
                 document.getElementById('fb').href = URL_Facebook;
                 document.getElementById('tw').href = URL_twitter;
                 document.getElementById('pt').href = URL_Pinterest;
@@ -206,6 +207,7 @@ function mscra_PlayThisFile(elmnt) {
 
 var mscra_refreshPlayer = function () {
     var refresh = document.getElementById('refresh').innerHTML;
+    var share = document.getElementById('BtnShare');
     if (refresh == 1) {
         var r = (-0.5) + (Math.random() * (1000.99));
         key = msc_data.key,
@@ -245,7 +247,7 @@ var mscra_refreshPlayer = function () {
                     //Title page                    
                     document.getElementById('jp_title').innerHTML = my_title;
                     document.getElementById("jp_subtitle-name").innerHTML = my_subtitle;
-                    document.title = my_title + ' | ' + my_subtitle
+                    /*document.title = descrip*/
 
                     //Image page
                     my_img = img[0].childNodes[0].nodeValue;
@@ -263,7 +265,8 @@ var mscra_refreshPlayer = function () {
                         document.getElementById('download').href = '';
                         document.getElementById('download').style.display = "none";
                     }
-                    document.getElementById("like").style.color = 'inherit';
+                    //document.getElementById("like").style.color = 'inherit' / 'initial';
+                    document.getElementById('like').style.color = share.style.color;
                     document.getElementById('fb').href = URL_Facebook;
                     document.getElementById('tw').href = URL_twitter;
                     document.getElementById('pt').href = URL_Pinterest;

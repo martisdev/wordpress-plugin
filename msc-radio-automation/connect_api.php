@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('WPINC')) {
+    die;
+}
+
 global $MyRadio;
 if (!isset($MyRadio)) {
     $key = get_option('mscra_client_key');

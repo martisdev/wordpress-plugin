@@ -51,20 +51,22 @@ function mscra_ShowIframeCode() {
 
 function mscra_LikeTrack() {
     var key = msc_data.key,
-        hear = document.getElementById("like"),
+        hear = document.getElementById('like'),
+        share = document.getElementById('BtnShare'),
         id = document.getElementById('ID').innerHTML,
         type = document.getElementById('IDTYPE').innerHTML;
 
     var xmlhttp = new XMLHttpRequest();
-    if (hear.style.color !== 'red') {
-        //hear.style.color = 'initial';
-        hear.style.color = 'red';
-        //register the vote recollir tipus de fitxer i id 
-        var path = msc_data.path + "wp-snippets/refresh_like.php?id=" + id + "&type=" + type + "&val=1&key=" + key;        
+    var path = msc_data.path + "wp-snippets/refresh_like.php?id=" + id + "&type=" + type + "&key=" + key;        
+    
+    if (hear.style.color !== share.style.color) {
+        hear.style.color = share.style.color;        
+        //unregister the vote                            
+        path += '&val=0';        
     } else {
-        hear.style.color = 'inherit';
-        //unregister the vote                    
-        var path = msc_data.path + "wp-snippets/refresh_like.php?id=" + id + "&type=" + type + "&val=0&key=" + key;        
+        hear.style.color = 'red' ;
+        //register the vote         
+        path += '&val=1';        
     }
     xmlhttp.open("GET", path, true);
     xmlhttp.send();

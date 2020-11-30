@@ -8,7 +8,8 @@ Donate link: https://msc-soft.com/donate/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Radio Automation Software | The radio on cloud.
+==Radio Automation Software | The radio on cloud.==
+
 Syncronize your radio station with your web page and powered it for advanced functionalities.
 This plugin is the tool to offer our advanced services, you need to hire some type of service (https://msc-soft.com/services-and-prices/). 
 the application engine is an API that calls our servers and responds with your account data.
@@ -17,6 +18,7 @@ http://api.msc-soft.com/V2/{YOUR_CLIENT_KEY}/CALENDAR/GRIDDAY/?&date=2020-11-12&
 and return then information of your calendar.
 
 == Description ==
+
 Radio Automation Software | The radio on cloud. This plugin syncronize your radio station with your web page.
 Developed by podcasters for podcasters
 
@@ -24,19 +26,21 @@ Developed by podcasters for podcasters
 
 == Manual Installation ==
 
-1 Download this file (https://msc-soft.com/download/plugin-wordpress/).
-2 Upload plugin .zip file to the /wp-content/plugins/ directory and unzip.
-3 Activate the plugin through the ‘Plugins’ menu in WordPress.
-5 Configure this pluging by going to the **MSC Radio Automation** > **Settings** page. 
-6 Paste your Client Key in **Settings** page.
+* 1 Download this file (https://msc-soft.com/download/plugin-wordpress/).
+* 2 Upload plugin .zip file to the /wp-content/plugins/ directory and unzip.
+* 3 Activate the plugin through the ‘Plugins’ menu in WordPress.
+* 5 Configure this pluging by going to the **MSC Radio Automation** > **Settings** page. 
+* 6 Paste your Client Key in **Settings** page.
 
 == Screenshots ==
-1 Main page
-2 Programming to the suite and visualization in time on the web
-3 Automatic creation of podcasting sections
-4 WordPress settings
+
+* 1 Main page
+* 2 Programming to the suite and visualization in time on the web
+* 3 Automatic creation of podcasting sections
+* 4 WordPress settings
 
 == Changelog ==
+
 = 2.3 =
 * Released 10/09/2020
 * modifications suggested by WordPress Plugin Review Team
@@ -47,6 +51,7 @@ Developed by podcasters for podcasters
 * Initial version
 
 == Feedback == 
+
  [https://msc-soft.com/contact-us/](https://msc-soft.com/contact-us/)
 
 == Support == 

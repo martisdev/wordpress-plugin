@@ -118,7 +118,7 @@ function mscra_cookie_script()
     $str_message = __('If you continue browsing it means that you accept cookies', 'mscra-automation');
     $str_moreinfo = __('More info', 'mscra-automation');
     $str_link = get_privacy_policy_url();
-    wp_enqueue_script('msc_cookieconsent', '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"');
+    wp_enqueue_script('msc_cookieconsent', '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"');    
     ?>
     <script type="text/javascript">
         window.cookieconsent_options = {"message": "<?php echo $str_message ?>", "dismiss": "<?php echo $str_OK ?>", "learnMore": "<?php echo $str_moreinfo ?>", "link": "<?php echo $str_link ?>", "theme": "dark-bottom"};

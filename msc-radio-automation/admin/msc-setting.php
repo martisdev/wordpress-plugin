@@ -55,7 +55,7 @@
             </tr>
             <!-- Player iframe-->
             <?php 
-                $page = mscra_get_page_by_meta(__('Player Stream', 'mscra-automation'));       
+                $page = mscra_get_page_by_meta(MSCRA_HOOK_PLAYER_STREAM);       
                 $url_player_stream = $page->guid;
             ?>
             
@@ -187,4 +187,5 @@
         </td>
         </tr>
     </table> 
-</div>                      
+</div>   
+<?php do_action( 'admin_footer', _e('Please, if you like this extension and the system <b>MSC Radio Automation</b> collaborates with us to promote it. Set the menu \'MSC Footer\' somewhere in your web.  <a href="https://msc-soft.com/donate/" target=_blank>Or make a donation</a>.', 'mscra-automation') ); ?>                   

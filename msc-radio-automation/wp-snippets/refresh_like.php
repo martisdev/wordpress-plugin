@@ -19,15 +19,15 @@
     $Vars[0]= 'id='.$my_id ;            
     if ($my_type == TIP_AUTOMATIC_PROGRAMA){
         if($my_val == 1){            
-            $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::LIKE,$Vars,TRUE);                
+            $MyRadio->ExecuteNonQuery(seccions::PODCAST,sub_seccions::LIKE,$Vars,TRUE);                
         }else{            
-            $MyRadio->QueryGetTable(seccions::PODCAST,sub_seccions::UNLIKE,$Vars,TRUE);                
+            $MyRadio->ExecuteNonQuery(seccions::PODCAST,sub_seccions::UNLIKE,$Vars,TRUE);                
         }        
     }else{
         if($my_val == 1){            
-            $MyRadio->QueryGetTable(seccions::MUSIC,sub_seccions::LIKE,$Vars,TRUE);                
+            $MyRadio->ExecuteNonQuery(seccions::MUSIC,sub_seccions::LIKE,$Vars,TRUE);                
         }else{
-            $MyRadio->QueryGetTable(seccions::MUSIC,sub_seccions::UNLIKE,$Vars,TRUE);                
+            $MyRadio->ExecuteNonQuery(seccions::MUSIC,sub_seccions::UNLIKE,$Vars,TRUE);                
         }
     }
     

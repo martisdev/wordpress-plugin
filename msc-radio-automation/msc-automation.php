@@ -28,9 +28,7 @@ function mscra_load_textdomain() {
 add_action('plugins_loaded', 'mscra_load_textdomain');
 
 if (is_admin()) {
-
     // Establim els menús de configuració 
-
     function mscra_plugin_menu() {
         add_menu_page(__('MSC Radio Automation', 'mscra-automation'), __('MSC Radio Automation', 'mscra-automation'), 'administrator', MSCRA_DIR . '/admin/msc-index.php', '', plugins_url(MSCRA_DIR . '/images/logo-msc.png'));
         add_submenu_page(MSCRA_DIR . '/admin/msc-index.php', __('Settings', 'mscra-automation'), __('Settings', 'mscra-automation'), 'administrator', MSCRA_DIR . '/admin/msc-setting.php', '');

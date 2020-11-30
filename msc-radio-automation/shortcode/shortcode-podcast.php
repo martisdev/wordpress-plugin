@@ -15,7 +15,7 @@ function mscra_get_last_podcast()
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
         $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
-        $base_URL_Share = $page->guid;
+        $base_URL_Share = get_permalink($page->ID);
 
         $StrReturn = '<div>';
         while ($counter < $MyRadio->RESPOSTA_ROWS):
@@ -34,7 +34,7 @@ function mscra_get_last_podcast()
 
             $hexid = bin2hex($id . ',' . TIP_AUTOMATIC_PROGRAMA);
             $params = array('ref' => $hexid);
-            $URL_Share = add_query_arg($base_URL_Share, $params);
+            $URL_Share = add_query_arg( $params,$base_URL_Share);
 
             $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?t=' . urlencode($nom_programa) . '&u=' . $URL_Share;
             $URL_Twitter = 'https://twitter.com/share?via=TWITTER_HANDLE&text=' . urlencode($nom_programa) . '&url=' . $URL_Share . '';

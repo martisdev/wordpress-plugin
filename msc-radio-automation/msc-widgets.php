@@ -69,32 +69,38 @@ function mscra_get_now_playing_widget($attributes)
     $image = (isset($attributes['image_w'])) ? $attributes['image_w'] : false;
     $img_width = (isset($attributes['img_width_w'])) ? $attributes['img_width_w'] : 200;
 
+    $file_js = MSCRA_JQUERY_URL . 'refresh_now_playing_widget.js';
+    wp_enqueue_script('msc-refresh-widget', $file_js, array('jquery'), '1.0.0', true);
+    
     include MSCRA_PLUGIN_DIR . 'connect_api.php';
 
-    $_SESSION['image_w'] = $image;
-    $upload_dir = wp_upload_dir();
-    $_SESSION['upload_dir'] = $upload_dir;
-    $_SESSION['img_width_w'] = $img_width;
+    $Vars[0] = 'rows=1';
+    $Vars[1] = 'image=1';
+    $list = $MyRadio->QueryGetTable(seccions::MUSIC, sub_seccions::LISTRADIA, $Vars);
+    
+    if ($MyRadio->RESPOSTA_ROWS > 0) {
+        $counter = 0;
+        //$strReturn = '<div id ="refresh-widget" style="width:' . $img_width . 'px;"">';
+        $strReturn = '<div id ="refresh-widget">';
+        while ($counter < $MyRadio->RESPOSTA_ROWS):
+            $StrEcho = '';
+            if ($image == true) {
+                $upload_dir = wp_upload_dir(); 
+                $PathToSaveImg = $upload_dir['basedir'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
+                $PathToShowImg = $upload_dir['baseurl'] . '/' . WP_MSCRA_TMP_IMG_DIR . '/disc_img-' . $list['track']['ID'] . '.jpg';
+                if (mscra_getImage(base64_decode($list['track']['IMAGE']), $PathToSaveImg, $img_width) == true) {
+                    $StrEcho .= '<img id="img-refresh" src=' . $PathToShowImg . '>';
+                }
+            }
+            $StrEcho .= '<div id="artist-refresh">' . $list['track']['INTERP'] . '</div>';
+            $StrEcho .= '<div id="song-refresh">' . $list['track']['TITLE'] . '</div>';
 
-    $doc_refresh = 'info_song_widget.php';
-    ?>
-    <div id="dom-source" style="display: none;"><?php echo MSCRA_WP_SNIPPETS_URL . $doc_refresh; ?></div>
-    <div id="dom-div" style="display: none;"><?php echo '#refresh-widget'; ?></div>
-    <?php
-$file_js = MSCRA_JQUERY_URL . 'refresh_now_playing_widget.js';
-    wp_enqueue_script('handle-now_playing_widget', $file_js, array('jquery'), '1.0.0', true);
-    $params = array(
-        'nom_div' => '#refresh-widget',
-        'time' => 15000,
-        'source' => $file_js,
-    );
-    wp_localize_script('handle-list_radia', 'Params_refresh', $params);
-    ?>
-    <div id="refresh-widget">
-        <?php include MSCRA_WP_SNIPPETS_DIR . $doc_refresh;?>
-    </div>
-
-    <?php
+            $counter = $counter + 1;
+            $strReturn .= $StrEcho;
+        endwhile;
+        $strReturn .= '</div>';
+    }    
+    return $strReturn;
 }
 
 class mscra_widget_powerby extends WP_Widget

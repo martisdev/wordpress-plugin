@@ -1,6 +1,6 @@
 <?php
     //Used in functions: get_now_playing, 
-    session_start();
+    if (!session_id()) {session_start();}
     global $MyRadio;        
     if(!isset($MyRadio)){ 
         include_once '../inc/defines.php';

@@ -159,8 +159,7 @@ function mscra_get_calendar_day()
         }
         $StrReturn .= '</p></td><td></td><TR>';
     } else {
-        $StrReturn .= '<TR><td></td><td>';
-        $StrReturn .= '<p>';
+        $StrReturn .= '<TR><td></td><td><p>';        
         switch ($MyRadio->ProgramacioDefecte) {
             case TIP_AUTOMATIC:
                 $StrReturn .= '<h2>' . __('Radio music scheduling', 'mscra-automation') . '</h2>';
@@ -171,7 +170,7 @@ function mscra_get_calendar_day()
             case TIP_DIRECTE:
                 $StrReturn .= '<h2>' . __('On live', 'mscra-automation') . '</h2>';
         }
-        $StrReturn .= __('default programming', 'mscra-automation') . '</p></td></td><td></TR>';
+        $StrReturn .= __('default programming', 'mscra-automation') . '</p></td><td></td></TR>';
     }
     $StrReturn .= '</TABLE>';
     return $StrReturn;
@@ -257,30 +256,36 @@ function mscra_get_now_onair()
                 break;
         }
         ?>
-        <div class="msc-now-after">
-            <i><?php _e('Your are listening ...', 'mscra-automation');?></i>
+<div class="msc-now-after">
+    <i><?php _e('Your are listening ...', 'mscra-automation');?></i>
 
-            <div style="padding:20px;"><h2><?php echo $ara_nom; ?></h2>
-                <p><?php echo $ara_descrip; ?></p>
-                <?php
+    <div style="padding:20px;">
+        <h2><?php echo $ara_nom; ?></h2>
+        <p><?php echo $ara_descrip; ?></p>
+        <?php
 if ($ara_remission == 1) {
             ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'mscra-automation');?>"></i>
-                    <?php
+        <?php
 }
         ?>
-                <i class="far fa-calendar-alt"> <?php echo htmlentities($ara_date_in . ' - ' . $ara_date_out); ?></i></div></div>
-            <div class="msc-now-after" >
-            <i><?php _e('And after...', 'mscra-automation');?></i>
+        <i class="far fa-calendar-alt"> <?php echo htmlentities($ara_date_in . ' - ' . $ara_date_out); ?></i>
+    </div>
+</div>
+<div class="msc-now-after">
+    <i><?php _e('And after...', 'mscra-automation');?></i>
 
-            <div style="padding:20px;"><h2><?php echo $despres_nom; ?></h2>
-                <p><?php echo $despres_descrip; ?></p>
-                <?php
+    <div style="padding:20px;">
+        <h2><?php echo $despres_nom; ?></h2>
+        <p><?php echo $despres_descrip; ?></p>
+        <?php
 if ($despres_remission == 1) {
             ?><i class="fas fa-sync-alt" title="<?php _e('Rebroadcast', 'mscra-automation');?>"></i><?php
 }
-        ?><i class="far fa-calendar-alt" > <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i></div></div>
+        ?><i class="far fa-calendar-alt"> <?php echo htmlentities($despres_date_in . ' - ' . $despres_date_out); ?></i>
+    </div>
+</div>
 
-        <?php
+<?php
 }
 }
 

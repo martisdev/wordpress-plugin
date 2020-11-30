@@ -68,18 +68,23 @@ function mscra_get_show_program($attributes)
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
         $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
-        $base_URL_Share = $page->guid;
+        $base_URL_Share = get_permalink($page->ID);
 
         $StrReturn .= '<div>';
-        if (isset($list_podcast)) {
-            $rows = count($list_podcast);
+        if (isset($list_podcast)) {            
+            if ($nom_programa=='Kavouras'){
+                //TODO: provisional per gelida                
+                $rows = count($list_podcast["ID"]);
+            }else{
+                $rows = count($list_podcast);
+            }            
+            
         } else {
             $rows = 0;
         }
-        $counter = 0;
-
+        $counter = 0;        
         while ($counter < $rows):
-            if ($rows == 1) {
+            if ($rows == 1) {                
                 $id = $list_podcast["ID"];
                 //$nom_programa = $list_podcast['NAME'];
                 $descrip = htmlentities(sanitize_text_field($list_podcast['DESCRIP']));
@@ -91,6 +96,7 @@ function mscra_get_show_program($attributes)
                     $marks = $list_podcast['MARKS']['MARK'];
                 }
             } else {
+                
                 $id = $list_podcast[$counter]["ID"];
                 //$nom_programa = htmlentities($list_podcast[$counter]['NAME']);
                 $descrip = htmlentities(sanitize_text_field($list_podcast[$counter]['DESCRIP']));
@@ -105,7 +111,7 @@ function mscra_get_show_program($attributes)
             }
 
             $params = array('fileurl' => $urlmp3,
-                'download_file' => 1,                
+                'download_file' => 1,
                 'id' => $id,
             );
             $urldownload = add_query_arg($params, get_permalink());

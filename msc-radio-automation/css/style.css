@@ -61,7 +61,7 @@
 
 .msc-now-after {
     margin: auto;        
-    width: 40%;   
+    /*width: 40%;*/
     min-width: 200px;
     display:inline-block;
     float: left;

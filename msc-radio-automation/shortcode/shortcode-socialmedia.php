@@ -60,7 +60,7 @@ function mscra_social_share($id, $URL_Facebook, $URL_Twitter, $URL_Pinterest, $U
                                            onclick="javascript:window.open(this.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");return false;"
                                            target="_blank" title="' . __('Share on Pinterest', 'mscra-automation') . '">
                                         </a>
-                                        <a id="li-' . $id . '" class="fab fa-linkedin fa-2x" href="' . $URL_Linked_in . '"
+                                        <a id="li-' . $id . '" class="fab fa-linkedin-square fa-2x" href="' . $URL_Linked_in . '"
                                            onclick="javascript:window.open(this.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");return false;"
                                            target="_blank" title="' . __('Share on LinkedIn', 'mscra-automation') . '">
                                         </a>

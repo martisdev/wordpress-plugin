@@ -1,8 +1,8 @@
 <?php
 echo '<div class="wrap">';
     echo '<h1>'.__('Edit basic pages for your Radio Automation System','mscra-automation').'</h1>';
-    $test_ini_option = get_option('mscra_initialize','sth');
     
+    /*$test_ini_option = get_option('mscra_initialize','sth');
     if ($test_ini_option == 'sth'){
         $initialize_options = FALSE;        
     }else{        
@@ -11,9 +11,10 @@ echo '<div class="wrap">';
         }else{
             $initialize_options = TRUE;            
         }        
-    }
-    
-    if($initialize_options == FALSE ){
+    }*/
+    $test_ini_option = (get_option('mscra_initialize','false')=='false') ? false : true;
+
+    if($initialize_options == false ){
         // Check whether the button has been pressed AND also check the nonce
         if (isset($_POST['ini_progs']) && check_admin_referer('ini_progs_clicked')) {
             // the button has been pressed AND we've passed the security check      
@@ -125,4 +126,4 @@ echo '<div class="wrap">';
         }        
     }
 echo '</div>';
-  
+do_action( 'admin_footer', _e('Please, if you like this extension and the system <b>MSC Radio Automation</b> collaborates with us to promote it. Set the menu \'MSC Footer\' somewhere in your web.  <a href="https://msc-soft.com/donate/" target=_blank>Or make a donation</a>.', 'mscra-automation') );

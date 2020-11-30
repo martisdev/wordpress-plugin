@@ -8,16 +8,6 @@ function mscra_load_scripts()
     $base_URL_Share = $page->guid;
     $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/';
     $PathToShowImg = MSC_URL_TEMP_IMAGE . '/';
-    
-    
-    /*$params = array('fileurl' => $urlmp3,
-    'download_file' => 1,
-    'filename' => urlencode($nom_programa),
-    'id' => $id                             
-   );
-    $urldownload = add_query_arg($params, get_permalink());
-    
-    $base_url_download = '/?fileurl=';*/
     $upload_dir = wp_upload_dir();
     $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
@@ -28,8 +18,7 @@ function mscra_load_scripts()
         'key' => get_option('mscra_client_key'),
         'img_dir' => MSCRA_DIR_TEMP_IMAGE,
         'img_url' => MSC_URL_TEMP_IMAGE,
-        'jamendo_url' => WP_MSCRA_URL_JAMENDO_TRACK,
-        /*'download_url' => $base_url_download,*/
+        'jamendo_url' => WP_MSCRA_URL_JAMENDO_TRACK,        
         'url_podcast' => $url_podcast,
     );
     wp_enqueue_script('msc-data-js', MSCRA_JQUERY_URL . 'refresh_player.js', '', '1.0.0', false);
@@ -123,12 +112,8 @@ function mscra_get_player()
         $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/' . $img_mame;
         $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' . $img_mame;
 
-        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
-        $base_URL_Share = $page->guid;
-        $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
-        
         $upload_dir = wp_upload_dir();
-        $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;       
+        $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
         if (!file_exists($PathToSaveImg)) {
             if (mscra_getImage(base64_decode($list['item']['IMAGE']), $PathToSaveImg, $img_width) == false) {
                 //canvia a imatge per defecte
@@ -136,8 +121,10 @@ function mscra_get_player()
             }
         }
         $decrip = $title . ' - ' . $subtitle;
-
-        $params = array('ref' => bin2hex($id.','.$type));
+        
+        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
+        $base_URL_Share = $page->guid;        
+        $params = array('ref' => bin2hex($id . ',' . $type));
         $URL_Share = add_query_arg($params, $base_URL_Share);
 
         $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
@@ -281,7 +268,12 @@ function mscra_get_iframe_player()
                 $img_mame = 'prg_img-' . $id . '.jpg';
                 //todo: download prg
                 $urlmp3 = $url_podcast . '/' . sanitize_text_field($list['item']['LINK']);
-                $URL_Download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=' . $urlmp3 . '&filename=' . urlencode($title);
+                $params = array('fileurl' => $urlmp3,
+                    'download_file' => 1,
+                    'id' => $id,
+                );
+                $URL_Download = add_query_arg($params, get_permalink());
+
                 break;
             case TIP_DIRECTE_:
                 $img_mame = 'prg_img-' . $id . '.jpg';
@@ -300,11 +292,7 @@ function mscra_get_iframe_player()
 
         $PathToSaveImg = MSCRA_DIR_TEMP_IMAGE . '/' . $img_mame;
         $PathToShowImg = MSC_URL_TEMP_IMAGE . '/' . $img_mame;
-        
-        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
-        $base_URL_Share = $page->guid;
-        
-        $base_url_download = MSCRA_PLUGIN_URL . 'inc/download.php?fileurl=';
+        $upload_dir = wp_upload_dir();
         $url_podcast = $upload_dir['baseurl'] . '/' . WP_MSCRA_PODCAST_DIR;
 
         $base_url_jamendo = WP_MSCRA_URL_JAMENDO_TRACK;
@@ -313,15 +301,18 @@ function mscra_get_iframe_player()
                 //canvia a imatge per defecte
             }
         }
+        $descrip = $title . ' - ' . $subtitle;
         
-        $params = array('ref' => bin2hex($id.','.$type));
+        $page = mscra_get_page_by_meta(MSCRA_HOOK_TRACK);
+        $base_URL_Share = $page->guid;
+        $params = array('ref' => bin2hex($id . ',' . $type));
         $URL_Share = add_query_arg($params, $base_URL_Share);
-
-        $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . $decrip;
-        $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . $decrip;
-        $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . $decrip . '&media=' . $urlmp3;
-        $URL_Linked_in = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $URL_Share . '&title=' . $decrip;
-        $URL_WhatsApp = 'https://wa.me/?text=' . $decrip . '+-+' . $URL_Share;
+        
+        $URL_Facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $URL_Share . '&t=' . urlencode($descrip);
+        $URL_Twitter = 'https://twitter.com/share?url=' . $URL_Share . '&via=TWITTER_HANDLE&text=' . urlencode($descrip);
+        $URL_Pinterest = 'https://pinterest.com/pin/create/button/?&url=' . $URL_Share . '&description=' . urlencode($descrip) . '&media=' . $urlmp3;
+        $URL_Linked_in = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $URL_Share . '&title=' . urlencode($descrip);
+        $URL_WhatsApp = 'https://wa.me/?text=' . $descrip . '+-+' . $URL_Share;
         $URL_Iframe = '<iframe src="' . $URL_Share . '" allowfullscreen scrolling="no" frameborder="0" width="270px" height="370px"></iframe>';
     }
     ?>
@@ -379,7 +370,7 @@ function mscra_get_iframe_player()
                                                        return false;"
                                            target="_blank" title="<?php _e('Share on Pinterest', 'mscra-automation');?>">
                                         </a>
-                                        <a id="li" class="fab fa-linkedin fa-2x" href="<?php echo $URL_Linked_in; ?>"
+                                        <a id="li" class="fab fa-linkedin-square fa-2x" href="<?php echo $URL_Linked_in; ?>"
                                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                                                        return false;"
                                            target="_blank" title="<?php _e('Share on LinkedIn', 'mscra-automation');?>">
